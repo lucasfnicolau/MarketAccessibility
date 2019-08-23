@@ -13,10 +13,39 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let tabBarController = UITabBarController.init()
+    let tab1NavigationController = UINavigationController.init()
+    let tab2NavigationController = UINavigationController.init()
+    let tab3NavigationController = UINavigationController.init()
+    let tab1 = MoneyVC.init()
+    let tab2 = ShoppingVC.init()
+    let tab3 = VoiceListVC.init()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        tab1.title = "DINHEIRO"
+        tab2.title = "COMPRA"
+        tab3.title = "LISTA"
+        
+        tab1NavigationController.viewControllers = [tab1]
+        tab2NavigationController.viewControllers = [tab2]
+        tab3NavigationController.viewControllers = [tab3]
+        
+        tabBarController.viewControllers = [tab1NavigationController, tab2NavigationController, tab3NavigationController]
+        
+        tabBarController.tabBar.items?[0].image = #imageLiteral(resourceName: "dollar_outline")
+        tabBarController.tabBar.items?[0].selectedImage = #imageLiteral(resourceName: "dollar_filled")
+        
+        tabBarController.tabBar.items?[1].image = #imageLiteral(resourceName: "cart_outline")
+        tabBarController.tabBar.items?[1].selectedImage = #imageLiteral(resourceName: "cart_filled")
+        
+        tabBarController.tabBar.items?[2].image = #imageLiteral(resourceName: "mic_outline")
+        tabBarController.tabBar.items?[2].selectedImage = #imageLiteral(resourceName: "mic_filled")
+        
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

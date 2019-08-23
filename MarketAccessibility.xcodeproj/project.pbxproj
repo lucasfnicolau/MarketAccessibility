@@ -50,6 +50,8 @@
 		B6C90AFD2310539200C743C0 /* ShoppingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingVC.swift; sourceTree = "<group>"; };
 		B6C90AFE2310539200C743C0 /* ShoppingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingVC.xib; sourceTree = "<group>"; };
 		B6C90B012310577E00C743C0 /* RoundedSquareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedSquareButton.swift; sourceTree = "<group>"; };
+		E09FCD4F2310884700D323B2 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		E09FCD502310884700D323B2 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,8 @@
 				B65F7BE3230F2BB60097CDA7 /* LaunchScreen.storyboard */,
 				B65F7BE6230F2BB60097CDA7 /* Info.plist */,
 				B65F7BDE230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld */,
+				E09FCD4F2310884700D323B2 /* SF-Pro-Display-Regular.otf */,
+				E09FCD502310884700D323B2 /* SF-Pro-Display-Semibold.otf */,
 			);
 			path = MarketAccessibility;
 			sourceTree = "<group>";

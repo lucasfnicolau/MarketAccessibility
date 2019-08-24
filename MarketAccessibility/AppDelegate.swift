@@ -38,12 +38,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         tabBarController.tabBar.items?[0].image = #imageLiteral(resourceName: "dollar_outline")
         tabBarController.tabBar.items?[0].selectedImage = #imageLiteral(resourceName: "dollar_filled")
+        tabBarController.tabBar.items?[0].imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
         tabBarController.tabBar.items?[1].image = #imageLiteral(resourceName: "cart_outline")
         tabBarController.tabBar.items?[1].selectedImage = #imageLiteral(resourceName: "cart_filled")
+        tabBarController.tabBar.items?[1].imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
         tabBarController.tabBar.items?[2].image = #imageLiteral(resourceName: "mic_outline")
         tabBarController.tabBar.items?[2].selectedImage = #imageLiteral(resourceName: "mic_filled")
+        tabBarController.tabBar.items?[2].imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
         tabBarController.tabBar.unselectedItemTintColor = #colorLiteral(red: 0.6661509871, green: 0.5775422454, blue: 0.5061115623, alpha: 1)
         

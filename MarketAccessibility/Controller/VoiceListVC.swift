@@ -16,6 +16,11 @@ class VoiceListVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        let attrs = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.9137254902, green: 0.431372549, blue: 0.1803921569, alpha: 1)]
+        navigationController?.navigationBar.titleTextAttributes = attrs
+        tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.9137254902, green: 0.431372549, blue: 0.1803921569, alpha: 1)
+    }
 
     /*
     // MARK: - Navigation

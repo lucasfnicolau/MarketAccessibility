@@ -26,6 +26,8 @@
 		B6C90AFF2310539200C743C0 /* ShoppingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90AFD2310539200C743C0 /* ShoppingVC.swift */; };
 		B6C90B002310539200C743C0 /* ShoppingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C90AFE2310539200C743C0 /* ShoppingVC.xib */; };
 		B6C90B022310577E00C743C0 /* RoundedSquareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B012310577E00C743C0 /* RoundedSquareButton.swift */; };
+		CB893D8C2314805900C028FD /* MoneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB893D8A2314805900C028FD /* MoneyCell.swift */; };
+		CB893D8D2314805900C028FD /* MoneyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB893D8B2314805900C028FD /* MoneyCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		B6C90AFD2310539200C743C0 /* ShoppingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingVC.swift; sourceTree = "<group>"; };
 		B6C90AFE2310539200C743C0 /* ShoppingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingVC.xib; sourceTree = "<group>"; };
 		B6C90B012310577E00C743C0 /* RoundedSquareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedSquareButton.swift; sourceTree = "<group>"; };
+		CB893D8A2314805900C028FD /* MoneyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCell.swift; sourceTree = "<group>"; };
+		CB893D8B2314805900C028FD /* MoneyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoneyCell.xib; sourceTree = "<group>"; };
 		E09FCD4F2310884700D323B2 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		E09FCD502310884700D323B2 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +115,7 @@
 		B6C90ADF23104C0700C743C0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB893D8A2314805900C028FD /* MoneyCell.swift */,
 				B6C90B012310577E00C743C0 /* RoundedSquareButton.swift */,
 			);
 			path = View;
@@ -141,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				B6C90AE323104C6A00C743C0 /* MoneyVC.xib */,
+				CB893D8B2314805900C028FD /* MoneyCell.xib */,
 				B6C90AFE2310539200C743C0 /* ShoppingVC.xib */,
 				B6C90AEB23104C8B00C743C0 /* VoiceListVC.xib */,
 				B6C90AEF23104CBA00C743C0 /* DrawValueVC.xib */,
@@ -214,6 +220,7 @@
 				B65F7BE5230F2BB60097CDA7 /* LaunchScreen.storyboard in Resources */,
 				B6C90AF123104CBA00C743C0 /* DrawValueVC.xib in Resources */,
 				B6C90AED23104C8B00C743C0 /* VoiceListVC.xib in Resources */,
+				CB893D8D2314805900C028FD /* MoneyCell.xib in Resources */,
 				B6C90AE523104C6A00C743C0 /* MoneyVC.xib in Resources */,
 				B65F7BE2230F2BB60097CDA7 /* Assets.xcassets in Resources */,
 				B65F7BDD230F2BB50097CDA7 /* Main.storyboard in Resources */,
@@ -231,6 +238,7 @@
 				B6C90AE423104C6A00C743C0 /* MoneyVC.swift in Sources */,
 				B6C90B022310577E00C743C0 /* RoundedSquareButton.swift in Sources */,
 				B6C90AF423104CD400C743C0 /* TypeValueVC.swift in Sources */,
+				CB893D8C2314805900C028FD /* MoneyCell.swift in Sources */,
 				B6C90AFF2310539200C743C0 /* ShoppingVC.swift in Sources */,
 				B6C90AF023104CBA00C743C0 /* DrawValueVC.swift in Sources */,
 				B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */,

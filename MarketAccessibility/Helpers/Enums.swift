@@ -12,3 +12,10 @@ enum SegmentedStackOption: String {
     case cedules
     case coins
 }
+
+
+enum Identifier: String {
+    case moneyCollectionCell
+    case inputedMoneyCollectionCell
+}
+

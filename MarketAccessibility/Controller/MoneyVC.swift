@@ -11,6 +11,7 @@ import UIKit
 class MoneyVC: UIViewController {
 
     var moneyInputView: MoneyInputView!
+    var inputedMoneyCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,15 @@ class MoneyVC: UIViewController {
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])
+    }
+    
+    func setInputedMoneyCollectionView(){
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        inputedMoneyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        inputedMoneyCollectionView.backgroundColor = .clear
+        inputedMoneyCollectionView.register(MoneyCollectionCell.self, forCellWithReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue)
+        inputedMoneyCollectionView.delaysContentTouches = false
     }
 
     

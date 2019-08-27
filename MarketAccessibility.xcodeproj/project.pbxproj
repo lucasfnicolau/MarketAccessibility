@@ -31,6 +31,8 @@
 		B6C90B0B2314869D00C743C0 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B0A2314869D00C743C0 /* Enums.swift */; };
 		B6C90B0D231488A100C743C0 /* SegmentedStackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B0C231488A100C743C0 /* SegmentedStackButton.swift */; };
 		B6C90B0F231590E300C743C0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B0E231590E300C743C0 /* Extensions.swift */; };
+		BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */; };
+		BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		B6C90B0A2314869D00C743C0 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		B6C90B0C231488A100C743C0 /* SegmentedStackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedStackButton.swift; sourceTree = "<group>"; };
 		B6C90B0E231590E300C743C0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCollectionCell.swift; sourceTree = "<group>"; };
+		BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputedMoneyCollectionCell.swift; sourceTree = "<group>"; };
 		E09FCD4F2310884700D323B2 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		E09FCD502310884700D323B2 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +129,8 @@
 				B6C90B062314730F00C743C0 /* MoneyInputView.swift */,
 				B6C90B0823147D8200C743C0 /* SegmentedStackView.swift */,
 				B6C90B0C231488A100C743C0 /* SegmentedStackButton.swift */,
+				BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */,
+				BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -250,7 +256,9 @@
 				B6C90AFF2310539200C743C0 /* ShoppingVC.swift in Sources */,
 				B6C90AF023104CBA00C743C0 /* DrawValueVC.swift in Sources */,
 				B6C90B0B2314869D00C743C0 /* Enums.swift in Sources */,
+				BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */,
 				B6C90B0923147D8200C743C0 /* SegmentedStackView.swift in Sources */,
+				BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */,
 				B6C90B0D231488A100C743C0 /* SegmentedStackButton.swift in Sources */,
 				B6C90B0F231590E300C743C0 /* Extensions.swift in Sources */,
 				B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */,

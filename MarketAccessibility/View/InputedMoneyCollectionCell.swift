@@ -49,7 +49,4 @@ class InputedMoneyCollectionCell: UICollectionViewCell {
     func setImage(fromName name: String){
         self.moneyImageView.image = UIImage(named: name)
     }
-    
-
-
 }

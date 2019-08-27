@@ -13,45 +13,17 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let tabBarController = UITabBarController.init()
-    let tab1NavigationController = UINavigationController.init()
-    let tab2NavigationController = UINavigationController.init()
-    let tab3NavigationController = UINavigationController.init()
-    let tab1 = MoneyVC.init()
-    let tab2 = ShoppingVC.init()
-    let tab3 = VoiceListVC.init()
+    let navigationController = UINavigationController.init()
+    let mainVC = MoneyVC.init()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        tab1.title = "MEU DINHEIRO"
-        tab2.title = "COMPRA"
-        tab3.title = "LISTA"
-
-        let attrs = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.3254901961, green: 0.5450980392, blue: 0.5921568627, alpha: 1)]
-        UINavigationBar.appearance().titleTextAttributes = attrs
+        mainVC.title = "MEU DINHEIRO"
         
-        tab1NavigationController.viewControllers = [tab1]
-        tab2NavigationController.viewControllers = [tab2]
-        tab3NavigationController.viewControllers = [tab3]
-        
-        tabBarController.viewControllers = [tab1NavigationController, tab2NavigationController, tab3NavigationController]
-
-        tabBarController.tabBar.items?[0].image = #imageLiteral(resourceName: "dollar_outline")
-        tabBarController.tabBar.items?[0].selectedImage = #imageLiteral(resourceName: "dollar_filled")
-        tabBarController.tabBar.items?[0].imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
-        
-        tabBarController.tabBar.items?[1].image = #imageLiteral(resourceName: "cart_outline")
-        tabBarController.tabBar.items?[1].selectedImage = #imageLiteral(resourceName: "cart_filled")
-        tabBarController.tabBar.items?[1].imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
-        
-        tabBarController.tabBar.items?[2].image = #imageLiteral(resourceName: "mic_outline")
-        tabBarController.tabBar.items?[2].selectedImage = #imageLiteral(resourceName: "mic_filled")
-        tabBarController.tabBar.items?[2].imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
-        
-        tabBarController.tabBar.unselectedItemTintColor = #colorLiteral(red: 0.6661509871, green: 0.5775422454, blue: 0.5061115623, alpha: 1)
+        navigationController.viewControllers = [mainVC]
         
         window = UIWindow.init(frame: UIScreen.main.bounds)
-        window?.rootViewController = tabBarController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
         return true

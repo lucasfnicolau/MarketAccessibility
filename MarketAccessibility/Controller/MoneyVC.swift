@@ -20,7 +20,7 @@ class MoneyVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         let attrs = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1)]
         navigationController?.navigationBar.titleTextAttributes = attrs
-        tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1)
+        tabBarController?.tabBar.tintColor = UIColor.App.maincolor
     }
     /*
     // MARK: - Navigation

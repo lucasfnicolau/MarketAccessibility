@@ -21,9 +21,9 @@ class SegmentedStackView: UIStackView, SegmentedStackViewDelegate {
             self.addArrangedSubview(view)
         }
         
-        self.spacing = 8
+        self.spacing = 10
         self.axis = .horizontal
-        self.alignment = .fill
+        self.alignment = .center
         self.distribution = .fillEqually
     }
     

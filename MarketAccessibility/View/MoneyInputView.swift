@@ -10,13 +10,12 @@ import UIKit
 
 @IBDesignable
 class MoneyInputView: UIView {
-    
-    var ceduleButtons = [UIButton]()
-    var coinButtons = [UIButton]()
-    var segmentedStackView: SegmentedStackView!
-    var cedulesOptionButton: SegmentedStackButton!
-    var coinsOptionButton: SegmentedStackButton!
 
+    var segmentedStackView: SegmentedStackView!
+    var moneyCollectionView: UICollectionView!
+    var cedules = [2,5,10,20,50,100]
+    
+    
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
     }
@@ -28,35 +27,88 @@ class MoneyInputView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-        self.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - 150, width: UIScreen.main.bounds.width, height: 150)
+        setMoneyInput()
+        moneyCollectionView.delegate = self
+        moneyCollectionView.dataSource = self
         
-        cedulesOptionButton = SegmentedStackButton(withName: SegmentedStackOption.cedules.rawValue)
-        cedulesOptionButton.setImage(#imageLiteral(resourceName: "dollar_filled").withRenderingMode(.alwaysTemplate), for: .normal)
-        
-        coinsOptionButton = SegmentedStackButton(withName: SegmentedStackOption.coins.rawValue)
-        coinsOptionButton.setImage(#imageLiteral(resourceName: "cart_filled").withRenderingMode(.alwaysTemplate), for: .normal)
-        
-        segmentedStackView = SegmentedStackView(arrangedSubviews: [cedulesOptionButton, coinsOptionButton])
-        segmentedStackView.frame = .zero
-        segmentedStackView.arrangedSubviews[0].tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        segmentedStackView.arrangedSubviews[1].tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        cedulesOptionButton.segmentedStackViewDelegate = segmentedStackView
-        coinsOptionButton.segmentedStackViewDelegate = segmentedStackView
-      
-        self.addSubview(segmentedStackView)
-        
-        segmentedStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            segmentedStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            segmentedStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            segmentedStackView.widthAnchor.constraint(equalToConstant: 75),
-            segmentedStackView.heightAnchor.constraint(equalToConstant: 75)
-        ])
+       
     }
     
     required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
     }
+    
+    // segmented
+    func setMoneyInput(){
+        
+        // MARK:- criaçao da collection
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        moneyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        moneyCollectionView.backgroundColor = .clear
+        moneyCollectionView.register(MoneyCollectionCell.self, forCellWithReuseIdentifier: Identifier.moneyCollectionCell.rawValue)
+        moneyCollectionView.delaysContentTouches = false
+        
+        // MARK:- criaçao da custom segmented
+        
+        let ceduleButton = SegmentedStackButton(withName: SegmentedStackOption.cedules.rawValue)
+        
+        ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption").withRenderingMode(.alwaysTemplate), for: .normal)
+        ceduleButton.tintColor = UIColor.App.segmentedSelected
+        
+        let coinButton = SegmentedStackButton(withName: SegmentedStackOption.coins.rawValue)
+        
+        coinButton.setImage(#imageLiteral(resourceName: "CoinOption").withRenderingMode(.alwaysTemplate), for: .normal)
+        coinButton.tintColor = UIColor.App.segmentedUnselected
+        
+        segmentedStackView = SegmentedStackView(withViews: [ceduleButton,coinButton])
+        
+        ceduleButton.segmentedStackViewDelegate = segmentedStackView
+        coinButton.segmentedStackViewDelegate = segmentedStackView
+        
+        self.addSubview(moneyCollectionView)
+        self.addSubview(segmentedStackView)
+        
+        moneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        segmentedStackView.translatesAutoresizingMaskIntoConstraints = false
+        segmentedStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            moneyCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
+            moneyCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
+            moneyCollectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            moneyCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -66),
+            
+            segmentedStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            segmentedStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            segmentedStackView.heightAnchor.constraint(equalToConstant: 30),
+            segmentedStackView.widthAnchor.constraint(equalToConstant: 140),
+            
+            ])
+    }
+    
+}
+
+
+extension MoneyInputView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cedules.count
+    }
+    
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let moneyCollectionCell  = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.moneyCollectionCell.rawValue, for: indexPath) as? MoneyCollectionCell{
+            moneyCollectionCell.setImage(fromName: String(cedules[indexPath.row]))
+            return moneyCollectionCell
+        }
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = CGSize(width: UIScreen.main.bounds.width/3 - 10.0, height: UIScreen.main.bounds.height/8)
+        return size
+    }
+    
+    
 }

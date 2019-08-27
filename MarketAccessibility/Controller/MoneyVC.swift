@@ -10,26 +10,49 @@ import UIKit
 
 class MoneyVC: UIViewController {
 
+    var moneyInputView: MoneyInputView!
+    var inputedMoneyCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        setMoneyInput()
+        
+        
+        
+    }
+    
+    
+    func setMoneyInput(){
+        
+        moneyInputView = MoneyInputView(frame: .zero)
+        
+        moneyInputView.backgroundColor = UIColor.App.background
+        
+        self.view.addSubview(moneyInputView)
+        
+        moneyInputView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            
+            moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            moneyInputView.heightAnchor.constraint(equalToConstant: 0.4*UIScreen.main.bounds.height),
+            moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            
+            ])
+    }
+    
+    func setInputedMoneyCollectionView(){
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        inputedMoneyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        inputedMoneyCollectionView.backgroundColor = .clear
+        inputedMoneyCollectionView.register(MoneyCollectionCell.self, forCellWithReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue)
+        inputedMoneyCollectionView.delaysContentTouches = false
     }
 
-
-    override func viewWillAppear(_ animated: Bool) {
-        let attrs = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1)]
-        navigationController?.navigationBar.titleTextAttributes = attrs
-        tabBarController?.tabBar.tintColor = UIColor.App.maincolor
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+    
+    
 
 }

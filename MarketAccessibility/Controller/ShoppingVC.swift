@@ -13,7 +13,8 @@ class ShoppingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let test = MoneyInputView(frame: self.view.frame)
+        self.view.addSubview(test)
     }
 
     override func viewWillAppear(_ animated: Bool) {

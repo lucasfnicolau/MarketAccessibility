@@ -113,7 +113,7 @@ extension MoneyInputView: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        moneyVCDelegate.moneySelected(name: String(cedules[indexPath.row]))
+        moneyVCDelegate.moneySelected(value: cedules[indexPath.row])
     }
     
 }

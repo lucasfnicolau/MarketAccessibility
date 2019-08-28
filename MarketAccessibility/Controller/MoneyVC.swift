@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MoneyVCDelegate {
-    func moneySelected(name: String)
+    func moneySelected(value: Int)
 }
 
 class MoneyVC: UIViewController {
@@ -65,9 +65,9 @@ class MoneyVC: UIViewController {
 
 }
 
-extension MoneyVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate{
+extension MoneyVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate {
     func moneySelected(value: Int) {
-        inputedMoney
+        // inputedMoney
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

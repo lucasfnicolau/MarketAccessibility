@@ -14,7 +14,7 @@ class MoneyInputView: UIView {
     var segmentedStackView: SegmentedStackView!
     var moneyCollectionView: UICollectionView!
     var cedules = [2,5,10,20,50,100]
-    
+    var moneyVCDelegate: MoneyVCDelegate!
     
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
@@ -78,7 +78,7 @@ class MoneyInputView: UIView {
             moneyCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             moneyCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             moneyCollectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            moneyCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -46),
+            moneyCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -64),
             
             segmentedStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             segmentedStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
@@ -92,6 +92,8 @@ class MoneyInputView: UIView {
 
 
 extension MoneyInputView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cedules.count
     }
@@ -106,9 +108,12 @@ extension MoneyInputView: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: UIScreen.main.bounds.width/3 - 10.0, height: UIScreen.main.bounds.height/8)
+        let size = CGSize(width: UIScreen.main.bounds.width/3 - 10.0, height: 55)
         return size
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        moneyVCDelegate.moneySelected(name: String(cedules[indexPath.row]))
+    }
     
 }

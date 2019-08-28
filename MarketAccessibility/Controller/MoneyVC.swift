@@ -9,28 +9,46 @@
 import UIKit
 
 protocol MoneyVCDelegate: class {
-    func moneySelected(value: Int)
+    func moneySelected(value: Float)
+    func delete(onPosition position: Int)
 }
 
 class MoneyVC: UIViewController {
 
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
-    var inputedMoney = [Int]()
+    var collectionViewHandler: MoneyVCCollectionHandler!
 
     @IBOutlet weak var moneyValueLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.setLeftBarButton(UIBarButtonItem(
+            barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
+        navigationController?.navigationBar.tintColor = UIColor.App.money
+
+        collectionViewHandler = MoneyVCCollectionHandler()
+        collectionViewHandler.parentVC = self
+
         setMoneyInput()
         setInputedMoneyCollectionView()
+        inputedMoneyCollectionView.delegate = collectionViewHandler
+        inputedMoneyCollectionView.dataSource = collectionViewHandler
+
+        collectionViewHandler.calculateValue()
+    }
+
+    @objc func reset() {
+        collectionViewHandler.inputedMoney = []
+        inputedMoneyCollectionView.reloadData()
+        collectionViewHandler.calculateValue()
     }
 
     func setMoneyInput() {
 
         moneyInputView = MoneyInputView(frame: .zero)
-        moneyInputView.moneyVCDelegate = self
+        moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 
         self.view.addSubview(moneyInputView)
@@ -53,7 +71,7 @@ class MoneyVC: UIViewController {
         layout.scrollDirection = .vertical
         inputedMoneyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         inputedMoneyCollectionView.backgroundColor = .clear
-        inputedMoneyCollectionView.register(MoneyCollectionCell.self,
+        inputedMoneyCollectionView.register(InputedMoneyCollectionCell.self,
                                             forCellWithReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue)
         inputedMoneyCollectionView.delaysContentTouches = false
         self.view.addSubview(inputedMoneyCollectionView)
@@ -68,29 +86,4 @@ class MoneyVC: UIViewController {
             ])
     }
 
-}
-
-extension MoneyVC: UICollectionViewDelegate, UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout, MoneyVCDelegate {
-    func moneySelected(value: Int) {
-        inputedMoney.append(value)
-        inputedMoneyCollectionView.reloadData()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return inputedMoney.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let inputedMoneyCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue,
-            for: indexPath) as? InputedMoneyCollectionCell {
-
-            inputedMoneyCell.setImage(fromName: String(inputedMoney[indexPath.row]))
-            return inputedMoneyCell
-
-        }
-        return UICollectionViewCell()
-    }
 }

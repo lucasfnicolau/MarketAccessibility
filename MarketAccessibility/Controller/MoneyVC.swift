@@ -24,10 +24,20 @@ class MoneyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.setLeftBarButton(UIBarButtonItem(
+            barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
+        navigationController?.navigationBar.tintColor = UIColor.App.money
+
         setMoneyInput()
         setInputedMoneyCollectionView()
         inputedMoneyCollectionView.delegate = self
         inputedMoneyCollectionView.dataSource = self
+        calculateValue()
+    }
+
+    @objc func reset() {
+        inputedMoney = []
+        inputedMoneyCollectionView.reloadData()
         calculateValue()
     }
 
@@ -76,6 +86,7 @@ class MoneyVC: UIViewController {
 
 extension MoneyVC: UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, MoneyVCDelegate {
+
     func delete(onPosition position: Int) {
         inputedMoney.remove(at: position)
         inputedMoneyCollectionView.reloadData()
@@ -110,12 +121,12 @@ UICollectionViewDelegateFlowLayout, MoneyVCDelegate {
         if let inputedMoneyCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue,
             for: indexPath) as? InputedMoneyCollectionCell {
-
+            
             inputedMoneyCell.setImage(fromName: String(inputedMoney[indexPath.row]))
             inputedMoneyCell.deleteButton.delegate = self
             inputedMoneyCell.deleteButton.position = indexPath.row
             return inputedMoneyCell
-
+            
         }
         return UICollectionViewCell()
     }
@@ -123,7 +134,14 @@ UICollectionViewDelegateFlowLayout, MoneyVCDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: UIScreen.main.bounds.width/3 - 10.0, height: 55)
+        var size = CGSize(width: 0, height: 0)
+        
+        if inputedMoney[indexPath.row] > 1.0 {
+            size = CGSize(width: UIScreen.main.bounds.width / 3 - 10.0, height: 55)
+        } else {
+            size = CGSize(width: UIScreen.main.bounds.width / 5 - 10.0,
+                          height: UIScreen.main.bounds.width / 5 - 10.0)
+        }
         return size
     }
 

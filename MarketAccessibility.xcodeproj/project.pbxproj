@@ -81,6 +81,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B654599323172CAE0014C9FE /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		B65F7BCB230F2BB50097CDA7 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +107,7 @@
 		B65F7BD6230F2BB50097CDA7 /* MarketAccessibility */ = {
 			isa = PBXGroup;
 			children = (
+				B654599323172CAE0014C9FE /* Delegates */,
 				B6C90AF623104CE100C743C0 /* XIBs */,
 				B6C90AE123104C1100C743C0 /* Helpers */,
 				B6C90AE023104C0C00C743C0 /* Controller */,
@@ -437,7 +445,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76FRTKWHT;
+				DEVELOPMENT_TEAM = 87G2Y58K9U;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -456,7 +464,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76FRTKWHT;
+				DEVELOPMENT_TEAM = 87G2Y58K9U;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

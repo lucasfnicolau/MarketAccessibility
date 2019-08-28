@@ -10,7 +10,7 @@ import UIKit
 
 class MoneyCollectionCell: UICollectionViewCell {
 
-    var moneyButton: UIButton!
+    var moneyButton: MoneyButton!
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -22,7 +22,7 @@ class MoneyCollectionCell: UICollectionViewCell {
     }
 
     func setLayout() {
-        moneyButton = UIButton(frame: .zero)
+        moneyButton = MoneyButton(frame: .zero)
         contentView.addSubview(moneyButton)
         moneyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

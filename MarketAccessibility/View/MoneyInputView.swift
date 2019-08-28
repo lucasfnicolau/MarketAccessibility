@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol MoneyInputViewDelegate: class {
+    func didSelect(value: Float)
+    func delete(onPosition position: Int)
+}
+
 @IBDesignable
 class MoneyInputView: UIView {
 
     var segmentedStackView: SegmentedStackView!
     var moneyCollectionView: UICollectionView!
-    var cedules = [2, 5, 10, 20, 50, 100]
+    var cedules: [Float] = [2.0, 5.0, 10.0, 20.0, 50.0, 100.0]
     weak var moneyVCDelegate: MoneyVCDelegate!
 
     override func prepareForInterfaceBuilder() {
@@ -89,7 +94,14 @@ class MoneyInputView: UIView {
 }
 
 extension MoneyInputView: UICollectionViewDelegate, UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout {
+UICollectionViewDelegateFlowLayout, MoneyInputViewDelegate {
+    func delete(onPosition position: Int) {
+        moneyVCDelegate.delete(onPosition: position)
+    }
+
+    func didSelect(value: Float) {
+        moneyVCDelegate.moneySelected(value: value)
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cedules.count
@@ -101,6 +113,8 @@ UICollectionViewDelegateFlowLayout {
             withReuseIdentifier: Identifier.moneyCollectionCell.rawValue,
             for: indexPath) as? MoneyCollectionCell {
             moneyCollectionCell.setImage(fromName: String(cedules[indexPath.row]))
+            moneyCollectionCell.moneyButton.value = cedules[indexPath.row]
+            moneyCollectionCell.moneyButton.delegate = self
             return moneyCollectionCell
         }
         return UICollectionViewCell()
@@ -113,7 +127,4 @@ UICollectionViewDelegateFlowLayout {
         return size
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        moneyVCDelegate.moneySelected(value: cedules[indexPath.row])
-    }
 }

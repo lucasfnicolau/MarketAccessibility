@@ -9,14 +9,15 @@
 import UIKit
 
 protocol MoneyVCDelegate: class {
-    func moneySelected(value: Int)
+    func moneySelected(value: Float)
+    func delete(onPosition position: Int)
 }
 
 class MoneyVC: UIViewController {
 
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
-    var inputedMoney = [Int]()
+    var inputedMoney = [Float]()
 
     @IBOutlet weak var moneyValueLabel: UILabel!
 
@@ -25,6 +26,9 @@ class MoneyVC: UIViewController {
 
         setMoneyInput()
         setInputedMoneyCollectionView()
+        inputedMoneyCollectionView.delegate = self
+        inputedMoneyCollectionView.dataSource = self
+        calculateValue()
     }
 
     func setMoneyInput() {
@@ -53,7 +57,7 @@ class MoneyVC: UIViewController {
         layout.scrollDirection = .vertical
         inputedMoneyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         inputedMoneyCollectionView.backgroundColor = .clear
-        inputedMoneyCollectionView.register(MoneyCollectionCell.self,
+        inputedMoneyCollectionView.register(InputedMoneyCollectionCell.self,
                                             forCellWithReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue)
         inputedMoneyCollectionView.delaysContentTouches = false
         self.view.addSubview(inputedMoneyCollectionView)
@@ -72,9 +76,29 @@ class MoneyVC: UIViewController {
 
 extension MoneyVC: UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, MoneyVCDelegate {
-    func moneySelected(value: Int) {
+    func delete(onPosition position: Int) {
+        inputedMoney.remove(at: position)
+        inputedMoneyCollectionView.reloadData()
+        calculateValue()
+    }
+
+    func calculateValue() {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.locale = Locale.current
+        var totalValue: Float = 0
+        for value in inputedMoney {
+            totalValue += value
+        }
+        moneyValueLabel.text = currencyFormatter.string(from: NSNumber(value: totalValue))?
+            .replacingOccurrences(of: "$", with: "$ ")
+    }
+
+    func moneySelected(value: Float) {
         inputedMoney.append(value)
         inputedMoneyCollectionView.reloadData()
+        calculateValue()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -88,9 +112,19 @@ UICollectionViewDelegateFlowLayout, MoneyVCDelegate {
             for: indexPath) as? InputedMoneyCollectionCell {
 
             inputedMoneyCell.setImage(fromName: String(inputedMoney[indexPath.row]))
+            inputedMoneyCell.deleteButton.delegate = self
+            inputedMoneyCell.deleteButton.position = indexPath.row
             return inputedMoneyCell
 
         }
         return UICollectionViewCell()
     }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = CGSize(width: UIScreen.main.bounds.width/3 - 10.0, height: 55)
+        return size
+    }
+
 }

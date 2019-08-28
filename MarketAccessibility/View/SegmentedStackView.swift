@@ -38,11 +38,21 @@ class SegmentedStackView: UIStackView, SegmentedStackViewDelegate {
     func itemHasBeenTouched(name: String) {
         switch name {
         case SegmentedStackOption.cedules.rawValue:
-            arrangedSubviews[0].tintColor = UIColor.App.segmentedSelected
-            arrangedSubviews[1].tintColor = UIColor.App.segmentedUnselected
+            guard let ceduleButton = arrangedSubviews[0] as? SegmentedStackButton else { return }
+            ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption_Filled").withRenderingMode(.alwaysTemplate), for: .normal)
+            ceduleButton.tintColor = UIColor.App.segmentedSelected
+            
+            guard let coinButton = arrangedSubviews[1] as? SegmentedStackButton else { return }
+            coinButton.setImage(#imageLiteral(resourceName: "CoinOption").withRenderingMode(.alwaysTemplate), for: .normal)
+            coinButton.tintColor = UIColor.App.segmentedUnselected
         default:
-            arrangedSubviews[0].tintColor = UIColor.App.segmentedUnselected
-            arrangedSubviews[1].tintColor = UIColor.App.segmentedSelected
+            guard let ceduleButton = arrangedSubviews[0] as? SegmentedStackButton else { return }
+            ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption").withRenderingMode(.alwaysTemplate), for: .normal)
+            ceduleButton.tintColor = UIColor.App.segmentedUnselected
+            
+            guard let coinButton = arrangedSubviews[1] as? SegmentedStackButton else { return }
+            coinButton.setImage(#imageLiteral(resourceName: "CoinOption_Filled").withRenderingMode(.alwaysTemplate), for: .normal)
+            coinButton.tintColor = UIColor.App.segmentedSelected
         }
     }
 }

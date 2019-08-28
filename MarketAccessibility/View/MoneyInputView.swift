@@ -54,7 +54,7 @@ class MoneyInputView: UIView {
         
         let ceduleButton = SegmentedStackButton(withName: SegmentedStackOption.cedules.rawValue)
         
-        ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption").withRenderingMode(.alwaysTemplate), for: .normal)
+        ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption_Filled").withRenderingMode(.alwaysTemplate), for: .normal)
         ceduleButton.tintColor = UIColor.App.segmentedSelected
         
         let coinButton = SegmentedStackButton(withName: SegmentedStackOption.coins.rawValue)
@@ -78,12 +78,12 @@ class MoneyInputView: UIView {
             moneyCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             moneyCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             moneyCollectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            moneyCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -66),
+            moneyCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -46),
             
             segmentedStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            segmentedStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            segmentedStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             segmentedStackView.heightAnchor.constraint(equalToConstant: 30),
-            segmentedStackView.widthAnchor.constraint(equalToConstant: 140),
+            segmentedStackView.widthAnchor.constraint(equalToConstant: 150),
             
             ])
     }

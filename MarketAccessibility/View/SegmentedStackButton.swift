@@ -11,19 +11,19 @@ import UIKit
 class SegmentedStackButton: UIButton {
 
     var buttonName = ""
-    var segmentedStackViewDelegate: SegmentedStackViewDelegate!
-    
+    weak var segmentedStackViewDelegate: SegmentedStackViewDelegate!
+
     init(withName name: String) {
         super.init(frame: .zero)
-        
+
         self.buttonName = name
         self.addTarget(self, action: #selector(onTouch), for: .touchUpInside)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     @objc func onTouch() {
         segmentedStackViewDelegate.itemHasBeenTouched(name: buttonName)
     }

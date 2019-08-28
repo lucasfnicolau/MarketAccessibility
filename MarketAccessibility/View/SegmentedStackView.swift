@@ -8,40 +8,40 @@
 
 import UIKit
 
-protocol SegmentedStackViewDelegate {
+protocol SegmentedStackViewDelegate: class {
     func itemHasBeenTouched(name: String)
 }
 
 class SegmentedStackView: UIStackView, SegmentedStackViewDelegate {
-    
+
     init(withViews views: [UIView]) {
         super.init(frame: .zero)
-        
+
         for view in views {
             self.addArrangedSubview(view)
         }
-        
+
         self.spacing = 10
         self.axis = .horizontal
         self.alignment = .center
         self.distribution = .fillEqually
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
     }
-    
+
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     func itemHasBeenTouched(name: String) {
         switch name {
         case SegmentedStackOption.cedules.rawValue:
             guard let ceduleButton = arrangedSubviews[0] as? SegmentedStackButton else { return }
             ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption_Filled").withRenderingMode(.alwaysTemplate), for: .normal)
             ceduleButton.tintColor = UIColor.App.segmentedSelected
-            
+
             guard let coinButton = arrangedSubviews[1] as? SegmentedStackButton else { return }
             coinButton.setImage(#imageLiteral(resourceName: "CoinOption").withRenderingMode(.alwaysTemplate), for: .normal)
             coinButton.tintColor = UIColor.App.segmentedUnselected
@@ -49,7 +49,7 @@ class SegmentedStackView: UIStackView, SegmentedStackViewDelegate {
             guard let ceduleButton = arrangedSubviews[0] as? SegmentedStackButton else { return }
             ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption").withRenderingMode(.alwaysTemplate), for: .normal)
             ceduleButton.tintColor = UIColor.App.segmentedUnselected
-            
+
             guard let coinButton = arrangedSubviews[1] as? SegmentedStackButton else { return }
             coinButton.setImage(#imageLiteral(resourceName: "CoinOption_Filled").withRenderingMode(.alwaysTemplate), for: .normal)
             coinButton.tintColor = UIColor.App.segmentedSelected

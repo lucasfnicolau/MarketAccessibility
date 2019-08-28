@@ -13,9 +13,7 @@ enum SegmentedStackOption: String {
     case coins
 }
 
-
 enum Identifier: String {
     case moneyCollectionCell
     case inputedMoneyCollectionCell
 }
-

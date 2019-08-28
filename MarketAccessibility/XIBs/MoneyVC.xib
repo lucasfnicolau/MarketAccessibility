@@ -16,6 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoneyVC" customModule="MarketAccessibility" customModuleProvider="target">
             <connections>
+                <outlet property="moneyValueLabel" destination="DFw-QW-l2J" id="WXZ-Oe-YK3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

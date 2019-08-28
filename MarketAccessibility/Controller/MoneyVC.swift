@@ -8,18 +8,23 @@
 
 import UIKit
 
+protocol MoneyVCDelegate {
+    func moneySelected(name: String)
+}
+
 class MoneyVC: UIViewController {
 
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
+    var inputedMoney = [Int]()
+    
+    @IBOutlet weak var moneyValueLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setMoneyInput()
-        
-        
-        
+        setInputedMoneyCollectionView()
     }
     
     
@@ -30,16 +35,19 @@ class MoneyVC: UIViewController {
         moneyInputView.backgroundColor = UIColor.App.background
         
         self.view.addSubview(moneyInputView)
+
         
         moneyInputView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             
             moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moneyInputView.heightAnchor.constraint(equalToConstant: 0.4*UIScreen.main.bounds.height),
+            moneyInputView.heightAnchor.constraint(equalToConstant: 250),
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])
+        moneyValueLabel.text = "\(0)"
+
     }
     
     func setInputedMoneyCollectionView(){
@@ -53,6 +61,28 @@ class MoneyVC: UIViewController {
 
     
     
+    
+
+}
+
+extension MoneyVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate{
+    func moneySelected(value: Int) {
+        inputedMoney
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return inputedMoney.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let inputedMoneyCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue, for: indexPath) as? InputedMoneyCollectionCell {
+            
+            inputedMoneyCell.setImage(fromName: String(inputedMoney[indexPath.row]))
+            return inputedMoneyCell
+            
+        }
+        return UICollectionViewCell()
+    }
     
 
 }

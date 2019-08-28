@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B654599723172F250014C9FE /* MoneyVCCollectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B654599623172F250014C9FE /* MoneyVCCollectionHandler.swift */; };
+		B6545999231732810014C9FE /* MoneyInputViewCollectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6545998231732810014C9FE /* MoneyInputViewCollectionHandler.swift */; };
 		B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */; };
 		B65F7BDD230F2BB50097CDA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65F7BDB230F2BB50097CDA7 /* Main.storyboard */; };
 		B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B65F7BDE230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B654599623172F250014C9FE /* MoneyVCCollectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyVCCollectionHandler.swift; sourceTree = "<group>"; };
+		B6545998231732810014C9FE /* MoneyInputViewCollectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInputViewCollectionHandler.swift; sourceTree = "<group>"; };
 		B65F7BD4230F2BB50097CDA7 /* MarketAccessibility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketAccessibility.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B65F7BDC230F2BB50097CDA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -81,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B654599323172CAE0014C9FE /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				B654599623172F250014C9FE /* MoneyVCCollectionHandler.swift */,
+				B6545998231732810014C9FE /* MoneyInputViewCollectionHandler.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		B65F7BCB230F2BB50097CDA7 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +113,7 @@
 		B65F7BD6230F2BB50097CDA7 /* MarketAccessibility */ = {
 			isa = PBXGroup;
 			children = (
+				B654599323172CAE0014C9FE /* Delegates */,
 				B6C90AF623104CE100C743C0 /* XIBs */,
 				B6C90AE123104C1100C743C0 /* Helpers */,
 				B6C90AE023104C0C00C743C0 /* Controller */,
@@ -273,6 +287,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B654599723172F250014C9FE /* MoneyVCCollectionHandler.swift in Sources */,
+				B6545999231732810014C9FE /* MoneyInputViewCollectionHandler.swift in Sources */,
 				B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */,
 				B6C90AE423104C6A00C743C0 /* MoneyVC.swift in Sources */,
 				B6C90B022310577E00C743C0 /* MoneyButton.swift in Sources */,
@@ -437,7 +453,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76FRTKWHT;
+				DEVELOPMENT_TEAM = 87G2Y58K9U;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -456,7 +472,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76FRTKWHT;
+				DEVELOPMENT_TEAM = 87G2Y58K9U;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

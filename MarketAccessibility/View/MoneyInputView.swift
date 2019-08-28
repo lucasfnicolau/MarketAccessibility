@@ -11,6 +11,7 @@ import UIKit
 protocol MoneyInputViewDelegate: class {
     func didSelect(value: Float)
     func delete(onPosition position: Int)
+    func segmentedButtonChanged(to name: String)
 }
 
 @IBDesignable
@@ -18,8 +19,8 @@ class MoneyInputView: UIView {
 
     var segmentedStackView: SegmentedStackView!
     var moneyCollectionView: UICollectionView!
-    var cedules: [Float] = [2.0, 5.0, 10.0, 20.0, 50.0, 100.0]
     weak var moneyVCDelegate: MoneyVCDelegate!
+    var moneyInputCollectionHandler: MoneyInputViewCollectionHandler?
 
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
@@ -32,10 +33,11 @@ class MoneyInputView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        moneyInputCollectionHandler = MoneyInputViewCollectionHandler()
+        moneyInputCollectionHandler?.parentVC = self
         setMoneyInput()
-        moneyCollectionView.delegate = self
-        moneyCollectionView.dataSource = self
-
+        moneyCollectionView.delegate = moneyInputCollectionHandler
+        moneyCollectionView.dataSource = moneyInputCollectionHandler
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -77,7 +79,7 @@ class MoneyInputView: UIView {
 
         moneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
         segmentedStackView.translatesAutoresizingMaskIntoConstraints = false
-        segmentedStackView.translatesAutoresizingMaskIntoConstraints = false
+        segmentedStackView.moneyInputViewDelegate = moneyInputCollectionHandler
 
         NSLayoutConstraint.activate([
             moneyCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
@@ -91,40 +93,4 @@ class MoneyInputView: UIView {
             segmentedStackView.widthAnchor.constraint(equalToConstant: 150)
             ])
     }
-}
-
-extension MoneyInputView: UICollectionViewDelegate, UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout, MoneyInputViewDelegate {
-    func delete(onPosition position: Int) {
-        moneyVCDelegate.delete(onPosition: position)
-    }
-
-    func didSelect(value: Float) {
-        moneyVCDelegate.moneySelected(value: value)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cedules.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let moneyCollectionCell  = collectionView.dequeueReusableCell(
-            withReuseIdentifier: Identifier.moneyCollectionCell.rawValue,
-            for: indexPath) as? MoneyCollectionCell {
-            moneyCollectionCell.setImage(fromName: String(cedules[indexPath.row]))
-            moneyCollectionCell.moneyButton.value = cedules[indexPath.row]
-            moneyCollectionCell.moneyButton.delegate = self
-            return moneyCollectionCell
-        }
-        return UICollectionViewCell()
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: UIScreen.main.bounds.width/3 - 10.0, height: 55)
-        return size
-    }
-
 }

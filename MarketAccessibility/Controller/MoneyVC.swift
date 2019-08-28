@@ -17,24 +17,38 @@ class MoneyVC: UIViewController {
 
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
-    var inputedMoney = [Float]()
+    var collectionViewHandler: MoneyVCCollectionHandler!
 
     @IBOutlet weak var moneyValueLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.setLeftBarButton(UIBarButtonItem(
+            barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
+        navigationController?.navigationBar.tintColor = UIColor.App.money
+
+        collectionViewHandler = MoneyVCCollectionHandler()
+        collectionViewHandler.parentVC = self
+
         setMoneyInput()
         setInputedMoneyCollectionView()
-        inputedMoneyCollectionView.delegate = self
-        inputedMoneyCollectionView.dataSource = self
-        calculateValue()
+        inputedMoneyCollectionView.delegate = collectionViewHandler
+        inputedMoneyCollectionView.dataSource = collectionViewHandler
+
+        collectionViewHandler.calculateValue()
+    }
+
+    @objc func reset() {
+        collectionViewHandler.inputedMoney = []
+        inputedMoneyCollectionView.reloadData()
+        collectionViewHandler.calculateValue()
     }
 
     func setMoneyInput() {
 
         moneyInputView = MoneyInputView(frame: .zero)
-        moneyInputView.moneyVCDelegate = self
+        moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 
         self.view.addSubview(moneyInputView)
@@ -70,61 +84,6 @@ class MoneyVC: UIViewController {
             inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: 8)
 
             ])
-    }
-
-}
-
-extension MoneyVC: UICollectionViewDelegate, UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout, MoneyVCDelegate {
-    func delete(onPosition position: Int) {
-        inputedMoney.remove(at: position)
-        inputedMoneyCollectionView.reloadData()
-        calculateValue()
-    }
-
-    func calculateValue() {
-        let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        currencyFormatter.locale = Locale.current
-        var totalValue: Float = 0
-        for value in inputedMoney {
-            totalValue += value
-        }
-        moneyValueLabel.text = currencyFormatter.string(from: NSNumber(value: totalValue))?
-            .replacingOccurrences(of: "$", with: "$ ")
-    }
-
-    func moneySelected(value: Float) {
-        inputedMoney.append(value)
-        inputedMoneyCollectionView.reloadData()
-        calculateValue()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return inputedMoney.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let inputedMoneyCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue,
-            for: indexPath) as? InputedMoneyCollectionCell {
-
-            inputedMoneyCell.setImage(fromName: String(inputedMoney[indexPath.row]))
-            inputedMoneyCell.deleteButton.delegate = self
-            inputedMoneyCell.deleteButton.position = indexPath.row
-            return inputedMoneyCell
-
-        }
-        return UICollectionViewCell()
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: UIScreen.main.bounds.width/3 - 10.0, height: 55)
-        return size
     }
 
 }

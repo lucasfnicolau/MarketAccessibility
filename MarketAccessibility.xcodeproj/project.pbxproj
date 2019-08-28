@@ -26,8 +26,14 @@
 		B6C90AFF2310539200C743C0 /* ShoppingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90AFD2310539200C743C0 /* ShoppingVC.swift */; };
 		B6C90B002310539200C743C0 /* ShoppingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6C90AFE2310539200C743C0 /* ShoppingVC.xib */; };
 		B6C90B022310577E00C743C0 /* RoundedSquareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B012310577E00C743C0 /* RoundedSquareButton.swift */; };
-		CB893D8C2314805900C028FD /* MoneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB893D8A2314805900C028FD /* MoneyCell.swift */; };
-		CB893D8D2314805900C028FD /* MoneyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB893D8B2314805900C028FD /* MoneyCell.xib */; };
+
+		B6C90B072314730F00C743C0 /* MoneyInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B062314730F00C743C0 /* MoneyInputView.swift */; };
+		B6C90B0923147D8200C743C0 /* SegmentedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B0823147D8200C743C0 /* SegmentedStackView.swift */; };
+		B6C90B0B2314869D00C743C0 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B0A2314869D00C743C0 /* Enums.swift */; };
+		B6C90B0D231488A100C743C0 /* SegmentedStackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B0C231488A100C743C0 /* SegmentedStackButton.swift */; };
+		B6C90B0F231590E300C743C0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B0E231590E300C743C0 /* Extensions.swift */; };
+		BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */; };
+		BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,10 +58,18 @@
 		B6C90AFD2310539200C743C0 /* ShoppingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingVC.swift; sourceTree = "<group>"; };
 		B6C90AFE2310539200C743C0 /* ShoppingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingVC.xib; sourceTree = "<group>"; };
 		B6C90B012310577E00C743C0 /* RoundedSquareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedSquareButton.swift; sourceTree = "<group>"; };
+
+		B6C90B062314730F00C743C0 /* MoneyInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInputView.swift; sourceTree = "<group>"; };
+		B6C90B0823147D8200C743C0 /* SegmentedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedStackView.swift; sourceTree = "<group>"; };
+		B6C90B0A2314869D00C743C0 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		B6C90B0C231488A100C743C0 /* SegmentedStackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedStackButton.swift; sourceTree = "<group>"; };
+		B6C90B0E231590E300C743C0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCollectionCell.swift; sourceTree = "<group>"; };
+		BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputedMoneyCollectionCell.swift; sourceTree = "<group>"; };
+
 		CB893D8A2314805900C028FD /* MoneyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCell.swift; sourceTree = "<group>"; };
 		CB893D8B2314805900C028FD /* MoneyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoneyCell.xib; sourceTree = "<group>"; };
-		E09FCD4F2310884700D323B2 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
-		E09FCD502310884700D323B2 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +131,11 @@
 			children = (
 				CB893D8A2314805900C028FD /* MoneyCell.swift */,
 				B6C90B012310577E00C743C0 /* RoundedSquareButton.swift */,
+				B6C90B062314730F00C743C0 /* MoneyInputView.swift */,
+				B6C90B0823147D8200C743C0 /* SegmentedStackView.swift */,
+				B6C90B0C231488A100C743C0 /* SegmentedStackButton.swift */,
+				BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */,
+				BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -138,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				B6C90AF723104DDB00C743C0 /* CDManager.swift */,
+				B6C90B0A2314869D00C743C0 /* Enums.swift */,
+				B6C90B0E231590E300C743C0 /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -166,6 +187,7 @@
 				B65F7BD0230F2BB50097CDA7 /* Sources */,
 				B65F7BD1230F2BB50097CDA7 /* Frameworks */,
 				B65F7BD2230F2BB50097CDA7 /* Resources */,
+				B6C90B112316F7A900C743C0 /* Run Script Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -229,6 +251,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B6C90B112316F7A900C743C0 /* Run Script Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B65F7BD0230F2BB50097CDA7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -237,10 +280,17 @@
 				B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */,
 				B6C90AE423104C6A00C743C0 /* MoneyVC.swift in Sources */,
 				B6C90B022310577E00C743C0 /* RoundedSquareButton.swift in Sources */,
+				B6C90B072314730F00C743C0 /* MoneyInputView.swift in Sources */,
 				B6C90AF423104CD400C743C0 /* TypeValueVC.swift in Sources */,
 				CB893D8C2314805900C028FD /* MoneyCell.swift in Sources */,
 				B6C90AFF2310539200C743C0 /* ShoppingVC.swift in Sources */,
 				B6C90AF023104CBA00C743C0 /* DrawValueVC.swift in Sources */,
+				B6C90B0B2314869D00C743C0 /* Enums.swift in Sources */,
+				BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */,
+				B6C90B0923147D8200C743C0 /* SegmentedStackView.swift in Sources */,
+				BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */,
+				B6C90B0D231488A100C743C0 /* SegmentedStackButton.swift in Sources */,
+				B6C90B0F231590E300C743C0 /* Extensions.swift in Sources */,
 				B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */,
 				B6C90AF823104DDB00C743C0 /* CDManager.swift in Sources */,
 				B6C90AEC23104C8B00C743C0 /* VoiceListVC.swift in Sources */,

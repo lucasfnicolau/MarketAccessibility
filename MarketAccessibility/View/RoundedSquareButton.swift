@@ -15,7 +15,7 @@ class RoundedSquareButton: UIButton {
         super.prepareForInterfaceBuilder()
         setLayout()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setLayout()

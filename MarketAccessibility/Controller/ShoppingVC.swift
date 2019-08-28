@@ -17,7 +17,6 @@ class ShoppingVC: UIViewController {
         self.view.addSubview(test)
     }
 
-
     /*
     // MARK: - Navigation
 

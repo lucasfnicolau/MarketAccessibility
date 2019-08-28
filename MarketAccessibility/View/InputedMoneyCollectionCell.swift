@@ -9,47 +9,44 @@
 import UIKit
 
 class InputedMoneyCollectionCell: UICollectionViewCell {
-    
-    var deleteButton: UIButton!
+
+    var deleteButton: ImageButton!
     var moneyImageView: UIImageView!
-    
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setLayout()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     func setLayout() {
-        deleteButton = UIButton(frame: .zero)
+        deleteButton = ImageButton(frame: .zero)
         deleteButton.setImage(#imageLiteral(resourceName: "x"), for: .normal)
-        
-        contentView.addSubview(deleteButton)
+
+        moneyImageView = UIImageView()
         contentView.addSubview(moneyImageView)
-        
+        contentView.addSubview(deleteButton)
+
+        moneyImageView.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
             deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            deleteButton.widthAnchor.constraint(equalToConstant: 50),
-            deleteButton.heightAnchor.constraint(equalToConstant: 50),
-            
+            deleteButton.widthAnchor.constraint(equalToConstant: 25),
+            deleteButton.heightAnchor.constraint(equalToConstant: 25),
+
             moneyImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            moneyImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            moneyImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             moneyImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            moneyImageView.topAnchor.constraint(equalTo: self.topAnchor)
-            
+            moneyImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10)
+
             ])
-        
-        
     }
-    
-    func setImage(fromName name: String){
+
+    func setImage(fromName name: String) {
         self.moneyImageView.image = UIImage(named: name)
     }
-    
-
-
 }

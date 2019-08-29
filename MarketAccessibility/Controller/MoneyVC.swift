@@ -5,31 +5,86 @@
 //  Created by Lucas Fernandez Nicolau on 23/08/19.
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
+// swiftlint:disable trailing_whitespace
 
 import UIKit
 
+protocol MoneyVCDelegate: class {
+    func moneySelected(value: Float)
+    func delete(onPosition position: Int)
+}
+
 class MoneyVC: UIViewController {
+
+    var moneyInputView: MoneyInputView!
+    var inputedMoneyCollectionView: UICollectionView!
+    var collectionViewHandler: MoneyVCCollectionHandler!
+
+    @IBOutlet weak var moneyValueLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        navigationItem.setLeftBarButton(UIBarButtonItem(
+            barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
+        navigationController?.navigationBar.tintColor = UIColor.App.money
+
+        collectionViewHandler = MoneyVCCollectionHandler()
+        collectionViewHandler.parentVC = self
+
+        setMoneyInput()
+        setInputedMoneyCollectionView()
+        inputedMoneyCollectionView.delegate = collectionViewHandler
+        inputedMoneyCollectionView.dataSource = collectionViewHandler
+
+        collectionViewHandler.calculateValue()
     }
 
-
-    override func viewWillAppear(_ animated: Bool) {
-        let attrs = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1)]
-        navigationController?.navigationBar.titleTextAttributes = attrs
-        tabBarController?.tabBar.tintColor = #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1)
+    @objc func reset() {
+        collectionViewHandler.inputedMoney = []
+        inputedMoneyCollectionView.reloadData()
+        collectionViewHandler.calculateValue()
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setMoneyInput() {
+
+        moneyInputView = MoneyInputView(frame: .zero)
+        moneyInputView.moneyVCDelegate = collectionViewHandler
+        moneyInputView.backgroundColor = UIColor.App.background
+
+        self.view.addSubview(moneyInputView)
+
+        moneyInputView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+
+            moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            moneyInputView.heightAnchor.constraint(equalToConstant: 250),
+            moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+
+            ])
+        moneyValueLabel.text = "\(0)"
+
     }
-    */
+
+    func setInputedMoneyCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        inputedMoneyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        inputedMoneyCollectionView.backgroundColor = .clear
+        inputedMoneyCollectionView.register(InputedMoneyCollectionCell.self,
+                                            forCellWithReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue)
+        inputedMoneyCollectionView.delaysContentTouches = false
+        self.view.addSubview(inputedMoneyCollectionView)
+
+        inputedMoneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 8),
+            inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
+            inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
+            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: 8)
+
+            ])
+    }
 
 }

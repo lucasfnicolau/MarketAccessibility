@@ -34,6 +34,7 @@ class MoneyVC: UIViewController {
 
         setMoneyInput()
         setInputedMoneyCollectionView()
+        
         inputedMoneyCollectionView.delegate = collectionViewHandler
         inputedMoneyCollectionView.dataSource = collectionViewHandler
 

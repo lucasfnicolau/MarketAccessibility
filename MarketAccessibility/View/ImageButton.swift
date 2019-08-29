@@ -5,7 +5,7 @@
 //  Created by Cassia Aparecida Barbosa on 28/08/19.
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
-// swiftlint:disable trailing_whitespace
+// s wiftlint:disable trailing_whitespace
 
 import UIKit
 

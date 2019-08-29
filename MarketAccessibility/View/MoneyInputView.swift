@@ -5,6 +5,7 @@
 //  Created by Lucas Fernandez Nicolau on 26/08/19.
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
+// swiftlint:disable trailing_whitespace
 
 import UIKit
 
@@ -16,7 +17,7 @@ protocol MoneyInputViewDelegate: class {
 
 @IBDesignable
 class MoneyInputView: UIView {
-
+    
     var segmentedStackView: SegmentedStackView!
     var moneyCollectionView: UICollectionView!
     weak var moneyVCDelegate: MoneyVCDelegate!

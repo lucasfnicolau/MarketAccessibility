@@ -5,7 +5,7 @@
 //  Created by Lucas Fernandez Nicolau on 23/08/19.
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
-// swiftlint:disable trailing_whitespace
+// s wiftlint:disable trailing_whitespace
 
 import UIKit
 
@@ -13,8 +13,5 @@ class ShoppingVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let test = MoneyInputView(frame: self.view.frame)
-        self.view.addSubview(test)
     }
 }

@@ -95,10 +95,12 @@ class DrawInputView: UIView {
                                                                      useProtractor: false, minThreshold: 0.80)
                 
                 if drawView == self.ceduleDrawView {
-                    self.cedulesArray.append(getNumberFrom(string: template?.name ?? "ZERO"))
+                    if !self.cedulesArray.isEmpty || template?.name != Number.zero.rawValue {
+                        self.cedulesArray.append(getNumberFrom(string: template?.name ?? Number.zero.rawValue))
+                    }
                 } else {
                     if self.coinsArray.count < 2 {
-                        self.coinsArray.append(getNumberFrom(string: template?.name ?? "ZERO"))
+                        self.coinsArray.append(getNumberFrom(string: template?.name ?? Number.zero.rawValue))
                     }
                 }
                 self.calculateValue()

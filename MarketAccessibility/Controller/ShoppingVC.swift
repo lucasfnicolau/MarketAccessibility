@@ -23,6 +23,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     var optionsStackView: UIStackView!
     var drawInputButton: UIButton!
     var speakInputButton: UIButton!
+    var selectedInputView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,8 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         setSegmentedStackView()
         setSpeakInputView()
         setDrawInput()
+        selectedInputView = drawInputView
+        speakInputView.transform = CGAffineTransform(translationX: 0, y: 1000)
     }
     
     func setInputView() {
@@ -49,9 +52,13 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     func setSegmentedStackView() {
         drawInputButton = UIButton(frame: .zero)
         drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
+        drawInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
+        drawInputButton.tintColor = UIColor.App.segmentedSelected
         
         speakInputButton = UIButton(frame: .zero)
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
+        speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
+        speakInputButton.tintColor = UIColor.App.segmentedUnselected
         
         optionsStackView = UIStackView(arrangedSubviews: [drawInputButton, speakInputButton])
         optionsStackView.alignment = .fill
@@ -69,8 +76,8 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             speakInputButton.heightAnchor.constraint(equalToConstant: 35),
             
             optionsStackView.bottomAnchor.constraint(equalTo: genericInputView.topAnchor, constant: -8),
-            optionsStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            optionsStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+            optionsStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
+            optionsStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
             optionsStackView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -113,6 +120,40 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     
     func updateLabel(withValue value: String) {
         self.moneyValueLabel.text = value
+    }
+    
+    @objc func inputOptionSelected(_ sender: UIButton) {
+        if sender == drawInputButton && selectedInputView != drawInputView {
+            selectedInputView = drawInputView
+            
+            drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
+            drawInputButton.tintColor = UIColor.App.segmentedSelected
+            
+            speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
+            speakInputButton.tintColor = UIColor.App.segmentedUnselected
+            
+            changeInputView(viewToHide: speakInputView, viewToAppear: drawInputView)
+        } else {
+            selectedInputView = speakInputView
+            
+            drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_outline").withRenderingMode(.alwaysTemplate), for: .normal)
+            drawInputButton.tintColor = UIColor.App.segmentedUnselected
+            
+            speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_filled").withRenderingMode(.alwaysTemplate), for: .normal)
+            speakInputButton.tintColor = UIColor.App.segmentedSelected
+            
+            changeInputView(viewToHide: drawInputView, viewToAppear: speakInputView)
+        }
+    }
+    
+    func changeInputView(viewToHide: UIView, viewToAppear: UIView) {
+        UIView.animate(withDuration: 0.25, animations: {
+            viewToHide.transform = CGAffineTransform(translationX: 0, y: 1000)
+        }, completion: { (_) in
+            UIView.animate(withDuration: 0.25, animations: {
+                viewToAppear.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
+        })
     }
 
 }

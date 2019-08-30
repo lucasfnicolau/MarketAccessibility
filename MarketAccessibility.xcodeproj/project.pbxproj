@@ -36,6 +36,8 @@
 		BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */; };
 		BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */; };
 		CB9ED8012317154100E542BB /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9ED8002317154100E542BB /* ImageButton.swift */; };
+		E07463DB2319986600816843 /* SpeakInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DA2319986600816843 /* SpeakInputView.swift */; };
+		E07463DD23199C3B00816843 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DC23199C3B00816843 /* DoneButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCollectionCell.swift; sourceTree = "<group>"; };
 		BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputedMoneyCollectionCell.swift; sourceTree = "<group>"; };
 		CB9ED8002317154100E542BB /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
+		E07463DA2319986600816843 /* SpeakInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakInputView.swift; sourceTree = "<group>"; };
+		E07463DC23199C3B00816843 /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,8 @@
 				BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */,
 				BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */,
 				CB9ED8002317154100E542BB /* ImageButton.swift */,
+				E07463DA2319986600816843 /* SpeakInputView.swift */,
+				E07463DC23199C3B00816843 /* DoneButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -297,8 +303,10 @@
 				B6C90B0923147D8200C743C0 /* SegmentedStackView.swift in Sources */,
 				BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */,
 				B6C90B0D231488A100C743C0 /* SegmentedStackButton.swift in Sources */,
+				E07463DB2319986600816843 /* SpeakInputView.swift in Sources */,
 				B6C90B0F231590E300C743C0 /* Extensions.swift in Sources */,
 				CB9ED8012317154100E542BB /* ImageButton.swift in Sources */,
+				E07463DD23199C3B00816843 /* DoneButton.swift in Sources */,
 				B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */,
 				B6C90AF823104DDB00C743C0 /* CDManager.swift in Sources */,
 				B6C90AEC23104C8B00C743C0 /* VoiceListVC.swift in Sources */,

@@ -95,10 +95,12 @@ class DrawInputView: UIView {
                                                                      useProtractor: false, minThreshold: 0.80)
                 
                 if drawView == self.ceduleDrawView {
-                    self.cedulesArray.append(getNumberFrom(string: template?.name ?? "ZERO"))
+                    if !self.cedulesArray.isEmpty || template?.name != Number.zero.rawValue {
+                        self.cedulesArray.append(getNumberFrom(string: template?.name ?? Number.zero.rawValue))
+                    }
                 } else {
                     if self.coinsArray.count < 2 {
-                        self.coinsArray.append(getNumberFrom(string: template?.name ?? "ZERO"))
+                        self.coinsArray.append(getNumberFrom(string: template?.name ?? Number.zero.rawValue))
                     }
                 }
                 self.calculateValue()
@@ -147,10 +149,8 @@ class DrawInputView: UIView {
         do {
             templates = try getContext().fetch(JSONTemplate.fetchRequest())
             
-            print("[")
             for template in templates {
                 guard let content = template.content else { return }
-                print(content)
                 guard let data = content.data(using: .utf8) else { return }
                 guard let templateDict = try JSONSerialization
                     .jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
@@ -175,11 +175,7 @@ class DrawInputView: UIView {
                 
                 let templateObj = SwiftUnistrokeTemplate(name: templateName, points: templatePoints)
                 loadedTemplates.append(templateObj)
-                
-                print(",")
-                print("\n\n")
             }
-            print("]")
         } catch let error {
             print(error.localizedDescription)
         }

@@ -147,10 +147,8 @@ class DrawInputView: UIView {
         do {
             templates = try getContext().fetch(JSONTemplate.fetchRequest())
             
-            print("[")
             for template in templates {
                 guard let content = template.content else { return }
-                print(content)
                 guard let data = content.data(using: .utf8) else { return }
                 guard let templateDict = try JSONSerialization
                     .jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
@@ -175,11 +173,7 @@ class DrawInputView: UIView {
                 
                 let templateObj = SwiftUnistrokeTemplate(name: templateName, points: templatePoints)
                 loadedTemplates.append(templateObj)
-                
-                print(",")
-                print("\n\n")
             }
-            print("]")
         } catch let error {
             print(error.localizedDescription)
         }

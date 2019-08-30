@@ -36,6 +36,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
 
     func moneySelected(value: Float) {
         inputedMoney.append(value)
+//        inputedMoney = inputedMoney.sorted()
         parentVC?.inputedMoneyCollectionView.reloadData()
         calculateValue()
     }

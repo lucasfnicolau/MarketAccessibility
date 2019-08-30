@@ -28,7 +28,7 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setRecordButton()
-        recordButton.setImage(UIImage(named: Identifier.microphoneOn.rawValue)?.withRenderingMode(.alwaysTemplate),
+        recordButton.setImage(UIImage(named: Image.microphoneOn.rawValue)?.withRenderingMode(.alwaysTemplate),
                               for: .normal)
     }
 
@@ -146,11 +146,11 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
         if audioEngine.isRunning {
             audioEngine.stop()
             recognitionRequest?.endAudio()
-            recordButton.setImage(UIImage(named: Identifier.microphoneOn.rawValue)?.withRenderingMode(.alwaysTemplate),
+            recordButton.setImage(UIImage(named: Image.microphoneOn.rawValue)?.withRenderingMode(.alwaysTemplate),
                                   for: .normal)
         } else {
             startRecording()
-            recordButton.setImage(UIImage(named: Identifier.microphoneOff.rawValue)?.withRenderingMode(.alwaysTemplate),
+            recordButton.setImage(UIImage(named: Image.microphoneOff.rawValue)?.withRenderingMode(.alwaysTemplate),
                                   for: .normal)
         }
     }

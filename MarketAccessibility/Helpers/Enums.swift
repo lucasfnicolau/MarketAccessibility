@@ -5,6 +5,7 @@
 //  Created by Lucas Fernandez Nicolau on 26/08/19.
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
+// s wiftlint:disable trailing_whitespace
 
 import Foundation
 

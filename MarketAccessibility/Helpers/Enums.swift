@@ -17,4 +17,22 @@ enum SegmentedStackOption: String {
 enum Identifier: String {
     case moneyCollectionCell
     case inputedMoneyCollectionCell
+    case ptBr = "pt-BR"
+}
+
+enum Entity: String {
+    case jsonTemplate = "JSONTemplate"
+}
+
+enum Number: String {
+    case zero = "ZERO"
+    case one = "UM"
+    case two = "DOIS"
+    case three = "TRÊS"
+    case four = "QUATRO"
+    case five = "CINCO"
+    case six = "SEIS"
+    case seven = "SETE"
+    case eight = "OITO"
+    case nine = "NOVE"
 }

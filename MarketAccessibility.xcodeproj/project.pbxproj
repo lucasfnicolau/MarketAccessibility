@@ -45,7 +45,8 @@
 		BCF43D8E23199F9C00023B2D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D8D23199F9C00023B2D /* Helpers.swift */; };
 		CB9ED8012317154100E542BB /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9ED8002317154100E542BB /* ImageButton.swift */; };
 		E07463DB2319986600816843 /* SpeakInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DA2319986600816843 /* SpeakInputView.swift */; };
-		E07463DD23199C3B00816843 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DC23199C3B00816843 /* DoneButton.swift */; };
+		E07463E02319BA5400816843 /* AnimationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DE2319BA5400816843 /* AnimationVC.swift */; };
+		E07463E12319BA5400816843 /* AnimationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E07463DF2319BA5400816843 /* AnimationVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,7 +90,8 @@
 		BCF43D8D23199F9C00023B2D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		CB9ED8002317154100E542BB /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		E07463DA2319986600816843 /* SpeakInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakInputView.swift; sourceTree = "<group>"; };
-		E07463DC23199C3B00816843 /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
+		E07463DE2319BA5400816843 /* AnimationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationVC.swift; sourceTree = "<group>"; };
+		E07463DF2319BA5400816843 /* AnimationVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimationVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +172,6 @@
 				CB9ED8002317154100E542BB /* ImageButton.swift */,
 				BCF43D7B23198C1800023B2D /* DrawInputView.swift */,
 				E07463DA2319986600816843 /* SpeakInputView.swift */,
-				E07463DC23199C3B00816843 /* DoneButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +186,7 @@
 				B6C90AF923104FB800C743C0 /* SpeakValueVC.swift */,
 				B6C90AF223104CD400C743C0 /* TypeValueVC.swift */,
 				BCF43D8323198DAB00023B2D /* ShoppingVCOneDollar.swift */,
+				E07463DE2319BA5400816843 /* AnimationVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -210,6 +212,7 @@
 				B6C90AEF23104CBA00C743C0 /* DrawValueVC.xib */,
 				B6C90AFA23104FB800C743C0 /* SpeakValueVC.xib */,
 				B6C90AF323104CD400C743C0 /* TypeValueVC.xib */,
+				E07463DF2319BA5400816843 /* AnimationVC.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6C90AF523104CD400C743C0 /* TypeValueVC.xib in Resources */,
+				E07463E12319BA5400816843 /* AnimationVC.xib in Resources */,
 				B6C90B002310539200C743C0 /* ShoppingVC.xib in Resources */,
 				B6C90AFC23104FB800C743C0 /* SpeakValueVC.xib in Resources */,
 				B65F7BE5230F2BB60097CDA7 /* LaunchScreen.storyboard in Resources */,
@@ -328,6 +332,7 @@
 				B6C90B0B2314869D00C743C0 /* Enums.swift in Sources */,
 				BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */,
 				BCF43D8A2319950500023B2D /* Templates.swift in Sources */,
+				E07463E02319BA5400816843 /* AnimationVC.swift in Sources */,
 				BCF43D8E23199F9C00023B2D /* Helpers.swift in Sources */,
 				BCF43D7E23198CF200023B2D /* StrokeView.swift in Sources */,
 				B6C90B0923147D8200C743C0 /* SegmentedStackView.swift in Sources */,
@@ -336,7 +341,6 @@
 				E07463DB2319986600816843 /* SpeakInputView.swift in Sources */,
 				B6C90B0F231590E300C743C0 /* Extensions.swift in Sources */,
 				CB9ED8012317154100E542BB /* ImageButton.swift in Sources */,
-				E07463DD23199C3B00816843 /* DoneButton.swift in Sources */,
 				B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */,
 				B6C90AF823104DDB00C743C0 /* CDManager.swift in Sources */,
 				B6C90AEC23104C8B00C743C0 /* VoiceListVC.swift in Sources */,

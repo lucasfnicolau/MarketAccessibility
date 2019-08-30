@@ -35,6 +35,14 @@
 		B6C90B0F231590E300C743C0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90B0E231590E300C743C0 /* Extensions.swift */; };
 		BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */; };
 		BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */; };
+		BCF43D7C23198C1800023B2D /* DrawInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D7B23198C1800023B2D /* DrawInputView.swift */; };
+		BCF43D7E23198CF200023B2D /* StrokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D7D23198CF200023B2D /* StrokeView.swift */; };
+		BCF43D8223198D1100023B2D /* OneDollar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D8123198D1100023B2D /* OneDollar.swift */; };
+		BCF43D8423198DAB00023B2D /* ShoppingVCOneDollar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D8323198DAB00023B2D /* ShoppingVCOneDollar.swift */; };
+		BCF43D8723198EAF00023B2D /* JSONTemplate+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D8523198EAF00023B2D /* JSONTemplate+CoreDataClass.swift */; };
+		BCF43D8823198EAF00023B2D /* JSONTemplate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D8623198EAF00023B2D /* JSONTemplate+CoreDataProperties.swift */; };
+		BCF43D8A2319950500023B2D /* Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D892319950400023B2D /* Templates.swift */; };
+		BCF43D8E23199F9C00023B2D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D8D23199F9C00023B2D /* Helpers.swift */; };
 		CB9ED8012317154100E542BB /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9ED8002317154100E542BB /* ImageButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +77,14 @@
 		B6C90B0E231590E300C743C0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyCollectionCell.swift; sourceTree = "<group>"; };
 		BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputedMoneyCollectionCell.swift; sourceTree = "<group>"; };
+		BCF43D7B23198C1800023B2D /* DrawInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawInputView.swift; sourceTree = "<group>"; };
+		BCF43D7D23198CF200023B2D /* StrokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrokeView.swift; sourceTree = "<group>"; };
+		BCF43D8123198D1100023B2D /* OneDollar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneDollar.swift; sourceTree = "<group>"; };
+		BCF43D8323198DAB00023B2D /* ShoppingVCOneDollar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingVCOneDollar.swift; sourceTree = "<group>"; };
+		BCF43D8523198EAF00023B2D /* JSONTemplate+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONTemplate+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BCF43D8623198EAF00023B2D /* JSONTemplate+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONTemplate+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BCF43D892319950400023B2D /* Templates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Templates.swift; sourceTree = "<group>"; };
+		BCF43D8D23199F9C00023B2D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		CB9ED8002317154100E542BB /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +146,9 @@
 		B6C90ADE23104BFF00C743C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BCF43D8123198D1100023B2D /* OneDollar.swift */,
+				BCF43D8523198EAF00023B2D /* JSONTemplate+CoreDataClass.swift */,
+				BCF43D8623198EAF00023B2D /* JSONTemplate+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -137,6 +156,7 @@
 		B6C90ADF23104C0700C743C0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BCF43D7D23198CF200023B2D /* StrokeView.swift */,
 				B6C90B012310577E00C743C0 /* MoneyButton.swift */,
 				B6C90B062314730F00C743C0 /* MoneyInputView.swift */,
 				B6C90B0823147D8200C743C0 /* SegmentedStackView.swift */,
@@ -144,6 +164,7 @@
 				BC5876042315BB08004D61BB /* MoneyCollectionCell.swift */,
 				BC5876062315CA3A004D61BB /* InputedMoneyCollectionCell.swift */,
 				CB9ED8002317154100E542BB /* ImageButton.swift */,
+				BCF43D7B23198C1800023B2D /* DrawInputView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -157,6 +178,7 @@
 				B6C90AEE23104CBA00C743C0 /* DrawValueVC.swift */,
 				B6C90AF923104FB800C743C0 /* SpeakValueVC.swift */,
 				B6C90AF223104CD400C743C0 /* TypeValueVC.swift */,
+				BCF43D8323198DAB00023B2D /* ShoppingVCOneDollar.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -164,9 +186,11 @@
 		B6C90AE123104C1100C743C0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BCF43D892319950400023B2D /* Templates.swift */,
 				B6C90AF723104DDB00C743C0 /* CDManager.swift */,
 				B6C90B0A2314869D00C743C0 /* Enums.swift */,
 				B6C90B0E231590E300C743C0 /* Extensions.swift */,
+				BCF43D8D23199F9C00023B2D /* Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -288,12 +312,18 @@
 				B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */,
 				B6C90AE423104C6A00C743C0 /* MoneyVC.swift in Sources */,
 				B6C90B022310577E00C743C0 /* MoneyButton.swift in Sources */,
+				BCF43D8423198DAB00023B2D /* ShoppingVCOneDollar.swift in Sources */,
 				B6C90B072314730F00C743C0 /* MoneyInputView.swift in Sources */,
 				B6C90AF423104CD400C743C0 /* TypeValueVC.swift in Sources */,
 				B6C90AFF2310539200C743C0 /* ShoppingVC.swift in Sources */,
 				B6C90AF023104CBA00C743C0 /* DrawValueVC.swift in Sources */,
+				BCF43D7C23198C1800023B2D /* DrawInputView.swift in Sources */,
+				BCF43D8223198D1100023B2D /* OneDollar.swift in Sources */,
 				B6C90B0B2314869D00C743C0 /* Enums.swift in Sources */,
 				BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */,
+				BCF43D8A2319950500023B2D /* Templates.swift in Sources */,
+				BCF43D8E23199F9C00023B2D /* Helpers.swift in Sources */,
+				BCF43D7E23198CF200023B2D /* StrokeView.swift in Sources */,
 				B6C90B0923147D8200C743C0 /* SegmentedStackView.swift in Sources */,
 				BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */,
 				B6C90B0D231488A100C743C0 /* SegmentedStackButton.swift in Sources */,
@@ -302,6 +332,8 @@
 				B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */,
 				B6C90AF823104DDB00C743C0 /* CDManager.swift in Sources */,
 				B6C90AEC23104C8B00C743C0 /* VoiceListVC.swift in Sources */,
+				BCF43D8823198EAF00023B2D /* JSONTemplate+CoreDataProperties.swift in Sources */,
+				BCF43D8723198EAF00023B2D /* JSONTemplate+CoreDataClass.swift in Sources */,
 				B6C90AFB23104FB800C743C0 /* SpeakValueVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,7 +481,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 87G2Y58K9U;
+				DEVELOPMENT_TEAM = V894BS73ZJ;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -468,7 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 87G2Y58K9U;
+				DEVELOPMENT_TEAM = V894BS73ZJ;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

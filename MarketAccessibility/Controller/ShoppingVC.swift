@@ -16,6 +16,7 @@ protocol ShoppingVCDelegate: class {
 class ShoppingVC: UIViewController, ShoppingVCDelegate {
 
     var drawInputView: DrawInputView!
+    var speakInputView: SpeakInputView!
     @IBOutlet weak var moneyValueLabel: UILabel!
     
     override func viewDidLoad() {
@@ -26,19 +27,19 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     
     func setDrawInput() {
         
-        drawInputView = DrawInputView(frame: .zero)
-        drawInputView.shoppingVCDelegate = self
-        drawInputView.backgroundColor = UIColor.App.background
+        speakInputView = SpeakInputView(frame: .zero)
+        speakInputView.shoppingVCDelegate = self
+        speakInputView.backgroundColor = UIColor.App.background
         
-        self.view.addSubview(drawInputView)
+        self.view.addSubview(speakInputView)
         
-        drawInputView.translatesAutoresizingMaskIntoConstraints = false
+        speakInputView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             
-            drawInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            drawInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            drawInputView.heightAnchor.constraint(equalToConstant: 250),
-            drawInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            speakInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            speakInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            speakInputView.heightAnchor.constraint(equalToConstant: 250),
+            speakInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])
         moneyValueLabel.text = "\(0)"

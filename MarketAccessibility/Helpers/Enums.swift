@@ -18,6 +18,8 @@ enum Identifier: String {
     case moneyCollectionCell
     case inputedMoneyCollectionCell
     case ptBr = "pt-BR"
+    case microphoneOn = "btn_mic_outline"
+    case microphoneOff = "btn_mic_filled"
 }
 
 enum Entity: String {
@@ -36,3 +38,4 @@ enum Number: String {
     case eight = "OITO"
     case nine = "NOVE"
 }
+

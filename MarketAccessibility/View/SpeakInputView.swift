@@ -6,6 +6,7 @@
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
 // swiftlint:disable trailing_whitespace
+// swiftlint:disable identifier_name
 
 import Foundation
 import UIKit
@@ -101,9 +102,8 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
             
             if result != nil {
                 
-                self.shoppingVCDelegate.updateLabel(withValue: result?.bestTranscription.formattedString
-                    ?? Number.zero.rawValue)
                 guard let result = result else { return }
+                self.checkTextRecognized(text: result.bestTranscription.formattedString)
                 isFinal = result.isFinal
             }
             
@@ -132,6 +132,28 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
             print("audioEngine couldn't start because of an error.")
         }
         
+    }
+    
+    func checkTextRecognized(text: String) {
+        var finalText = ""
+        var words = text.split(separator: " ")
+        for i in 0 ..< words.count {
+            words[i] = getNumberFrom(string: String(words[i]).uppercased())
+            
+            if words[i].starts(with: "R$") {
+                finalText = "\(words[i].replacingOccurrences(of: "R$", with: "R$ "))"
+                break
+            } else if words[i].contains(",") {
+                let numbers = words[i].split(separator: ",")
+                if numbers.count == 2 && Int(numbers[0]) != nil
+                    && Int(numbers[1]) != nil {
+                    finalText = "R$ \(numbers[0]),\(numbers[1])"
+                    break
+                }
+            }
+        }
+        
+        self.shoppingVCDelegate.updateLabel(withValue: finalText)
     }
     
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {

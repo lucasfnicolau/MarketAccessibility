@@ -23,7 +23,7 @@ public class StrokeView: UIView {
     override init(frame: CGRect) {
         drawPath = UIBezierPath()
         super.init(frame: frame)
-        self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = UIColor.App.money
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -86,5 +86,12 @@ public class StrokeView: UIView {
         ctx.setStrokeColor(UIColor.App.white.cgColor)
         ctx.addPath(self.drawPath.cgPath)
         ctx.strokePath()
+    }
+    
+    func resetPoints() {
+        self.drawPath = UIBezierPath()
+        self.activePoints.removeAll()
+        self.drawPath.move(to: CGPoint.zero)
+        self.setNeedsDisplay()
     }
 }

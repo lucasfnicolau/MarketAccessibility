@@ -97,10 +97,14 @@ class DrawInputView: UIView {
                 if drawView == self.ceduleDrawView {
                     if !self.cedulesArray.isEmpty || template?.name != Number.zero.rawValue {
                         self.cedulesArray.append(getNumberFrom(string: template?.name ?? Number.zero.rawValue))
+                        
+                        self.ceduleDrawView.resetPoints()
                     }
                 } else {
                     if self.coinsArray.count < 2 {
                         self.coinsArray.append(getNumberFrom(string: template?.name ?? Number.zero.rawValue))
+                        
+                        self.coinDrawView.resetPoints()
                     }
                 }
                 self.calculateValue()
@@ -132,7 +136,7 @@ class DrawInputView: UIView {
     func loadTemplates() {
         defaults = UserDefaults()
         guard let defaults = defaults else { return }
-        appHasBeenOpenedBefore = defaults.bool(forKey: "theAppHasBeenOpenedBefore")
+        appHasBeenOpenedBefore = defaults.bool(forKey: Key.appHasBeenOpenedBefore.rawValue)
         
         if !appHasBeenOpenedBefore {
             for template in originalTemplates {
@@ -142,6 +146,7 @@ class DrawInputView: UIView {
                 jsonModel.content = template
                 getAppDelegate().saveContext()
             }
+            defaults.set(true, forKey: Key.appHasBeenOpenedBefore.rawValue)
         }
         
         loadedTemplates = []

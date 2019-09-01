@@ -5,8 +5,8 @@
 //  Created by Lucas Fernandez Nicolau on 26/08/19.
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
-// s wiftlint:disable trailing_whitespace
-
+// swiftlint:disable trailing_whitespace
+    
 import Foundation
 
 enum SegmentedStackOption: String {
@@ -18,8 +18,6 @@ enum Identifier: String {
     case moneyCollectionCell
     case inputedMoneyCollectionCell
     case ptBr = "pt-BR"
-    case microphoneOn = "btn_mic_outline"
-    case microphoneOff = "btn_mic_filled"
 }
 
 enum Entity: String {
@@ -39,3 +37,17 @@ enum Number: String {
     case nine = "NOVE"
 }
 
+enum Image: String {
+    case microphoneOn = "btn_mic_outline"
+    case microphoneOff = "btn_mic_filled"
+//    case
+}
+
+enum KeyPath: String {
+    case strokeEnd
+}
+
+enum Key: String {
+    case checkAnim
+    case appHasBeenOpenedBefore
+}

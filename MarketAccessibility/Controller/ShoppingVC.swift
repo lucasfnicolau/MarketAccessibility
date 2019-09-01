@@ -15,38 +15,204 @@ protocol ShoppingVCDelegate: class {
 
 class ShoppingVC: UIViewController, ShoppingVCDelegate {
 
+    @IBOutlet weak var moneyValueLabel: UILabel!
+    
+    var genericInputView: UIView!
     var drawInputView: DrawInputView!
     var speakInputView: SpeakInputView!
-    @IBOutlet weak var moneyValueLabel: UILabel!
+    var optionsStackView: UIStackView!
+    var drawInputButton: UIButton!
+    var speakInputButton: UIButton!
+    var selectedInputView: UIView!
+    var inputedMoneyStr = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "VALOR TOTAL"
+        
+        setInputView()
+        moneyValueLabel.text = "R$ 0,00"
+        setStackView()
+        setSpeakInputView()
         setDrawInput()
+        setFlowStackView()
+        selectedInputView = drawInputView
+        speakInputView.transform = CGAffineTransform(translationX: 0, y: 1000)
     }
     
-    func setDrawInput() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: UIColor.App.shopping
+        ]
+        navigationController?.navigationBar.titleTextAttributes = attrs
+    }
+    
+    func setInputView() {
+        genericInputView = UIView(frame: .zero)
+        self.view.addSubview(genericInputView)
+        genericInputView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            genericInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            genericInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            genericInputView.heightAnchor.constraint(equalToConstant: 250),
+            genericInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+    }
+    
+    func setStackView() {
+        drawInputButton = UIButton(frame: .zero)
+        drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
+        drawInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
+        drawInputButton.tintColor = UIColor.App.segmentedSelected
         
+        speakInputButton = UIButton(frame: .zero)
+        speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
+        speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
+        speakInputButton.tintColor = UIColor.App.segmentedUnselected
+        
+        optionsStackView = UIStackView(arrangedSubviews: [drawInputButton, speakInputButton])
+        optionsStackView.alignment = .fill
+        optionsStackView.axis = .horizontal
+        optionsStackView.distribution = .equalSpacing
+        
+        self.view.addSubview(optionsStackView)
+        
+        optionsStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            drawInputButton.widthAnchor.constraint(equalToConstant: 42),
+            drawInputButton.heightAnchor.constraint(equalToConstant: 35),
+            
+            speakInputButton.widthAnchor.constraint(equalToConstant: 28),
+            speakInputButton.heightAnchor.constraint(equalToConstant: 35),
+            
+            optionsStackView.bottomAnchor.constraint(equalTo: genericInputView.topAnchor, constant: -8),
+            optionsStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
+            optionsStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
+            optionsStackView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
+    func setSpeakInputView() {
         speakInputView = SpeakInputView(frame: .zero)
         speakInputView.shoppingVCDelegate = self
         speakInputView.backgroundColor = UIColor.App.background
         
-        self.view.addSubview(speakInputView)
+        genericInputView.addSubview(speakInputView)
         
         speakInputView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             
-            speakInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            speakInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            speakInputView.leftAnchor.constraint(equalTo: genericInputView.leftAnchor),
+            speakInputView.rightAnchor.constraint(equalTo: genericInputView.rightAnchor),
             speakInputView.heightAnchor.constraint(equalToConstant: 250),
-            speakInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            speakInputView.bottomAnchor.constraint(equalTo: genericInputView.bottomAnchor)
             
             ])
-        moneyValueLabel.text = "\(0)"
+    }
+    
+    func setDrawInput() {
+        drawInputView = DrawInputView(frame: .zero)
+        drawInputView.shoppingVCDelegate = self
+        drawInputView.backgroundColor = UIColor.App.background
+        
+        genericInputView.addSubview(drawInputView)
+        
+        drawInputView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            
+            drawInputView.leftAnchor.constraint(equalTo: genericInputView.leftAnchor),
+            drawInputView.rightAnchor.constraint(equalTo: genericInputView.rightAnchor),
+            drawInputView.heightAnchor.constraint(equalToConstant: 250),
+            drawInputView.bottomAnchor.constraint(equalTo: genericInputView.bottomAnchor)
+            
+            ])
     }
     
     func updateLabel(withValue value: String) {
         self.moneyValueLabel.text = value
     }
+    
+    @objc func inputOptionSelected(_ sender: UIButton) {
+        if sender == drawInputButton && selectedInputView != drawInputView {
+            selectedInputView = drawInputView
+            
+            drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
+            drawInputButton.tintColor = UIColor.App.segmentedSelected
+            
+            speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
+            speakInputButton.tintColor = UIColor.App.segmentedUnselected
+            
+            changeInputView(viewToHide: speakInputView, viewToAppear: drawInputView)
+        } else if sender == speakInputButton && selectedInputView != speakInputButton {
+            selectedInputView = speakInputView
+            
+            drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_outline").withRenderingMode(.alwaysTemplate), for: .normal)
+            drawInputButton.tintColor = UIColor.App.segmentedUnselected
+            
+            speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_filled").withRenderingMode(.alwaysTemplate), for: .normal)
+            speakInputButton.tintColor = UIColor.App.segmentedSelected
+            
+            changeInputView(viewToHide: drawInputView, viewToAppear: speakInputView)
+        }
+    }
+    
+    func changeInputView(viewToHide: UIView, viewToAppear: UIView) {
+        UIView.animate(withDuration: 0.25, animations: {
+            viewToHide.transform = CGAffineTransform(translationX: 0, y: 1000)
+        }, completion: { (_) in
+            UIView.animate(withDuration: 0.25, animations: {
+                viewToAppear.transform = CGAffineTransform(translationX: 0, y: 0)
+            })
+        })
+    }
 
+    @objc func confirmAndMoveOn() {
+        guard let text = moneyValueLabel.text else { return }
+        if text.contains("R$") {
+            let changeVC = ChangeVC()
+            changeVC.inputedMoneyStr = inputedMoneyStr
+            changeVC.totalValueStr = text
+            navigationController?.pushViewController(changeVC, animated: true)
+        }
+    }
+    
+    @objc func stopAndMoveBack() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func setFlowStackView() {
+        let backBtn = UIButton(frame: .zero)
+        backBtn.setImage(#imageLiteral(resourceName: "back_2"), for: .normal)
+        backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
+        
+        let continueBtn = UIButton(frame: .zero)
+        continueBtn.setImage(#imageLiteral(resourceName: "continue_2"), for: .normal)
+        continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
+        
+        let stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
+        
+        self.view.addSubview(stackView)
+        
+        guard let imageSize = continueBtn.imageView?.image?.size else { return }
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
+            backBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
+            
+            continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
+            continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
+            
+            stackView.bottomAnchor.constraint(equalTo: optionsStackView.topAnchor, constant: -16),
+            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
+            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
+            stackView.heightAnchor.constraint(equalToConstant: 40)
+            ])
+        
+        stackView.alignment = .center
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+    }
 }

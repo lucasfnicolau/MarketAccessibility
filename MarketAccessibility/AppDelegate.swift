@@ -17,14 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let navigationController = UINavigationController.init()
     let mainVC = MoneyVC.init()
     let shoppingVC = ShoppingVC.init()
-//    let animationVC = AnimationVC.init()
+    let animationVC = AnimationVC.init()
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         mainVC.title = "MEU DINHEIRO"
+        shoppingVC.title = "VALOR DA COMPRA"
 
-        navigationController.viewControllers = [shoppingVC]
+        navigationController.viewControllers = [mainVC]
 
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController

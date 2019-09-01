@@ -87,4 +87,11 @@ public class StrokeView: UIView {
         ctx.addPath(self.drawPath.cgPath)
         ctx.strokePath()
     }
+    
+    func resetPoints() {
+        self.drawPath = UIBezierPath()
+        self.activePoints.removeAll()
+        self.drawPath.move(to: CGPoint.zero)
+        self.setNeedsDisplay()
+    }
 }

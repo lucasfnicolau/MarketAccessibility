@@ -23,8 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         mainVC.title = "MEU DINHEIRO"
+        shoppingVC.title = "VALOR DA COMPRA"
 
-        navigationController.viewControllers = [animationVC]
+        navigationController.viewControllers = [mainVC]
 
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController

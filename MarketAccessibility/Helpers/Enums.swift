@@ -42,3 +42,12 @@ enum Image: String {
     case microphoneOff = "btn_mic_filled"
 //    case
 }
+
+enum KeyPath: String {
+    case strokeEnd
+}
+
+enum Key: String {
+    case checkAnim
+    case appHasBeenOpenedBefore
+}

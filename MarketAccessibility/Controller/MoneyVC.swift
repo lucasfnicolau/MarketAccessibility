@@ -19,6 +19,7 @@ class MoneyVC: UIViewController {
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: MoneyVCCollectionHandler!
+    var continueBtn: UIButton!
 
     @IBOutlet weak var moneyValueLabel: UILabel!
 
@@ -34,13 +35,31 @@ class MoneyVC: UIViewController {
 
         setMoneyInput()
         setInputedMoneyCollectionView()
+        setContinueBtn()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
         inputedMoneyCollectionView.dataSource = collectionViewHandler
 
         collectionViewHandler.calculateValue()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: UIColor.App.money
+        ]
+        navigationController?.navigationBar.titleTextAttributes = attrs
+    }
 
+    @objc func confirmAndMoveOn() {
+        guard let text = moneyValueLabel.text else { return }
+        if text != "R$ 0,00" {
+            let animationVC = AnimationVC()
+            animationVC.inputedMoneyStr = text
+            navigationController?.pushViewController(animationVC, animated: true)
+        }
+    }
+    
     @objc func reset() {
         collectionViewHandler.inputedMoney = []
         inputedMoneyCollectionView.reloadData()
@@ -69,6 +88,7 @@ class MoneyVC: UIViewController {
     }
 
     func setInputedMoneyCollectionView() {
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         inputedMoneyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -86,6 +106,24 @@ class MoneyVC: UIViewController {
             inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: 8)
 
             ])
+    }
+    
+    func setContinueBtn() {
+        continueBtn = UIButton(frame: .zero)
+        continueBtn.setImage(#imageLiteral(resourceName: "continue_1"), for: .normal)
+        continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
+        
+        self.view.addSubview(continueBtn)
+        
+        guard let imageSize = continueBtn.imageView?.image?.size else { return }
+        
+        continueBtn.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            continueBtn.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -16),
+            continueBtn.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
+            continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5)
+        ])
     }
 
 }

@@ -56,6 +56,7 @@ class MoneyVC: UIViewController {
         if text != "R$ 0,00" {
             let animationVC = AnimationVC()
             animationVC.inputedMoneyStr = text
+            animationVC.inputedMoney = collectionViewHandler.inputedMoney
             navigationController?.pushViewController(animationVC, animated: true)
         }
     }

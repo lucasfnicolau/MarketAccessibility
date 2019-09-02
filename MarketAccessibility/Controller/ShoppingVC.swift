@@ -25,6 +25,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     var speakInputButton: UIButton!
     var selectedInputView: UIView!
     var inputedMoneyStr = ""
+    var inputedMoney = [Float]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,12 +66,12 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         drawInputButton = UIButton(frame: .zero)
         drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
         drawInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
-        drawInputButton.tintColor = UIColor.App.segmentedSelected
+        drawInputButton.tintColor = UIColor.App.shopping
         
         speakInputButton = UIButton(frame: .zero)
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
-        speakInputButton.tintColor = UIColor.App.segmentedUnselected
+        speakInputButton.tintColor = UIColor.App.shopping
         
         optionsStackView = UIStackView(arrangedSubviews: [drawInputButton, speakInputButton])
         optionsStackView.alignment = .fill
@@ -139,7 +140,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             selectedInputView = drawInputView
             
             drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
-            drawInputButton.tintColor = UIColor.App.segmentedSelected
+            drawInputButton.tintColor = UIColor.App.shopping
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
             speakInputButton.tintColor = UIColor.App.segmentedUnselected
@@ -152,7 +153,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             drawInputButton.tintColor = UIColor.App.segmentedUnselected
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_filled").withRenderingMode(.alwaysTemplate), for: .normal)
-            speakInputButton.tintColor = UIColor.App.segmentedSelected
+            speakInputButton.tintColor = UIColor.App.shopping
             
             changeInputView(viewToHide: drawInputView, viewToAppear: speakInputView)
         }
@@ -171,10 +172,11 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
         if text.contains("R$") {
-            let changeVC = ChangeVC()
-            changeVC.inputedMoneyStr = inputedMoneyStr
-            changeVC.totalValueStr = text
-            navigationController?.pushViewController(changeVC, animated: true)
+            let howToPayVC = HowToPayVC()
+            howToPayVC.inputedMoneyStr = inputedMoneyStr
+            howToPayVC.inputedMoney = inputedMoney
+            howToPayVC.totalValue = text
+            navigationController?.pushViewController(howToPayVC, animated: true)
         }
     }
     

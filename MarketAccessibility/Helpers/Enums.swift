@@ -40,7 +40,6 @@ enum Number: String {
 enum Image: String {
     case microphoneOn = "btn_mic_outline"
     case microphoneOff = "btn_mic_filled"
-//    case
 }
 
 enum KeyPath: String {

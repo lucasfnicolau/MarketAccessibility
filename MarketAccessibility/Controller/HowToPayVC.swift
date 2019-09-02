@@ -18,11 +18,17 @@ class HowToPayVC: UIViewController {
     var totalValue = ""
     var inputedMoney = [Float]()
     var paymentMoney = [Float]()
+    var payment = [Float]()
+    var stackView: UIStackView!
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var moneyCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "COMO PAGAR"
+        
+        setStackView()
         
         guard let totalValueFloat = Float(totalValue.replacingOccurrences(of: "R$ ", with: "")
             .replacingOccurrences(of: ",", with: ".")) else { return }
@@ -37,11 +43,33 @@ class HowToPayVC: UIViewController {
         moneyCollectionView.register(HowToPayCollectionCell.self,
                                      forCellWithReuseIdentifier: Identifier.howToPayCollectionCell.rawValue)
         
-        let payment = calculatePayment(fromValues: inputedMoney, atIndex: 0)
+        payment = calculatePayment(fromValues: inputedMoney, atIndex: 0)
         moneyValueLabel.text = "R$ \(calculateValue(fromArray: payment))".replacingOccurrences(of: ".", with: ",")
+        
+        setCollectionViewConstraints()
         
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: UIColor.App.shopping
+        ]
+        navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.hidesBackButton = true
+    }
+    
+    func setCollectionViewConstraints() {
+        moneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            moneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
+            moneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
+            moneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
+            moneyCollectionView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -16)
+        ])
     }
     
     func calculatePayment(fromValues values: [Float], atIndex index: Int) -> [Float] {
@@ -89,14 +117,10 @@ class HowToPayVC: UIViewController {
     }
     
     @objc func confirmAndMoveOn() {
-        guard let text = moneyValueLabel.text else { return }
-        if text.contains("R$") {
-            let changeVC = ChangeVC()
-            changeVC.inputedMoneyStr = inputedMoneyStr
-            changeVC.totalValueStr = text
-            
-            navigationController?.pushViewController(changeVC, animated: true)
-        }
+        let changeVC = ChangeVC()
+        changeVC.inputedMoney = calculateValue(fromArray: payment)
+        changeVC.totalValue = totalValueFloat
+        navigationController?.pushViewController(changeVC, animated: true)
     }
     
     func calculateValue(fromArray array: [Float]) -> Float {
@@ -107,5 +131,43 @@ class HowToPayVC: UIViewController {
         }
         
         return total
+    }
+    
+    @objc func stopAndMoveBack() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func setStackView() {
+        let backBtn = UIButton(frame: .zero)
+        backBtn.setImage(#imageLiteral(resourceName: "back_2"), for: .normal)
+        backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
+        
+        let continueBtn = UIButton(frame: .zero)
+        continueBtn.setImage(#imageLiteral(resourceName: "continue_2"), for: .normal)
+        continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
+        
+        stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
+        
+        self.view.addSubview(stackView)
+        
+        guard let imageSize = continueBtn.imageView?.image?.size else { return }
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
+            backBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
+            
+            continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
+            continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
+            
+            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100),
+            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
+            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
+            stackView.heightAnchor.constraint(equalToConstant: 40)
+            ])
+        
+        stackView.alignment = .center
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
     }
 }

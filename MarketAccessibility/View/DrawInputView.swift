@@ -47,7 +47,8 @@ class DrawInputView: UIView {
     func setConstraints() {
         let commaLabel = UILabel(frame: .zero)
         commaLabel.text = ","
-        commaLabel.font = commaLabel.font.withSize(70)
+        commaLabel.font = commaLabel.font.withSize(80)
+        commaLabel.textColor = UIColor.App.segmentedUnselected
         
         let stackView = UIStackView(arrangedSubviews: [
             ceduleDrawView, commaLabel, coinDrawView

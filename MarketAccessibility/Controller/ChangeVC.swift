@@ -12,21 +12,42 @@ import UIKit
 class ChangeVC: UIViewController {
     
     @IBOutlet weak var moneyValueLabel: UILabel!
-    var inputedMoneyStr: String = ""
-    var totalValueStr: String = ""
+    var moneyInputView: MoneyInputView!
+    var inputedMoneyCollectionView: UICollectionView!
+    var collectionViewHandler: ChangeVCCollectionHandler!
+    var inputedMoney: Float = 0
+    var totalValue: Float = 0
+    var stackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setFlowStackView()
-        
-        guard let inputedMoney = Float(inputedMoneyStr.replacingOccurrences(of: "R$ ", with: "")
-            .replacingOccurrences(of: ",", with: ".")) else { return }
-        guard let totalValue = Float(totalValueStr.replacingOccurrences(of: "R$ ", with: "")
-            .replacingOccurrences(of: ",", with: ".")) else { return }
-        
         let change = inputedMoney - totalValue
-        moneyValueLabel.text = "R$ \(change)".replacingOccurrences(of: ".", with: ",")
+        
+        navigationItem.title = "TROCO: R$ \(String(change).replacingOccurrences(of: ".", with: ","))"
+        
+        collectionViewHandler = ChangeVCCollectionHandler()
+        collectionViewHandler.parentVC = self
+        
+        setMoneyInput()
+        setFlowStackView()
+        setInputedMoneyCollectionView()
+        
+        inputedMoneyCollectionView.delegate = collectionViewHandler
+        inputedMoneyCollectionView.dataSource = collectionViewHandler
+        
+        collectionViewHandler.calculateValue()
+        moneyValueLabel.text = navigationItem.title
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: UIColor.App.shopping
+        ]
+        navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.hidesBackButton = true
     }
     
     @objc func confirmAndMoveOn() {
@@ -48,7 +69,7 @@ class ChangeVC: UIViewController {
         continueBtn.setImage(#imageLiteral(resourceName: "continue_2"), for: .normal)
         continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
         
-        let stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
+        stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
         
         self.view.addSubview(stackView)
         
@@ -72,4 +93,53 @@ class ChangeVC: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
     }
+    
+    @objc func reset() {
+        collectionViewHandler.inputedMoney = []
+        inputedMoneyCollectionView.reloadData()
+        collectionViewHandler.calculateValue()
+    }
+    
+    func setMoneyInput() {
+        
+        moneyInputView = MoneyInputView(frame: .zero)
+        moneyInputView.moneyVCDelegate = collectionViewHandler
+        moneyInputView.backgroundColor = UIColor.App.background
+        
+        self.view.addSubview(moneyInputView)
+        
+        moneyInputView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            
+            moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            moneyInputView.heightAnchor.constraint(equalToConstant: 250),
+            moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            
+            ])
+        moneyValueLabel.text = "R$ 0,00"
+        
+    }
+    
+    func setInputedMoneyCollectionView() {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        inputedMoneyCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        inputedMoneyCollectionView.backgroundColor = .clear
+        inputedMoneyCollectionView.register(InputedMoneyCollectionCell.self,
+                                            forCellWithReuseIdentifier: Identifier.inputedMoneyCollectionCell.rawValue)
+        inputedMoneyCollectionView.delaysContentTouches = false
+        self.view.addSubview(inputedMoneyCollectionView)
+        
+        inputedMoneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
+            inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
+            inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
+            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -16)
+            
+            ])
+    }
+
 }

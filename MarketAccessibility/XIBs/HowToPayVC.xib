@@ -22,13 +22,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO8-Pl-qPP">
-                    <rect key="frame" x="16" y="164" width="382" height="41"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                    <rect key="frame" x="16" y="94" width="382" height="54"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="45"/>
                     <color key="textColor" red="0.59999999999999998" green="0.50588235290000005" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hB4-7A-iRl">
-                    <rect key="frame" x="0.0" y="213" width="414" height="649"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hB4-7A-iRl">
+                    <rect key="frame" x="0.0" y="156" width="414" height="706"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Yqn-vs-9uL">
                         <size key="itemSize" width="50" height="50"/>
@@ -40,13 +41,9 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="hB4-7A-iRl" firstAttribute="top" secondItem="QO8-Pl-qPP" secondAttribute="bottom" constant="8" id="1dg-sl-lqm"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hB4-7A-iRl" secondAttribute="trailing" id="6aT-b8-X1D"/>
-                <constraint firstItem="QO8-Pl-qPP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="120" id="Bax-Z5-MVO"/>
+                <constraint firstItem="QO8-Pl-qPP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="Bax-Z5-MVO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QO8-Pl-qPP" secondAttribute="trailing" constant="16" id="EqE-0r-M1h"/>
-                <constraint firstItem="hB4-7A-iRl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Exc-Qe-Kmc"/>
                 <constraint firstItem="QO8-Pl-qPP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Vtg-5M-oJB"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hB4-7A-iRl" secondAttribute="bottom" id="m6e-nD-gr2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>

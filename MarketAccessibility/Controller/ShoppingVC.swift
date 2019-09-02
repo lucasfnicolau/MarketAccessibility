@@ -48,6 +48,8 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             NSAttributedString.Key.foregroundColor: UIColor.App.shopping
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.hidesBackButton = true
     }
     
     func setInputView() {

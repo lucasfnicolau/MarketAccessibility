@@ -14,6 +14,7 @@ class AnimationVC: UIViewController {
     var animationList: [UIImage] = []
     var step = 0
     var inputedMoneyStr = ""
+    var inputedMoney = [Float]()
 
     override func viewDidLoad() {
         view.backgroundColor = UIColor.App.money
@@ -38,6 +39,7 @@ class AnimationVC: UIViewController {
     @objc func confirmAndMoveOn() {
         let shoppingVC = ShoppingVC()
         shoppingVC.inputedMoneyStr = inputedMoneyStr
+        shoppingVC.inputedMoney = inputedMoney
         navigationController?.pushViewController(shoppingVC, animated: true)
     }
     

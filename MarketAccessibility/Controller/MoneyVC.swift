@@ -83,7 +83,7 @@ class MoneyVC: UIViewController {
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
 
             ])
-        moneyValueLabel.text = "\(0)"
+        moneyValueLabel.text = "R$ 0,00"
 
     }
 

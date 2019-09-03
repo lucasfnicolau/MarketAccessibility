@@ -34,7 +34,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "VALOR TOTAL"
+        navigationItem.title = "VALOR DA COMPRA"
         
         setInputView()
         moneyValueLabel.text = "R$ 0,00"

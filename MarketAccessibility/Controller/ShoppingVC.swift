@@ -209,7 +209,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
             continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
             
-            stackView.bottomAnchor.constraint(equalTo: optionsStackView.topAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: optionsStackView.topAnchor, constant: -8),
             stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
             stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
             stackView.heightAnchor.constraint(equalToConstant: 40)

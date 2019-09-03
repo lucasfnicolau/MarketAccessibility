@@ -17,6 +17,8 @@ class ChangeVC: UIViewController {
     var collectionViewHandler: ChangeVCCollectionHandler!
     var inputedMoney: Float = 0
     var totalValue: Float = 0
+    var continueBtn: UIButton!
+    var backBtn: UIButton!
     var stackView: UIStackView!
     
     override func viewDidLoad() {
@@ -61,11 +63,11 @@ class ChangeVC: UIViewController {
     }
     
     func setFlowStackView() {
-        let backBtn = UIButton(frame: .zero)
+        backBtn = UIButton(frame: .zero)
         backBtn.setImage(#imageLiteral(resourceName: "back_2"), for: .normal)
         backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
         
-        let continueBtn = UIButton(frame: .zero)
+        continueBtn = UIButton(frame: .zero)
         continueBtn.setImage(#imageLiteral(resourceName: "continue_2"), for: .normal)
         continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
         
@@ -77,13 +79,14 @@ class ChangeVC: UIViewController {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            
             backBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
             backBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
             
             continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
             continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
             
-            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100),
+            stackView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -8),
             stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
             stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
             stackView.heightAnchor.constraint(equalToConstant: 40)
@@ -137,7 +140,7 @@ class ChangeVC: UIViewController {
             inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -16)
+            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: continueBtn.topAnchor, constant: -8)
             
             ])
     }

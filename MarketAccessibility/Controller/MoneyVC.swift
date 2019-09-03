@@ -106,7 +106,7 @@ class MoneyVC: UIViewController {
             inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: continueBtn.topAnchor, constant: -16)
+            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: continueBtn.topAnchor, constant: -8)
 
             ])
     }
@@ -122,8 +122,8 @@ class MoneyVC: UIViewController {
         
         continueBtn.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            continueBtn.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -16),
-            continueBtn.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            continueBtn.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -8),
+            continueBtn.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8),
             continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
             continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5)
         ])

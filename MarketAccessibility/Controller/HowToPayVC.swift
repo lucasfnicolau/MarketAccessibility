@@ -68,7 +68,7 @@ class HowToPayVC: UIViewController {
             moneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
             moneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             moneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            moneyCollectionView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -16)
+            moneyCollectionView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -8)
         ])
     }
     

@@ -21,3 +21,37 @@ extension UIColor {
         static var white: UIColor { return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) }
     }
 }
+
+extension Float {
+    func roundTo(places: Int) -> Float {
+        let divisor = pow(10.0, Float(places))
+        return (self * divisor).rounded() / divisor
+    }
+}
+
+extension String {
+    func count(occurrencesOf char: Character) -> Int {
+        var count = 0
+        Array(self).forEach { (element) in
+            if element == char {
+                count += 1
+            }
+        }
+        return count
+    }
+    
+//    func floatedString(_ value: Float) -> String {
+//        var value: Float = 0.0
+//        let str = String(format: "%.2f", self)
+//        
+//        if str.count(occurrencesOf: "0") >= 3 {
+//            value = self.rounded(FloatingPointRoundingRule.down)
+//        } else if str.count(occurrencesOf: "9") >= 3 {
+//            value = self.rounded(FloatingPointRoundingRule.up)
+//        } else {
+//            return value
+//        }
+//        
+//        return Float(str) ?? value
+//    }
+}

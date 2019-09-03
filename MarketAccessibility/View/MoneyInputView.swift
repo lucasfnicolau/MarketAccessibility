@@ -89,7 +89,7 @@ class MoneyInputView: UIView {
             moneyCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -64),
 
             segmentedStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            segmentedStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            segmentedStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             segmentedStackView.heightAnchor.constraint(equalToConstant: 30),
             segmentedStackView.widthAnchor.constraint(equalToConstant: 150)
             ])

@@ -12,6 +12,10 @@ import UIKit
 
 class HowToPayVC: UIViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     var collectionViewHandler: HowToPayVCCollectionHandler!
     var inputedMoneyStr = ""
     var totalValueFloat: Float = 0
@@ -32,7 +36,8 @@ class HowToPayVC: UIViewController {
         
         guard let totalValueFloat = Float(totalValue.replacingOccurrences(of: "R$ ", with: "")
             .replacingOccurrences(of: ",", with: ".")) else { return }
-        self.totalValueFloat = totalValueFloat
+        print(String(format: "%.2f", totalValueFloat))
+        self.totalValueFloat = Float(String(format: "%.2f", totalValueFloat)) ?? 0.0
         
         collectionViewHandler = HowToPayVCCollectionHandler()
         collectionViewHandler.parentVC = self
@@ -44,7 +49,8 @@ class HowToPayVC: UIViewController {
                                      forCellWithReuseIdentifier: Identifier.howToPayCollectionCell.rawValue)
         
         payment = calculatePayment(fromValues: inputedMoney, atIndex: 0)
-        moneyValueLabel.text = "R$ \(calculateValue(fromArray: payment))".replacingOccurrences(of: ".", with: ",")
+        moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
+            .replacingOccurrences(of: ".", with: ",")
         
         setCollectionViewConstraints()
         
@@ -80,8 +86,8 @@ class HowToPayVC: UIViewController {
         for i in 0 ..< inputedMoney.count {
             var payment = [Float]()
             
-            payment.append(inputedMoney[i])
-            var sum = inputedMoney[i]
+            payment.append(inputedMoney[i] )
+            var sum = inputedMoney[i].roundTo(places: 2)
             let index = (i <= inputedMoney.count - 1 ? i + 1 : i)
             for j in index ..< inputedMoney.count {
                 if inputedMoney[i] < totalValueFloat {
@@ -89,21 +95,21 @@ class HowToPayVC: UIViewController {
                     payment.append(inputedMoney[j])
                 }
                 
-                if sum >= totalValueFloat {
-                    if calculateValue(fromArray: payment) - totalValueFloat < minDiff {
-                        minDiff = calculateValue(fromArray: payment) - totalValueFloat
+                if sum > totalValueFloat || String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
+                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
                         bestPayment = payment
                         
                         sum = inputedMoney[i]
-                        payment = [inputedMoney[i]]
+                        payment = [inputedMoney[i] ]
                     }
                 }
             }
             
             if index == inputedMoney.count {
-                if sum >= totalValueFloat {
-                    if calculateValue(fromArray: payment) - totalValueFloat < minDiff {
-                        minDiff = calculateValue(fromArray: payment) - totalValueFloat
+                if sum > totalValueFloat || String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
+                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
                         bestPayment = payment
                         
                         sum = inputedMoney[i]

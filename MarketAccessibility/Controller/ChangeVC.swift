@@ -11,6 +11,10 @@ import UIKit
 
 class ChangeVC: UIViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     @IBOutlet weak var moneyValueLabel: UILabel!
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
@@ -25,8 +29,14 @@ class ChangeVC: UIViewController {
         super.viewDidLoad()
         
         let change = inputedMoney - totalValue
+        var changeStr = ""
         
-        navigationItem.title = "TROCO: R$ \(String(change).replacingOccurrences(of: ".", with: ","))"
+        if change <= 0 {
+            changeStr = "R$ 0,00"
+        } else {
+            changeStr = String(format: "R$ %.2f", change).replacingOccurrences(of: ".", with: ",")
+        }
+        navigationItem.title = "TROCO: \(changeStr)"
         
         collectionViewHandler = ChangeVCCollectionHandler()
         collectionViewHandler.parentVC = self
@@ -39,7 +49,6 @@ class ChangeVC: UIViewController {
         inputedMoneyCollectionView.dataSource = collectionViewHandler
         
         collectionViewHandler.calculateValue()
-        moneyValueLabel.text = navigationItem.title
     }
     
     override func viewWillAppear(_ animated: Bool) {

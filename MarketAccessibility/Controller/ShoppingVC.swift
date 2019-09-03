@@ -14,7 +14,11 @@ protocol ShoppingVCDelegate: class {
 }
 
 class ShoppingVC: UIViewController, ShoppingVCDelegate {
-
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     @IBOutlet weak var moneyValueLabel: UILabel!
     
     var genericInputView: UIView!
@@ -176,7 +180,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         if text.contains("R$") {
             let howToPayVC = HowToPayVC()
             howToPayVC.inputedMoneyStr = inputedMoneyStr
-            howToPayVC.inputedMoney = inputedMoney
+            howToPayVC.inputedMoney = round(array: inputedMoney)
             howToPayVC.totalValue = text
             navigationController?.pushViewController(howToPayVC, animated: true)
         }

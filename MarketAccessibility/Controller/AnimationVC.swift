@@ -10,6 +10,10 @@ import UIKit
 
 class AnimationVC: UIViewController {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     @IBOutlet weak var animationOutlet: UIImageView!
     var animationList: [UIImage] = []
     var step = 0

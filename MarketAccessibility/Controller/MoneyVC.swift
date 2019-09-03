@@ -16,6 +16,10 @@ protocol MoneyVCDelegate: class {
 
 class MoneyVC: UIViewController {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: MoneyVCCollectionHandler!

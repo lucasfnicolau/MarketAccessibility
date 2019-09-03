@@ -35,7 +35,7 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
 
     func setRecordButton() {
         recordButton = UIButton(frame: .zero)
-        recordButton.tintColor = UIColor.App.money
+        recordButton.tintColor = UIColor.App.shopping
         self.addSubview(recordButton)
         recordButton.addTarget(self, action: #selector(recordButtonPressed), for: .touchUpInside)
         
@@ -45,7 +45,7 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
             recordButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0),
             recordButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0),
             recordButton.widthAnchor.constraint(equalToConstant: 60),
-            recordButton.heightAnchor.constraint(equalToConstant: 60)
+            recordButton.heightAnchor.constraint(equalToConstant: 80)
             ])
         
         speechRecognizer?.delegate = self

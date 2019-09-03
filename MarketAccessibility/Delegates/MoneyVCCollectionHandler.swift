@@ -36,7 +36,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
 
     func moneySelected(value: Float) {
         inputedMoney.append(value)
-        inputedMoney = inputedMoney.sorted().reversed()
+        inputedMoney = round(array: inputedMoney).sorted().reversed()
         parentVC?.inputedMoneyCollectionView.reloadData()
         calculateValue()
     }
@@ -66,7 +66,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
         var size = CGSize(width: 0, height: 0)
 
         if inputedMoney[indexPath.row] > 1.0 {
-            size = CGSize(width: UIScreen.main.bounds.width / 3 - 10.0, height: 55)
+            size = CGSize(width: UIScreen.main.bounds.width / 3 - 30.0, height: 55)
         } else {
             size = CGSize(width: UIScreen.main.bounds.width / 5 - 10.0,
                           height: UIScreen.main.bounds.width / 5 - 10.0)

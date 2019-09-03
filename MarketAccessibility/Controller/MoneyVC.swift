@@ -16,6 +16,10 @@ protocol MoneyVCDelegate: class {
 
 class MoneyVC: UIViewController {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: MoneyVCCollectionHandler!
@@ -70,7 +74,7 @@ class MoneyVC: UIViewController {
 
     func setMoneyInput() {
 
-        moneyInputView = MoneyInputView(frame: .zero)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.money)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 
@@ -128,4 +132,5 @@ class MoneyVC: UIViewController {
         ])
     }
 
+    @IBAction func unwindToMoneyVC(segue: UIStoryboardSegue) { }
 }

@@ -174,8 +174,8 @@ class DrawInputView: UIView {
                     guard let first = rawPoint.first else { return }
                     guard let last = rawPoint.last else { return }
                     
-                    guard let x = first as? Double else { return }
-                    guard let y = last as? Double else { return }
+                    guard let x = first as? Float else { return }
+                    guard let y = last as? Float else { return }
                     templatePoints.append(StrokePoint(x: x, y: y))
                 }
                 

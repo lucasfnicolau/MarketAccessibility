@@ -187,8 +187,8 @@
 				B6C90AE223104C6A00C743C0 /* MoneyVC.swift */,
 				B6C90AFD2310539200C743C0 /* ShoppingVC.swift */,
 				E07463DE2319BA5400816843 /* AnimationVC.swift */,
-				B65B644C231A391100C83F58 /* ChangeVC.swift */,
 				E0DB60FE231D826E0078247B /* HowToPayVC.swift */,
+				B65B644C231A391100C83F58 /* ChangeVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -211,8 +211,8 @@
 				B6C90AE323104C6A00C743C0 /* MoneyVC.xib */,
 				B6C90AFE2310539200C743C0 /* ShoppingVC.xib */,
 				E07463DF2319BA5400816843 /* AnimationVC.xib */,
-				B65B644D231A391100C83F58 /* ChangeVC.xib */,
 				E0DB60FF231D826E0078247B /* HowToPayVC.xib */,
+				B65B644D231A391100C83F58 /* ChangeVC.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";

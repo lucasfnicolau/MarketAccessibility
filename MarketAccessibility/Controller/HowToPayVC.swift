@@ -95,7 +95,8 @@ class HowToPayVC: UIViewController {
                     payment.append(inputedMoney[j])
                 }
                 
-                if sum > totalValueFloat || String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
+                if sum > totalValueFloat ||
+                    String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
                     if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
                         minDiff = calculateValue(fromArray: payment)  - totalValueFloat
                         bestPayment = payment
@@ -107,7 +108,8 @@ class HowToPayVC: UIViewController {
             }
             
             if index == inputedMoney.count {
-                if sum > totalValueFloat || String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
+                if sum > totalValueFloat ||
+                    String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
                     if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
                         minDiff = calculateValue(fromArray: payment)  - totalValueFloat
                         bestPayment = payment
@@ -149,7 +151,7 @@ class HowToPayVC: UIViewController {
         backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
         
         let continueBtn = UIButton(frame: .zero)
-        continueBtn.setImage(#imageLiteral(resourceName: "continue_2"), for: .normal)
+        continueBtn.setImage(#imageLiteral(resourceName: "continue_3"), for: .normal)
         continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
         
         stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])

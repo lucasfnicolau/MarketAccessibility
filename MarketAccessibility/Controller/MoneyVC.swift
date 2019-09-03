@@ -75,7 +75,7 @@ class MoneyVC: UIViewController {
 
     func setMoneyInput() {
 
-        moneyInputView = MoneyInputView(frame: .zero)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.money)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 
@@ -133,4 +133,5 @@ class MoneyVC: UIViewController {
         ])
     }
 
+    @IBAction func unwindToMoneyVC(segue: UIStoryboardSegue) { }
 }

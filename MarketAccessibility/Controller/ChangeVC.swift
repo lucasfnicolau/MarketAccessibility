@@ -54,7 +54,7 @@ class ChangeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.shopping
+            NSAttributedString.Key.foregroundColor: UIColor.App.change
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -77,7 +77,7 @@ class ChangeVC: UIViewController {
         backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
         
         continueBtn = UIButton(frame: .zero)
-        continueBtn.setImage(#imageLiteral(resourceName: "continue_2"), for: .normal)
+        continueBtn.setImage(#imageLiteral(resourceName: "continue_3"), for: .normal)
         continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
         
         stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
@@ -114,7 +114,7 @@ class ChangeVC: UIViewController {
     
     func setMoneyInput() {
         
-        moneyInputView = MoneyInputView(frame: .zero)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.change)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
         

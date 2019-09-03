@@ -34,8 +34,8 @@ class MoneyVC: UIViewController {
         collectionViewHandler.parentVC = self
 
         setMoneyInput()
-        setInputedMoneyCollectionView()
         setContinueBtn()
+        setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
         inputedMoneyCollectionView.dataSource = collectionViewHandler
@@ -49,6 +49,8 @@ class MoneyVC: UIViewController {
             NSAttributedString.Key.foregroundColor: UIColor.App.money
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.hidesBackButton = true
     }
 
     @objc func confirmAndMoveOn() {
@@ -56,6 +58,7 @@ class MoneyVC: UIViewController {
         if text != "R$ 0,00" {
             let animationVC = AnimationVC()
             animationVC.inputedMoneyStr = text
+            animationVC.inputedMoney = collectionViewHandler.inputedMoney
             navigationController?.pushViewController(animationVC, animated: true)
         }
     }
@@ -100,10 +103,10 @@ class MoneyVC: UIViewController {
 
         inputedMoneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 8),
+            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: 8)
+            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: continueBtn.topAnchor, constant: -8)
 
             ])
     }
@@ -119,8 +122,8 @@ class MoneyVC: UIViewController {
         
         continueBtn.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            continueBtn.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -16),
-            continueBtn.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            continueBtn.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -8),
+            continueBtn.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8),
             continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
             continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5)
         ])

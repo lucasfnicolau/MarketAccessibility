@@ -14,8 +14,10 @@ class AnimationVC: UIViewController {
     var animationList: [UIImage] = []
     var step = 0
     var inputedMoneyStr = ""
+    var inputedMoney = [Float]()
 
     override func viewDidLoad() {
+        
         view.backgroundColor = UIColor.App.money
         
         setStackView()
@@ -33,11 +35,14 @@ class AnimationVC: UIViewController {
             NSAttributedString.Key.foregroundColor: (step == 0 ? UIColor.App.money : UIColor.App.shopping)
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationItem.hidesBackButton = true
     }
     
     @objc func confirmAndMoveOn() {
         let shoppingVC = ShoppingVC()
         shoppingVC.inputedMoneyStr = inputedMoneyStr
+        shoppingVC.inputedMoney = inputedMoney
         navigationController?.pushViewController(shoppingVC, animated: true)
     }
     

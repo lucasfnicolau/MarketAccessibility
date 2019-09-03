@@ -18,6 +18,7 @@ enum Identifier: String {
     case moneyCollectionCell
     case inputedMoneyCollectionCell
     case ptBr = "pt-BR"
+    case howToPayCollectionCell
 }
 
 enum Entity: String {

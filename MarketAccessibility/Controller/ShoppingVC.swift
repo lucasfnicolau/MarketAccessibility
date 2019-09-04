@@ -14,7 +14,11 @@ protocol ShoppingVCDelegate: class {
 }
 
 class ShoppingVC: UIViewController, ShoppingVCDelegate {
-
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     @IBOutlet weak var moneyValueLabel: UILabel!
     
     var genericInputView: UIView!
@@ -30,7 +34,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "VALOR TOTAL"
+        navigationItem.title = "VALOR DA COMPRA"
         
         setInputView()
         moneyValueLabel.text = "R$ 0,00"
@@ -73,7 +77,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         speakInputButton = UIButton(frame: .zero)
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
-        speakInputButton.tintColor = UIColor.App.shopping
+        speakInputButton.tintColor = UIColor.App.segmentedUnselected
         
         optionsStackView = UIStackView(arrangedSubviews: [drawInputButton, speakInputButton])
         optionsStackView.alignment = .fill
@@ -176,7 +180,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         if text.contains("R$") {
             let howToPayVC = HowToPayVC()
             howToPayVC.inputedMoneyStr = inputedMoneyStr
-            howToPayVC.inputedMoney = inputedMoney
+            howToPayVC.inputedMoney = round(array: inputedMoney)
             howToPayVC.totalValue = text
             navigationController?.pushViewController(howToPayVC, animated: true)
         }

@@ -24,7 +24,6 @@ class MoneyVC: UIViewController {
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: MoneyVCCollectionHandler!
     var continueBtn: UIButton!
-
     @IBOutlet weak var moneyValueLabel: UILabel!
 
     override func viewDidLoad() {

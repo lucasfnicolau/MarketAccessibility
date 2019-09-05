@@ -71,3 +71,13 @@ func round(array: [Float]) -> [Float] {
     }
     return roundedArray
 }
+
+func calculateValue(fromArray array: [Float]) -> Float {
+    var total: Float = 0
+
+    for item in array {
+        total += item
+    }
+
+    return total
+}

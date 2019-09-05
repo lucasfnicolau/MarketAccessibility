@@ -23,7 +23,10 @@ class HowToPayVC: UIViewController {
     var inputedMoney = [Float]()
     var paymentMoney = [Float]()
     var payment = [Float]()
+    var bestPayment = [Float]()
     var stackView: UIStackView!
+    var hasReachedResult = false
+    var minDiffs = [Float]()
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var moneyCollectionView: UICollectionView!
     
@@ -36,7 +39,6 @@ class HowToPayVC: UIViewController {
         
         guard let totalValueFloat = Float(totalValue.replacingOccurrences(of: "R$ ", with: "")
             .replacingOccurrences(of: ",", with: ".")) else { return }
-        print(String(format: "%.2f", totalValueFloat))
         self.totalValueFloat = Float(String(format: "%.2f", totalValueFloat)) ?? 0.0
         
         collectionViewHandler = HowToPayVCCollectionHandler()
@@ -48,12 +50,12 @@ class HowToPayVC: UIViewController {
         moneyCollectionView.register(HowToPayCollectionCell.self,
                                      forCellWithReuseIdentifier: Identifier.howToPayCollectionCell.rawValue)
         
-        payment = calculatePayment(fromValues: inputedMoney, atIndex: 0)
+        payment = findSubsetSum(inputedMoney, targetSum: totalValueFloat)
         moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
             .replacingOccurrences(of: ".", with: ",")
-        
+
         setCollectionViewConstraints()
-        
+
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
     }
@@ -78,67 +80,11 @@ class HowToPayVC: UIViewController {
         ])
     }
     
-    func calculatePayment(fromValues values: [Float], atIndex index: Int) -> [Float] {
-        
-        var minDiff = Float.infinity
-        var bestPayment = [Float]()
-        
-        for i in 0 ..< inputedMoney.count {
-            var payment = [Float]()
-            
-            payment.append(inputedMoney[i] )
-            var sum = inputedMoney[i].roundTo(places: 2)
-            let index = (i <= inputedMoney.count - 1 ? i + 1 : i)
-            for j in index ..< inputedMoney.count {
-                if inputedMoney[i] < totalValueFloat {
-                    sum += inputedMoney[j]
-                    payment.append(inputedMoney[j])
-                }
-                
-                if sum > totalValueFloat ||
-                    String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
-                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
-                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
-                        bestPayment = payment
-                        
-                        sum = inputedMoney[i]
-                        payment = [inputedMoney[i] ]
-                    }
-                }
-            }
-            
-            if index == inputedMoney.count {
-                if sum > totalValueFloat ||
-                    String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
-                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
-                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
-                        bestPayment = payment
-                        
-                        sum = inputedMoney[i]
-                        payment = [inputedMoney[i]]
-                    }
-                }
-            }
-        }
-        
-        return bestPayment
-    }
-    
     @objc func confirmAndMoveOn() {
         let changeVC = ChangeVC()
         changeVC.inputedMoney = calculateValue(fromArray: payment)
         changeVC.totalValue = totalValueFloat
         navigationController?.pushViewController(changeVC, animated: true)
-    }
-    
-    func calculateValue(fromArray array: [Float]) -> Float {
-        var total: Float = 0
-        
-        for item in array {
-            total += item
-        }
-        
-        return total
     }
     
     @objc func stopAndMoveBack() {
@@ -177,5 +123,58 @@ class HowToPayVC: UIViewController {
         stackView.alignment = .center
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
+    }
+    
+    func findSubsetSum(_ arr: [Float], targetSum: Float) -> [Float] {
+        let length = arr.count
+        let iEnd = 1 << length
+        var currentSum: Float = 0
+        var oldGray = 0
+        
+        var minDiff = Float.infinity
+        var finalArr = [Float]()
+        var finalGray = 0
+        
+        for i in 1 ..< iEnd {
+            let newGray = i ^ (i >> 1)
+            let bitChanged = oldGray ^ newGray
+            let bitNumber  = 31 - clz(bitChanged)
+            
+            if newGray & bitChanged != 0 {
+                // Bit turned to 1 = Add element.
+                currentSum += arr[bitNumber]
+            } else {
+                // Bit turned to 0 = Subtract element.
+                currentSum -= arr[bitNumber]
+            }
+            
+            let diff = currentSum - totalValueFloat
+            if diff < minDiff && diff >= 0 {
+                minDiff = diff
+                finalArr = arr
+                finalGray = newGray
+            }
+            oldGray = newGray
+        }
+        
+        return setFinalArray(finalArr, finalGray)
+    }
+    
+    func clz(_ x: Int) -> Int {
+        var lz = 32
+        var newX = x
+        while newX != 0 {
+            newX >>= 1
+            lz -= 1
+        }
+        return lz
+    }
+    
+    func setFinalArray(_ arr: [Float], _ bits: Int) -> [Float] {
+        var resultArray = [Float]()
+        for i in 0 ..< arr.count where (bits & (1 << i)) != 0 {
+            resultArray.append(arr[i])
+        }
+        return resultArray
     }
 }

@@ -14,7 +14,11 @@ protocol ShoppingVCDelegate: class {
 }
 
 class ShoppingVC: UIViewController, ShoppingVCDelegate {
-
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     @IBOutlet weak var moneyValueLabel: UILabel!
     
     var genericInputView: UIView!
@@ -25,11 +29,12 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     var speakInputButton: UIButton!
     var selectedInputView: UIView!
     var inputedMoneyStr = ""
+    var inputedMoney = [Float]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "VALOR TOTAL"
+        navigationItem.title = "VALOR DA COMPRA"
         
         setInputView()
         moneyValueLabel.text = "R$ 0,00"
@@ -47,6 +52,8 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             NSAttributedString.Key.foregroundColor: UIColor.App.shopping
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.hidesBackButton = true
     }
     
     func setInputView() {
@@ -65,7 +72,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         drawInputButton = UIButton(frame: .zero)
         drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
         drawInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
-        drawInputButton.tintColor = UIColor.App.segmentedSelected
+        drawInputButton.tintColor = UIColor.App.shopping
         
         speakInputButton = UIButton(frame: .zero)
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
@@ -139,7 +146,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             selectedInputView = drawInputView
             
             drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
-            drawInputButton.tintColor = UIColor.App.segmentedSelected
+            drawInputButton.tintColor = UIColor.App.shopping
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
             speakInputButton.tintColor = UIColor.App.segmentedUnselected
@@ -152,7 +159,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             drawInputButton.tintColor = UIColor.App.segmentedUnselected
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_filled").withRenderingMode(.alwaysTemplate), for: .normal)
-            speakInputButton.tintColor = UIColor.App.segmentedSelected
+            speakInputButton.tintColor = UIColor.App.shopping
             
             changeInputView(viewToHide: drawInputView, viewToAppear: speakInputView)
         }
@@ -171,10 +178,11 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
         if text.contains("R$") {
-            let changeVC = ChangeVC()
-            changeVC.inputedMoneyStr = inputedMoneyStr
-            changeVC.totalValueStr = text
-            navigationController?.pushViewController(changeVC, animated: true)
+            let howToPayVC = HowToPayVC()
+            howToPayVC.inputedMoneyStr = inputedMoneyStr
+            howToPayVC.inputedMoney = round(array: inputedMoney)
+            howToPayVC.totalValue = text
+            navigationController?.pushViewController(howToPayVC, animated: true)
         }
     }
     
@@ -205,7 +213,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
             continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
             
-            stackView.bottomAnchor.constraint(equalTo: optionsStackView.topAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: optionsStackView.topAnchor, constant: -8),
             stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
             stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
             stackView.heightAnchor.constraint(equalToConstant: 40)

@@ -12,6 +12,7 @@
 		B65B644B2319FB5400C83F58 /* CheckmarkAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B644A2319FB5400C83F58 /* CheckmarkAnimationView.swift */; };
 		B65B644E231A391100C83F58 /* ChangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B644C231A391100C83F58 /* ChangeVC.swift */; };
 		B65B644F231A391100C83F58 /* ChangeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65B644D231A391100C83F58 /* ChangeVC.xib */; };
+		B65B6451231DCDD600C83F58 /* ChangeVCCollectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B6450231DCDD600C83F58 /* ChangeVCCollectionHandler.swift */; };
 		B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */; };
 		B65F7BDD230F2BB50097CDA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65F7BDB230F2BB50097CDA7 /* Main.storyboard */; };
 		B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B65F7BDE230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld */; };
@@ -41,6 +42,10 @@
 		E07463DB2319986600816843 /* SpeakInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DA2319986600816843 /* SpeakInputView.swift */; };
 		E07463E02319BA5400816843 /* AnimationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DE2319BA5400816843 /* AnimationVC.swift */; };
 		E07463E12319BA5400816843 /* AnimationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E07463DF2319BA5400816843 /* AnimationVC.xib */; };
+		E0DB6100231D826E0078247B /* HowToPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DB60FE231D826E0078247B /* HowToPayVC.swift */; };
+		E0DB6101231D826E0078247B /* HowToPayVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0DB60FF231D826E0078247B /* HowToPayVC.xib */; };
+		E0DB6103231D847D0078247B /* HowToPayCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DB6102231D847D0078247B /* HowToPayCollectionCell.swift */; };
+		E0DB6105231D85900078247B /* HowToPayVCCollectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DB6104231D85900078247B /* HowToPayVCCollectionHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +54,7 @@
 		B65B644A2319FB5400C83F58 /* CheckmarkAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkAnimationView.swift; sourceTree = "<group>"; };
 		B65B644C231A391100C83F58 /* ChangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeVC.swift; sourceTree = "<group>"; };
 		B65B644D231A391100C83F58 /* ChangeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ChangeVC.xib; path = ../Controller/ChangeVC.xib; sourceTree = "<group>"; };
+		B65B6450231DCDD600C83F58 /* ChangeVCCollectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeVCCollectionHandler.swift; sourceTree = "<group>"; };
 		B65F7BD4230F2BB50097CDA7 /* MarketAccessibility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketAccessibility.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B65F7BDC230F2BB50097CDA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -80,6 +86,10 @@
 		E07463DA2319986600816843 /* SpeakInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakInputView.swift; sourceTree = "<group>"; };
 		E07463DE2319BA5400816843 /* AnimationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationVC.swift; sourceTree = "<group>"; };
 		E07463DF2319BA5400816843 /* AnimationVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimationVC.xib; sourceTree = "<group>"; };
+		E0DB60FE231D826E0078247B /* HowToPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPayVC.swift; sourceTree = "<group>"; };
+		E0DB60FF231D826E0078247B /* HowToPayVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowToPayVC.xib; sourceTree = "<group>"; };
+		E0DB6102231D847D0078247B /* HowToPayCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPayCollectionCell.swift; sourceTree = "<group>"; };
+		E0DB6104231D85900078247B /* HowToPayVCCollectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPayVCCollectionHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,8 @@
 			children = (
 				B654599623172F250014C9FE /* MoneyVCCollectionHandler.swift */,
 				B6545998231732810014C9FE /* MoneyInputViewCollectionHandler.swift */,
+				E0DB6104231D85900078247B /* HowToPayVCCollectionHandler.swift */,
+				B65B6450231DCDD600C83F58 /* ChangeVCCollectionHandler.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -161,6 +173,7 @@
 				BCF43D7B23198C1800023B2D /* DrawInputView.swift */,
 				E07463DA2319986600816843 /* SpeakInputView.swift */,
 				B65B644A2319FB5400C83F58 /* CheckmarkAnimationView.swift */,
+				E0DB6102231D847D0078247B /* HowToPayCollectionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -171,6 +184,7 @@
 				B6C90AE223104C6A00C743C0 /* MoneyVC.swift */,
 				B6C90AFD2310539200C743C0 /* ShoppingVC.swift */,
 				E07463DE2319BA5400816843 /* AnimationVC.swift */,
+				E0DB60FE231D826E0078247B /* HowToPayVC.swift */,
 				B65B644C231A391100C83F58 /* ChangeVC.swift */,
 			);
 			path = Controller;
@@ -194,6 +208,7 @@
 				B6C90AE323104C6A00C743C0 /* MoneyVC.xib */,
 				B6C90AFE2310539200C743C0 /* ShoppingVC.xib */,
 				E07463DF2319BA5400816843 /* AnimationVC.xib */,
+				E0DB60FF231D826E0078247B /* HowToPayVC.xib */,
 				B65B644D231A391100C83F58 /* ChangeVC.xib */,
 			);
 			path = XIBs;
@@ -261,6 +276,7 @@
 				E07463E12319BA5400816843 /* AnimationVC.xib in Resources */,
 				B65B644F231A391100C83F58 /* ChangeVC.xib in Resources */,
 				B6C90B002310539200C743C0 /* ShoppingVC.xib in Resources */,
+				E0DB6101231D826E0078247B /* HowToPayVC.xib in Resources */,
 				B65F7BE5230F2BB60097CDA7 /* LaunchScreen.storyboard in Resources */,
 				B6C90AE523104C6A00C743C0 /* MoneyVC.xib in Resources */,
 				B65F7BE2230F2BB60097CDA7 /* Assets.xcassets in Resources */,
@@ -307,11 +323,15 @@
 				BCF43D8223198D1100023B2D /* OneDollar.swift in Sources */,
 				B6C90B0B2314869D00C743C0 /* Enums.swift in Sources */,
 				BC5876052315BB08004D61BB /* MoneyCollectionCell.swift in Sources */,
+				E0DB6100231D826E0078247B /* HowToPayVC.swift in Sources */,
+				B65B6451231DCDD600C83F58 /* ChangeVCCollectionHandler.swift in Sources */,
+				E0DB6103231D847D0078247B /* HowToPayCollectionCell.swift in Sources */,
 				BCF43D8A2319950500023B2D /* Templates.swift in Sources */,
 				E07463E02319BA5400816843 /* AnimationVC.swift in Sources */,
 				B65B644B2319FB5400C83F58 /* CheckmarkAnimationView.swift in Sources */,
 				BCF43D8E23199F9C00023B2D /* Helpers.swift in Sources */,
 				BCF43D7E23198CF200023B2D /* StrokeView.swift in Sources */,
+				E0DB6105231D85900078247B /* HowToPayVCCollectionHandler.swift in Sources */,
 				B6C90B0923147D8200C743C0 /* SegmentedStackView.swift in Sources */,
 				BC5876072315CA3A004D61BB /* InputedMoneyCollectionCell.swift in Sources */,
 				B6C90B0D231488A100C743C0 /* SegmentedStackButton.swift in Sources */,

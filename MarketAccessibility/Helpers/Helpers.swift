@@ -6,6 +6,7 @@
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
 // swiftlint:disable cyclomatic_complexity
+// swiftlint:disable identifier_name
 
 import Foundation
 
@@ -61,4 +62,22 @@ func getNumberFrom(string: String) -> String.SubSequence {
     default:
         return "\(string)"
     }
+}
+
+func round(array: [Float]) -> [Float] {
+    var roundedArray = array
+    for i in 0 ..< roundedArray.count {
+        roundedArray[i] = roundedArray[i].roundTo(places: 2)
+    }
+    return roundedArray
+}
+
+func calculateValue(fromArray array: [Float]) -> Float {
+    var total: Float = 0
+
+    for item in array {
+        total += item
+    }
+
+    return total
 }

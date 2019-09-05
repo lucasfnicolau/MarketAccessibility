@@ -21,19 +21,32 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$ 300,00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PX-Mf-hEU">
-                    <rect key="frame" x="16" y="40" width="288" height="40"/>
-                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="34"/>
+                    <rect key="frame" x="20" y="117" width="280" height="52.5"/>
+                    <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="45"/>
                     <color key="textColor" red="0.59999999999999998" green="0.50588235290000005" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Payment" translatesAutoresizingMaskIntoConstraints="NO" id="hQM-h8-6QL">
+                    <rect key="frame" x="0.0" y="36" width="320" height="65"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="3gd-m7-BpN"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="2PX-Mf-hEU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="bBK-Dz-621"/>
-                <constraint firstItem="2PX-Mf-hEU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="prT-QE-g7Y"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2PX-Mf-hEU" secondAttribute="trailing" constant="16" id="v2Y-hQ-TAy"/>
+                <constraint firstItem="hQM-h8-6QL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="5KV-xS-8vf"/>
+                <constraint firstItem="hQM-h8-6QL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="S1W-Uh-Xkb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2PX-Mf-hEU" secondAttribute="trailing" constant="20" id="YTj-RP-6Ot"/>
+                <constraint firstItem="2PX-Mf-hEU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="cRi-Kl-zqL"/>
+                <constraint firstItem="2PX-Mf-hEU" firstAttribute="top" secondItem="hQM-h8-6QL" secondAttribute="bottom" constant="16" id="o0i-sL-2Lq"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hQM-h8-6QL" secondAttribute="trailing" id="s6V-hy-ZZT"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="63.75" y="55.985915492957744"/>
         </view>
     </objects>
+    <resources>
+        <image name="Payment" width="58.666667938232422" height="50"/>
+    </resources>
 </document>

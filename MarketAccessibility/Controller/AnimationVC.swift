@@ -4,27 +4,27 @@
 //
 //  Created by Rayane Xavier on 30/08/19.
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
+//
 // swiftlint:disable trailing_whitespace
 
 import UIKit
 
 class AnimationVC: UIViewController {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     @IBOutlet weak var animationOutlet: UIImageView!
     var animationList: [UIImage] = []
     var step = 0
     var inputedMoneyStr = ""
+    var inputedMoney = [Float]()
+    var lastVC: UIViewController!
+    var timer: Timer!
+    var count = 0
 
     override func viewDidLoad() {
-        view.backgroundColor = UIColor.App.money
-        
-        setStackView()
-        
-        if step == 0 {
-            setImageViewAnimation()
-        } else {
-            setCheckmarckAnimation()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,12 +33,32 @@ class AnimationVC: UIViewController {
             NSAttributedString.Key.foregroundColor: (step == 0 ? UIColor.App.money : UIColor.App.shopping)
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationItem.hidesBackButton = true
+        
+        if step == 0 {
+            view.backgroundColor = UIColor.App.money
+            setImageViewAnimation()
+        } else {
+            view.backgroundColor = UIColor.App.change
+            setCheckmarckAnimation()
+        }
+        
     }
     
     @objc func confirmAndMoveOn() {
-        let shoppingVC = ShoppingVC()
-        shoppingVC.inputedMoneyStr = inputedMoneyStr
-        navigationController?.pushViewController(shoppingVC, animated: true)
+        if step == 0 {
+            let shoppingVC = ShoppingVC()
+            shoppingVC.inputedMoneyStr = inputedMoneyStr
+            shoppingVC.inputedMoney = inputedMoney
+            navigationController?.pushViewController(shoppingVC, animated: true)
+            guard let vcs = navigationController?.viewControllers else { return }
+            for index in 0 ..< vcs.count where vcs[index] == self {
+                navigationController?.viewControllers.remove(at: index)
+            }
+        } else {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     @objc func stopAndMoveBack() {
@@ -66,9 +86,14 @@ class AnimationVC: UIViewController {
         
         animationOutlet.animationImages = animationList
         animationOutlet.animationDuration = 1.25
-        animationOutlet.animationRepeatCount = -1
-        
+        animationOutlet.animationRepeatCount = 5
         animationOutlet.startAnimating()
+        perform(#selector(didFinishAnimating), with: animationOutlet,
+                afterDelay: TimeInterval(animationOutlet.animationDuration * 1.5))
+    }
+    
+    @objc func didFinishAnimating() {
+        confirmAndMoveOn()
     }
     
     func setCheckmarckAnimation() {
@@ -83,39 +108,7 @@ class AnimationVC: UIViewController {
             animView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             ])
         animView.startAnimation()
-    }
-    
-    func setStackView() {
-        let backBtn = UIButton(frame: .zero)
-        backBtn.setImage(#imageLiteral(resourceName: "back_1"), for: .normal)
-        backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
-        
-        let continueBtn = UIButton(frame: .zero)
-        continueBtn.setImage(#imageLiteral(resourceName: "continue_2"), for: .normal)
-        continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
-        
-        let stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
-        
-        self.view.addSubview(stackView)
-        
-        guard let imageSize = continueBtn.imageView?.image?.size else { return }
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            backBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
-            stackView.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        
-        stackView.alignment = .center
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
+        perform(#selector(didFinishAnimating), with: animView,
+                afterDelay: TimeInterval(1.5))
     }
 }

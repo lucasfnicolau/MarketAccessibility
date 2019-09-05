@@ -16,6 +16,7 @@ class ChangeVC: UIViewController {
     }
     
     @IBOutlet weak var moneyValueLabel: UILabel!
+    var change: Float = 0
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: ChangeVCCollectionHandler!
@@ -24,15 +25,20 @@ class ChangeVC: UIViewController {
     var continueBtn: UIButton!
     var backBtn: UIButton!
     var stackView: UIStackView!
+    var isSE = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0 {
+            isSE = true
+        }
         
         navigationItem.setLeftBarButton(UIBarButtonItem(
             barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
             navigationController?.navigationBar.tintColor = UIColor.App.change
 
-        let change = inputedMoney - totalValue
+        change = inputedMoney - totalValue
         var changeStr = ""
         
         if change <= 0 {
@@ -66,9 +72,17 @@ class ChangeVC: UIViewController {
     }
     
     @objc func confirmAndMoveOn() {
-        let animationVC = AnimationVC()
-        animationVC.step = 1
-        navigationController?.pushViewController(animationVC, animated: true)
+        if String(format: "%.2f", calculateValue(fromArray: collectionViewHandler.inputedMoney))
+            .isEqual(String(format: "%.2f", change)) {
+            let animationVC = AnimationVC()
+            animationVC.step = 1
+            navigationController?.pushViewController(animationVC, animated: true)
+        } else {
+            let animationVC = AnimationVC()
+            animationVC.step = 2
+            navigationController?.pushViewController(animationVC, animated: true)
+        }
+        
     }
     
     @objc func stopAndMoveBack() {
@@ -129,7 +143,7 @@ class ChangeVC: UIViewController {
             
             moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moneyInputView.heightAnchor.constraint(equalToConstant: 250),
+            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE ? 205 : 230)),
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])

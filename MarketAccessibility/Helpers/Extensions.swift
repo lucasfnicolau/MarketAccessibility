@@ -13,6 +13,7 @@ extension UIColor {
     struct App {
         static var money: UIColor { return #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1) }
         static var shopping: UIColor { return #colorLiteral(red: 0.6117647059, green: 0.1098039216, blue: 0.06274509804, alpha: 1) }
+        static var change: UIColor { return #colorLiteral(red: 0.9137254902, green: 0.431372549, blue: 0.1803921569, alpha: 1) }
         static var stop: UIColor { return #colorLiteral(red: 0.6, green: 0.5058823529, blue: 0.431372549, alpha: 1) }
         static var background: UIColor { return #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) }
         static var segmentedSelected: UIColor { return #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1) }
@@ -39,19 +40,4 @@ extension String {
         }
         return count
     }
-    
-//    func floatedString(_ value: Float) -> String {
-//        var value: Float = 0.0
-//        let str = String(format: "%.2f", self)
-//        
-//        if str.count(occurrencesOf: "0") >= 3 {
-//            value = self.rounded(FloatingPointRoundingRule.down)
-//        } else if str.count(occurrencesOf: "9") >= 3 {
-//            value = self.rounded(FloatingPointRoundingRule.up)
-//        } else {
-//            return value
-//        }
-//        
-//        return Float(str) ?? value
-//    }
 }

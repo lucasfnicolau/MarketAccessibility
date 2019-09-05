@@ -34,7 +34,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "VALOR TOTAL"
+        navigationItem.title = "VALOR DA COMPRA"
         
         setInputView()
         moneyValueLabel.text = "R$ 0,00"
@@ -77,7 +77,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         speakInputButton = UIButton(frame: .zero)
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
-        speakInputButton.tintColor = UIColor.App.shopping
+        speakInputButton.tintColor = UIColor.App.segmentedUnselected
         
         optionsStackView = UIStackView(arrangedSubviews: [drawInputButton, speakInputButton])
         optionsStackView.alignment = .fill

@@ -28,6 +28,10 @@ class ChangeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.setLeftBarButton(UIBarButtonItem(
+            barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
+            navigationController?.navigationBar.tintColor = UIColor.App.change
+
         let change = inputedMoney - totalValue
         var changeStr = ""
         

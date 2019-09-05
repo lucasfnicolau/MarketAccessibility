@@ -50,7 +50,7 @@ class HowToPayVC: UIViewController {
         moneyCollectionView.register(HowToPayCollectionCell.self,
                                      forCellWithReuseIdentifier: Identifier.howToPayCollectionCell.rawValue)
         
-        payment = findSubsetSum(inputedMoney, targetSum: totalValueFloat)
+        payment = calculatePayment(fromValues: payment, atIndex: 0)
         moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
             .replacingOccurrences(of: ".", with: ",")
 
@@ -125,56 +125,49 @@ class HowToPayVC: UIViewController {
         stackView.distribution = .equalSpacing
     }
     
-    func findSubsetSum(_ arr: [Float], targetSum: Float) -> [Float] {
-        let length = arr.count
-        let iEnd = 1 << length
-        var currentSum: Float = 0
-        var oldGray = 0
+    func calculatePayment(fromValues values: [Float], atIndex index: Int) -> [Float] {
         
         var minDiff = Float.infinity
-        var finalArr = [Float]()
-        var finalGray = 0
+        var bestPayment = [Float]()
         
-        for i in 1 ..< iEnd {
-            let newGray = i ^ (i >> 1)
-            let bitChanged = oldGray ^ newGray
-            let bitNumber  = 31 - clz(bitChanged)
+        for i in 0 ..< inputedMoney.count {
+            var payment = [Float]()
             
-            if newGray & bitChanged != 0 {
-                // Bit turned to 1 = Add element.
-                currentSum += arr[bitNumber]
-            } else {
-                // Bit turned to 0 = Subtract element.
-                currentSum -= arr[bitNumber]
+            payment.append(inputedMoney[i] )
+            var sum = inputedMoney[i].roundTo(places: 2)
+            let index = (i <= inputedMoney.count - 1 ? i + 1 : i)
+            for j in index ..< inputedMoney.count {
+                if inputedMoney[i] < totalValueFloat {
+                    sum += inputedMoney[j]
+                    payment.append(inputedMoney[j])
+                }
+                
+                if sum > totalValueFloat ||
+                    String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
+                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
+                        bestPayment = payment
+                        
+                        sum = inputedMoney[i]
+                        payment = [inputedMoney[i]]
+                    }
+                }
             }
             
-            let diff = currentSum - totalValueFloat
-            if diff < minDiff && diff >= 0 {
-                minDiff = diff
-                finalArr = arr
-                finalGray = newGray
+            if index == inputedMoney.count {
+                if sum > totalValueFloat ||
+                    String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
+                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
+                        bestPayment = payment
+                        
+                        sum = inputedMoney[i]
+                        payment = [inputedMoney[i]]
+                    }
+                }
             }
-            oldGray = newGray
         }
         
-        return setFinalArray(finalArr, finalGray)
-    }
-    
-    func clz(_ x: Int) -> Int {
-        var lz = 32
-        var newX = x
-        while newX != 0 {
-            newX >>= 1
-            lz -= 1
-        }
-        return lz
-    }
-    
-    func setFinalArray(_ arr: [Float], _ bits: Int) -> [Float] {
-        var resultArray = [Float]()
-        for i in 0 ..< arr.count where (bits & (1 << i)) != 0 {
-            resultArray.append(arr[i])
-        }
-        return resultArray
+        return bestPayment
     }
 }

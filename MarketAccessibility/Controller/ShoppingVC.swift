@@ -35,6 +35,9 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         super.viewDidLoad()
         
         navigationItem.title = "VALOR DA COMPRA"
+    
+        navigationItem.setLeftBarButton(.init(barButtonSystemItem: .trash, target: self,
+                                              action: #selector(reset)), animated: true)
         
         setInputView()
         moneyValueLabel.text = "R$ 0,00"
@@ -163,6 +166,12 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             
             changeInputView(viewToHide: drawInputView, viewToAppear: speakInputView)
         }
+    }
+    
+    @objc func reset() {
+        moneyValueLabel.text = "R$ 0,00"
+        drawInputView.cedulesArray = []
+        drawInputView.coinsArray = []
     }
     
     func changeInputView(viewToHide: UIView, viewToAppear: UIView) {

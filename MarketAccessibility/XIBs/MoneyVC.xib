@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$ 300,00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFw-QW-l2J">
-                    <rect key="frame" x="16" y="70" width="288" height="52.5"/>
+                    <rect key="frame" x="16" y="45" width="288" height="52.5"/>
                     <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="45"/>
                     <color key="textColor" red="0.59999999999999998" green="0.50588235294117645" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -30,7 +30,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="DFw-QW-l2J" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="B3d-Fg-RTy"/>
-                <constraint firstItem="DFw-QW-l2J" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="QYC-Qy-Fqd"/>
+                <constraint firstItem="DFw-QW-l2J" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="QYC-Qy-Fqd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="DFw-QW-l2J" secondAttribute="trailing" constant="16" id="rBo-z3-3S6"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

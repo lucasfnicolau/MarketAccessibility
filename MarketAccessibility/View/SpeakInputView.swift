@@ -167,6 +167,7 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
     @objc func recordButtonPressed() {
         if audioEngine.isRunning {
             audioEngine.stop()
+            audioEngine.inputNode.removeTap(onBus: 0)
             recognitionRequest?.endAudio()
             recordButton.setImage(UIImage(named: Image.microphoneOn.rawValue)?.withRenderingMode(.alwaysTemplate),
                                   for: .normal)

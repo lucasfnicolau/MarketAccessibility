@@ -25,14 +25,13 @@ class MoneyVC: UIViewController {
     var collectionViewHandler: MoneyVCCollectionHandler!
     var continueBtn: UIButton!
     @IBOutlet weak var moneyValueLabel: UILabel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.setLeftBarButton(UIBarButtonItem(
             barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.money
-
+        
         collectionViewHandler = MoneyVCCollectionHandler()
         collectionViewHandler.parentVC = self
 
@@ -54,8 +53,10 @@ class MoneyVC: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
-    }
+        navigationController?.navigationBar.tintColor = UIColor.App.money
 
+    }
+    
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
         if text != "R$ 0,00" {

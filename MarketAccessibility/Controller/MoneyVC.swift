@@ -24,7 +24,6 @@ class MoneyVC: UIViewController {
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: MoneyVCCollectionHandler!
     var continueBtn: UIButton!
-
     @IBOutlet weak var moneyValueLabel: UILabel!
 
     override func viewDidLoad() {
@@ -75,7 +74,7 @@ class MoneyVC: UIViewController {
 
     func setMoneyInput() {
 
-        moneyInputView = MoneyInputView(frame: .zero)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.money)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 
@@ -107,7 +106,7 @@ class MoneyVC: UIViewController {
 
         inputedMoneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
+            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 25),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
             inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: continueBtn.topAnchor, constant: -8)
@@ -133,4 +132,5 @@ class MoneyVC: UIViewController {
         ])
     }
 
+    @IBAction func unwindToMoneyVC(segue: UIStoryboardSegue) { }
 }

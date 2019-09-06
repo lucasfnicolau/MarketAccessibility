@@ -24,15 +24,21 @@ class MoneyVC: UIViewController {
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: MoneyVCCollectionHandler!
     var continueBtn: UIButton!
+    var defaults: UserDefaults!
+    var isSE = false
     @IBOutlet weak var moneyValueLabel: UILabel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0 {
+            isSE = true
+        }
 
+        defaults = UserDefaults()
         navigationItem.setLeftBarButton(UIBarButtonItem(
             barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.money
-
+        
         collectionViewHandler = MoneyVCCollectionHandler()
         collectionViewHandler.parentVC = self
 
@@ -54,11 +60,13 @@ class MoneyVC: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
-    }
+        navigationController?.navigationBar.tintColor = UIColor.App.money
 
+    }
+    
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
-        if text != "R$ 0,00" {
+        if !collectionViewHandler.inputedMoney.isEmpty {
             let animationVC = AnimationVC()
             animationVC.inputedMoneyStr = text
             animationVC.inputedMoney = collectionViewHandler.inputedMoney
@@ -85,7 +93,7 @@ class MoneyVC: UIViewController {
 
             moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moneyInputView.heightAnchor.constraint(equalToConstant: 250),
+            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE ? 205 : 230)),
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
 
             ])

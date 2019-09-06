@@ -57,6 +57,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.tintColor = UIColor.App.shopping
     }
     
     func setInputView() {
@@ -186,7 +187,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
 
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
-        if text.contains("R$") {
+        if !text.isEqual("R$ 0,00") && !text.isEqual("R$ ,") && !text.isEqual("$ ,") && !text.isEqual("$ 0,00") {
             let howToPayVC = HowToPayVC()
             howToPayVC.inputedMoneyStr = inputedMoneyStr
             howToPayVC.inputedMoney = round(array: inputedMoney)

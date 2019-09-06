@@ -29,24 +29,34 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setRecordButton()
-        recordButton.setImage(UIImage(named: Image.microphoneOn.rawValue)?.withRenderingMode(.alwaysTemplate),
-                              for: .normal)
+//        recordButton.setImage(UIImage(named: Image.microphoneOn.rawValue)?.withRenderingMode(.alwaysTemplate),
+//                              for: .normal)
     }
 
     func setRecordButton() {
-        recordButton = UIButton(frame: .zero)
-        recordButton.tintColor = UIColor.App.shopping
-        self.addSubview(recordButton)
-        recordButton.addTarget(self, action: #selector(recordButtonPressed), for: .touchUpInside)
-        
-        recordButton.translatesAutoresizingMaskIntoConstraints = false
+        let wave = WaveAnimationView(frame: .zero)
+        self.addSubview(wave)
+        wave.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            
-            recordButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0),
-            recordButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0),
-            recordButton.widthAnchor.constraint(equalToConstant: 60),
-            recordButton.heightAnchor.constraint(equalToConstant: 80)
-            ])
+            wave.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+            wave.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+            wave.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            wave.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
+        ])
+        
+//        recordButton = UIButton(frame: .zero)
+//        recordButton.tintColor = UIColor.App.shopping
+//        self.addSubview(recordButton)
+//        recordButton.addTarget(self, action: #selector(recordButtonPressed), for: .touchUpInside)
+//
+//        recordButton.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//
+//            recordButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0),
+//            recordButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0),
+//            recordButton.widthAnchor.constraint(equalToConstant: 60),
+//            recordButton.heightAnchor.constraint(equalToConstant: 80)
+//            ])
         
         speechRecognizer?.delegate = self
         SFSpeechRecognizer.requestAuthorization { (authStatus) in

@@ -14,6 +14,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
 
     var inputedMoney = [Float]()
     var parentVC: MoneyVC?
+    var defaults: UserDefaults!
 
     func delete(onPosition position: Int) {
         inputedMoney.remove(at: position)
@@ -32,6 +33,8 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
         }
         parentVC?.moneyValueLabel.text = currencyFormatter.string(from: NSNumber(value: totalValue))?
             .replacingOccurrences(of: "$", with: "$ ")
+        defaults.set(parentVC?.moneyValueLabel.text, forKey: Key.moneyVCText.rawValue)
+        defaults.set(inputedMoney, forKey: Key.moneyVCInputedMoney.rawValue)
     }
 
     func moneySelected(value: Float) {

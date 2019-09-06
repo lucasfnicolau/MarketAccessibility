@@ -30,6 +30,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     var selectedInputView: UIView!
     var inputedMoneyStr = ""
     var inputedMoney = [Float]()
+    var defaults: UserDefaults!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,11 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     
         navigationItem.setLeftBarButton(.init(barButtonSystemItem: .trash, target: self,
                                               action: #selector(reset)), animated: true)
+        
+        defaults = UserDefaults()
+        inputedMoneyStr = defaults.string(forKey: Key.moneyVCText.rawValue) ?? "0,00"
+        guard let floatArray = defaults.array(forKey: Key.moneyVCInputedMoney.rawValue) as? [Float] else { return }
+        inputedMoney = floatArray
         
         setInputView()
         moneyValueLabel.text = "R$ 0,00"

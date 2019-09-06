@@ -38,9 +38,12 @@ class MoneyVC: UIViewController {
         defaults = UserDefaults()
         navigationItem.setLeftBarButton(UIBarButtonItem(
             barButtonSystemItem: .trash, target: self, action: #selector(reset)), animated: true)
+        navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"), style: .done,
+                                                         target: self, action: #selector(confirmAndMoveOn)), animated: true)
         
         collectionViewHandler = MoneyVCCollectionHandler()
         collectionViewHandler.parentVC = self
+        collectionViewHandler.defaults = defaults
 
         setMoneyInput()
         setContinueBtn()
@@ -48,12 +51,17 @@ class MoneyVC: UIViewController {
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
         inputedMoneyCollectionView.dataSource = collectionViewHandler
-
-        collectionViewHandler.calculateValue()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        moneyValueLabel.text = defaults.string(forKey: Key.moneyVCText.rawValue) ?? "R$ 0,00"
+        guard let floatArray = defaults.array(forKey: Key.moneyVCInputedMoney.rawValue) as? [Float] else { return }
+        collectionViewHandler.inputedMoney = floatArray
+        inputedMoneyCollectionView.reloadData()
+        collectionViewHandler.calculateValue()
+        
         let attrs = [
             NSAttributedString.Key.foregroundColor: UIColor.App.money
         ]
@@ -65,11 +73,12 @@ class MoneyVC: UIViewController {
     }
     
     @objc func confirmAndMoveOn() {
-        guard let text = moneyValueLabel.text else { return }
+//        guard let text = moneyValueLabel.text else { return }
+        
         if !collectionViewHandler.inputedMoney.isEmpty {
             let animationVC = AnimationVC()
-            animationVC.inputedMoneyStr = text
-            animationVC.inputedMoney = collectionViewHandler.inputedMoney
+//            animationVC.inputedMoneyStr = text
+//            animationVC.inputedMoney = collectionViewHandler.inputedMoney
             navigationController?.pushViewController(animationVC, animated: true)
         }
     }

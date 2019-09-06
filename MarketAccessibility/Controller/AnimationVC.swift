@@ -40,7 +40,7 @@ class AnimationVC: UIViewController {
             view.backgroundColor = UIColor.App.money
             setImageViewAnimation()
         } else if step == 1 {
-            view.backgroundColor = UIColor.App.change
+            view.backgroundColor = UIColor.App.money
             setCheckmarkAnimation()
         } else {
             view.backgroundColor = UIColor.App.error

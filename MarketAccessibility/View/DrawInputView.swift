@@ -145,7 +145,7 @@ class DrawInputView: UIView {
                     forEntityName: Entity.jsonTemplate.rawValue,
                     into: getContext()) as? JSONTemplate else { return }
                 jsonModel.content = template
-                getAppDelegate().saveContext()
+                saveContext()
             }
             defaults.set(true, forKey: Key.appHasBeenOpenedBefore.rawValue)
         }

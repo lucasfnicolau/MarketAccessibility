@@ -14,6 +14,7 @@ extension UIColor {
         static var money: UIColor { return #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1) }
         static var shopping: UIColor { return #colorLiteral(red: 0.6117647059, green: 0.1098039216, blue: 0.06274509804, alpha: 1) }
         static var change: UIColor { return #colorLiteral(red: 0.9137254902, green: 0.431372549, blue: 0.1803921569, alpha: 1) }
+        static var error: UIColor { return #colorLiteral(red: 0.8980392157, green: 0.7490196078, blue: 0.4705882353, alpha: 1) }
         static var stop: UIColor { return #colorLiteral(red: 0.6, green: 0.5058823529, blue: 0.431372549, alpha: 1) }
         static var background: UIColor { return #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) }
         static var segmentedSelected: UIColor { return #colorLiteral(red: 0.2509803922, green: 0.5490196078, blue: 0.6, alpha: 1) }
@@ -27,6 +28,21 @@ extension Float {
     func roundTo(places: Int) -> Float {
         let divisor = pow(10.0, Float(places))
         return (self * divisor).rounded() / divisor
+    }
+
+    func currencyStr() -> String {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.locale = Locale.current
+
+        return currencyFormatter.string(from: self as NSNumber)?
+            .replacingOccurrences(of: "$", with: "$ ") ?? "R$ 0,00"
+    }
+
+    init?(currency: String) {
+        self.init(currency.replacingOccurrences(of: "R$ ", with: "").replacingOccurrences(of: "$ ", with: "")
+            .replacingOccurrences(of: ",", with: "."))
     }
 }
 

@@ -50,4 +50,6 @@ enum KeyPath: String {
 enum Key: String {
     case checkAnim
     case appHasBeenOpenedBefore
+    case moneyVCText
+    case moneyVCInputedMoney
 }

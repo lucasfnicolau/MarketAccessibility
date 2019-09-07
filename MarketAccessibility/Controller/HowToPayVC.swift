@@ -24,7 +24,6 @@ class HowToPayVC: UIViewController {
     var paymentMoney = [Float]()
     var payment = [Float]()
     var bestPayment = [Float]()
-    var stackView: UIStackView!
     var hasReachedResult = false
     var minDiffs = [Float]()
     @IBOutlet weak var moneyValueLabel: UILabel!
@@ -35,10 +34,14 @@ class HowToPayVC: UIViewController {
         
         navigationItem.title = "COMO PAGAR"
         
-        setStackView()
+        navigationItem.setLeftBarButtonItems([
+            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
+            ], animated: true)
+        navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
+                                                         style: .done, target: self,
+                                                         action: #selector(confirmAndMoveOn)), animated: true)
         
-        guard let totalValueFloat = Float(totalValue.replacingOccurrences(of: "R$ ", with: "")
-            .replacingOccurrences(of: ",", with: ".")) else { return }
+        guard let totalValueFloat = Float(currency: totalValue) else { return }
         self.totalValueFloat = Float(String(format: "%.2f", totalValueFloat)) ?? 0.0
         
         collectionViewHandler = HowToPayVCCollectionHandler()
@@ -50,11 +53,11 @@ class HowToPayVC: UIViewController {
         moneyCollectionView.register(HowToPayCollectionCell.self,
                                      forCellWithReuseIdentifier: Identifier.howToPayCollectionCell.rawValue)
         
-        payment = findSubsetSum(inputedMoney, targetSum: totalValueFloat)
+        let resultArray = findSubsetSum(inputedMoney, targetSum: totalValueFloat)
+        payment = resultArray.isEmpty ? calculatePayment(fromValues: payment, atIndex: 0) : resultArray
+        
         moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
             .replacingOccurrences(of: ".", with: ",")
-
-        setCollectionViewConstraints()
 
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
@@ -70,111 +73,66 @@ class HowToPayVC: UIViewController {
         navigationItem.hidesBackButton = true
     }
     
-    func setCollectionViewConstraints() {
-        moneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            moneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
-            moneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
-            moneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            moneyCollectionView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -8)
-        ])
-    }
-    
     @objc func confirmAndMoveOn() {
-        let changeVC = ChangeVC()
-        changeVC.inputedMoney = calculateValue(fromArray: payment)
-        changeVC.totalValue = totalValueFloat
-        navigationController?.pushViewController(changeVC, animated: true)
+        if String(format: "%.2f", calculateValue(fromArray: payment)).isEqual(String(format: "%.2f", totalValueFloat)) {
+            let animationVC = AnimationVC()
+            animationVC.step = 1
+            navigationController?.pushViewController(animationVC, animated: true)
+        } else {
+            let changeVC = ChangeVC()
+            changeVC.inputedMoney = calculateValue(fromArray: payment)
+            changeVC.totalValue = totalValueFloat
+            navigationController?.pushViewController(changeVC, animated: true)
+        }
     }
     
     @objc func stopAndMoveBack() {
         navigationController?.popViewController(animated: true)
     }
     
-    func setStackView() {
-        let backBtn = UIButton(frame: .zero)
-        backBtn.setImage(#imageLiteral(resourceName: "back_2"), for: .normal)
-        backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
-        
-        let continueBtn = UIButton(frame: .zero)
-        continueBtn.setImage(#imageLiteral(resourceName: "continue_3"), for: .normal)
-        continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
-        
-        stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
-        
-        self.view.addSubview(stackView)
-        
-        guard let imageSize = continueBtn.imageView?.image?.size else { return }
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            backBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
-            stackView.heightAnchor.constraint(equalToConstant: 40)
-            ])
-        
-        stackView.alignment = .center
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-    }
-    
-    func findSubsetSum(_ arr: [Float], targetSum: Float) -> [Float] {
-        let length = arr.count
-        let iEnd = 1 << length
-        var currentSum: Float = 0
-        var oldGray = 0
+    func calculatePayment(fromValues values: [Float], atIndex index: Int) -> [Float] {
         
         var minDiff = Float.infinity
-        var finalArr = [Float]()
-        var finalGray = 0
+        var bestPayment = [Float]()
         
-        for i in 1 ..< iEnd {
-            let newGray = i ^ (i >> 1)
-            let bitChanged = oldGray ^ newGray
-            let bitNumber  = 31 - clz(bitChanged)
+        for i in 0 ..< inputedMoney.count {
+            var payment = [Float]()
             
-            if newGray & bitChanged != 0 {
-                // Bit turned to 1 = Add element.
-                currentSum += arr[bitNumber]
-            } else {
-                // Bit turned to 0 = Subtract element.
-                currentSum -= arr[bitNumber]
+            payment.append(inputedMoney[i] )
+            var sum = inputedMoney[i].roundTo(places: 2)
+            let index = (i <= inputedMoney.count - 1 ? i + 1 : i)
+            for j in index ..< inputedMoney.count {
+                if inputedMoney[i] < totalValueFloat {
+                    sum += inputedMoney[j]
+                    payment.append(inputedMoney[j])
+                }
+                
+                if sum > totalValueFloat ||
+                    String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
+                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
+                        bestPayment = payment
+                        
+                        sum = inputedMoney[i]
+                        payment = [inputedMoney[i]]
+                    }
+                }
             }
             
-            let diff = currentSum - totalValueFloat
-            if diff < minDiff && diff >= 0 {
-                minDiff = diff
-                finalArr = arr
-                finalGray = newGray
+            if index == inputedMoney.count {
+                if sum > totalValueFloat ||
+                    String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
+                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
+                        bestPayment = payment
+                        
+                        sum = inputedMoney[i]
+                        payment = [inputedMoney[i]]
+                    }
+                }
             }
-            oldGray = newGray
         }
         
-        return setFinalArray(finalArr, finalGray)
-    }
-    
-    func clz(_ x: Int) -> Int {
-        var lz = 32
-        var newX = x
-        while newX != 0 {
-            newX >>= 1
-            lz -= 1
-        }
-        return lz
-    }
-    
-    func setFinalArray(_ arr: [Float], _ bits: Int) -> [Float] {
-        var resultArray = [Float]()
-        for i in 0 ..< arr.count where (bits & (1 << i)) != 0 {
-            resultArray.append(arr[i])
-        }
-        return resultArray
+        return bestPayment
     }
 }

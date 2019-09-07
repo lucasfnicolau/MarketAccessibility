@@ -23,8 +23,11 @@ class AnimationVC: UIViewController {
     var lastVC: UIViewController!
     var timer: Timer!
     var count = 0
+    var defaults: UserDefaults!
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+        defaults = UserDefaults()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,9 +42,12 @@ class AnimationVC: UIViewController {
         if step == 0 {
             view.backgroundColor = UIColor.App.money
             setImageViewAnimation()
+        } else if step == 1 {
+            view.backgroundColor = UIColor.App.money
+            setCheckmarkAnimation()
         } else {
-            view.backgroundColor = UIColor.App.change
-            setCheckmarckAnimation()
+            view.backgroundColor = UIColor.App.error
+            setErrorAnimation()
         }
         
     }
@@ -56,8 +62,12 @@ class AnimationVC: UIViewController {
             for index in 0 ..< vcs.count where vcs[index] == self {
                 navigationController?.viewControllers.remove(at: index)
             }
-        } else {
+        } else if step == 1 {
+            defaults.set(currencyStr(0), forKey: Key.moneyVCText.rawValue)
+            defaults.set([], forKey: Key.moneyVCInputedMoney.rawValue)
             self.navigationController?.popToRootViewController(animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -96,7 +106,7 @@ class AnimationVC: UIViewController {
         confirmAndMoveOn()
     }
     
-    func setCheckmarckAnimation() {
+    func setCheckmarkAnimation() {
         let animView = CheckmarkAnimationView(frame: .zero)
         self.view.addSubview(animView)
         
@@ -111,4 +121,21 @@ class AnimationVC: UIViewController {
         perform(#selector(didFinishAnimating), with: animView,
                 afterDelay: TimeInterval(1.5))
     }
+
+    func setErrorAnimation() {
+        let animView = ErrorAnimationView(frame: .zero)
+        self.view.addSubview(animView)
+        
+        animView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            animView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            animView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            animView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            animView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
+        animView.startAnimation()
+        perform(#selector(didFinishAnimating), with: animView,
+                afterDelay: TimeInterval(1.5))
+    }
+    
 }

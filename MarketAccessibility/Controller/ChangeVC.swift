@@ -16,6 +16,9 @@ class ChangeVC: UIViewController {
     }
     
     @IBOutlet weak var moneyValueLabel: UILabel!
+    @IBOutlet weak var trashButton: UIButton!
+    @IBOutlet weak var changeImageView: UIImageView!
+    var change: Float = 0
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: ChangeVCCollectionHandler!
@@ -24,11 +27,26 @@ class ChangeVC: UIViewController {
     var continueBtn: UIButton!
     var backBtn: UIButton!
     var stackView: UIStackView!
+    var isSE = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let change = inputedMoney - totalValue
+        if UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0 {
+            isSE = true
+        }
+        
+        navigationItem.setLeftBarButtonItems([
+            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
+            ], animated: true)
+        navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
+                                                         style: .done, target: self,
+                                                         action: #selector(confirmAndMoveOn)), animated: true)
+        
+        guard let btnImage = trashButton.imageView?.image else { return }
+        trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
+
+        change = inputedMoney - totalValue
         var changeStr = ""
         
         if change <= 0 {
@@ -42,7 +60,7 @@ class ChangeVC: UIViewController {
         collectionViewHandler.parentVC = self
         
         setMoneyInput()
-        setFlowStackView()
+        setChangeImageView()
         setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
@@ -58,55 +76,31 @@ class ChangeVC: UIViewController {
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.tintColor = UIColor.App.change
         navigationItem.hidesBackButton = true
+        
+        trashButton.tintColor = UIColor.App.change
     }
     
     @objc func confirmAndMoveOn() {
-        let animationVC = AnimationVC()
-        animationVC.step = 1
-        navigationController?.pushViewController(animationVC, animated: true)
+        if String(format: "%.2f", calculateValue(fromArray: collectionViewHandler.inputedMoney))
+            .isEqual(String(format: "%.2f", change)) {
+            let animationVC = AnimationVC()
+            animationVC.step = 1
+            navigationController?.pushViewController(animationVC, animated: true)
+        } else {
+            let animationVC = AnimationVC()
+            animationVC.step = 2
+            navigationController?.pushViewController(animationVC, animated: true)
+        }
+        
     }
     
     @objc func stopAndMoveBack() {
         navigationController?.popViewController(animated: true)
     }
     
-    func setFlowStackView() {
-        backBtn = UIButton(frame: .zero)
-        backBtn.setImage(#imageLiteral(resourceName: "back_2"), for: .normal)
-        backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
-        
-        continueBtn = UIButton(frame: .zero)
-        continueBtn.setImage(#imageLiteral(resourceName: "continue_3"), for: .normal)
-        continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
-        
-        stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
-        
-        self.view.addSubview(stackView)
-        
-        guard let imageSize = continueBtn.imageView?.image?.size else { return }
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            
-            backBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            backBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            stackView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -8),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
-            stackView.heightAnchor.constraint(equalToConstant: 40)
-            ])
-        
-        stackView.alignment = .center
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-    }
-    
-    @objc func reset() {
+    @IBAction func reset() {
         collectionViewHandler.inputedMoney = []
         inputedMoneyCollectionView.reloadData()
         collectionViewHandler.calculateValue()
@@ -125,7 +119,7 @@ class ChangeVC: UIViewController {
             
             moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moneyInputView.heightAnchor.constraint(equalToConstant: 250),
+            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE ? 205 : 230)),
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])
@@ -149,9 +143,20 @@ class ChangeVC: UIViewController {
             inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: continueBtn.topAnchor, constant: -8)
+            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: self.changeImageView.topAnchor,
+                                                               constant: -8)
             
             ])
     }
 
+    func setChangeImageView() {
+        changeImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            changeImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            changeImageView.bottomAnchor.constraint(equalTo: self.moneyInputView.topAnchor,
+                                                               constant: -8),
+            changeImageView.heightAnchor.constraint(equalToConstant: 70),
+            changeImageView.widthAnchor.constraint(equalToConstant: 107)
+        ])
+    }
 }

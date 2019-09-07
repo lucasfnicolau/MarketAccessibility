@@ -11,6 +11,8 @@ import UIKit
 
 protocol ShoppingVCDelegate: class {
     func updateLabel(withValue value: String)
+    func startHearing()
+    func stopHearing()
 }
 
 class ShoppingVC: UIViewController, ShoppingVCDelegate {
@@ -20,40 +22,63 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     }
     
     @IBOutlet weak var moneyValueLabel: UILabel!
+    @IBOutlet weak var trashButton: UIButton!
     
     var genericInputView: UIView!
     var drawInputView: DrawInputView!
     var speakInputView: SpeakInputView!
     var optionsStackView: UIStackView!
     var drawInputButton: UIButton!
-    var speakInputButton: UIButton!
+    var speakInputButton: MicButton!
     var selectedInputView: UIView!
     var inputedMoneyStr = ""
     var inputedMoney = [Float]()
+    var defaults: UserDefaults!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "VALOR DA COMPRA"
         
+        navigationItem.setLeftBarButtonItems([
+            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
+        ], animated: true)
+        navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
+                                                         style: .done, target: self,
+                                                         action: #selector(confirmAndMoveOn)), animated: true)
+        
+        guard let btnImage = trashButton.imageView?.image else { return }
+        trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        
+        defaults = UserDefaults()
+        inputedMoneyStr = defaults.string(forKey: Key.moneyVCText.rawValue) ?? currencyStr(0)
+        guard let floatArray = defaults.array(forKey: Key.moneyVCInputedMoney.rawValue) as? [Float] else { return }
+        inputedMoney = floatArray
+        
         setInputView()
-        moneyValueLabel.text = "R$ 0,00"
+        moneyValueLabel.text = currencyStr(0)
         setStackView()
         setSpeakInputView()
         setDrawInput()
-        setFlowStackView()
         selectedInputView = drawInputView
         speakInputView.transform = CGAffineTransform(translationX: 0, y: 1000)
+        
+        setCompensationView(for: self, under: drawInputView)
+        setCompensationView(for: self, under: speakInputView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         let attrs = [
             NSAttributedString.Key.foregroundColor: UIColor.App.shopping
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.tintColor = UIColor.App.shopping
+        
+        trashButton.tintColor = UIColor.App.shopping
     }
     
     func setInputView() {
@@ -64,7 +89,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             genericInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             genericInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
             genericInputView.heightAnchor.constraint(equalToConstant: 250),
-            genericInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            genericInputView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
     }
     
@@ -74,7 +99,8 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         drawInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
         drawInputButton.tintColor = UIColor.App.shopping
         
-        speakInputButton = UIButton(frame: .zero)
+        speakInputButton = MicButton(frame: .zero)
+        speakInputButton.delegate = self
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
         speakInputButton.tintColor = UIColor.App.segmentedUnselected
@@ -152,7 +178,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             speakInputButton.tintColor = UIColor.App.segmentedUnselected
             
             changeInputView(viewToHide: speakInputView, viewToAppear: drawInputView)
-        } else if sender == speakInputButton && selectedInputView != speakInputButton {
+        } else if sender == speakInputButton && selectedInputView != speakInputView {
             selectedInputView = speakInputView
             
             drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_outline").withRenderingMode(.alwaysTemplate), for: .normal)
@@ -165,11 +191,17 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         }
     }
     
+    @IBAction func reset() {
+        moneyValueLabel.text = currencyStr(0)
+        drawInputView.cedulesArray = []
+        drawInputView.coinsArray = []
+    }
+    
     func changeInputView(viewToHide: UIView, viewToAppear: UIView) {
-        UIView.animate(withDuration: 0.25, animations: {
+        UIView.animate(withDuration: 0.125, animations: {
             viewToHide.transform = CGAffineTransform(translationX: 0, y: 1000)
         }, completion: { (_) in
-            UIView.animate(withDuration: 0.25, animations: {
+            UIView.animate(withDuration: 0.125, animations: {
                 viewToAppear.transform = CGAffineTransform(translationX: 0, y: 0)
             })
         })
@@ -177,7 +209,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
 
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
-        if text.contains("R$") {
+        if !text.isEqual(currencyStr(0)) && !text.isEqual("R$ ,") && !text.isEqual("$ ,") {
             let howToPayVC = HowToPayVC()
             howToPayVC.inputedMoneyStr = inputedMoneyStr
             howToPayVC.inputedMoney = round(array: inputedMoney)
@@ -190,37 +222,12 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    func setFlowStackView() {
-        let backBtn = UIButton(frame: .zero)
-        backBtn.setImage(#imageLiteral(resourceName: "back_2"), for: .normal)
-        backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
-        
-        let continueBtn = UIButton(frame: .zero)
-        continueBtn.setImage(#imageLiteral(resourceName: "continue_2"), for: .normal)
-        continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
-        
-        let stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
-        
-        self.view.addSubview(stackView)
-        
-        guard let imageSize = continueBtn.imageView?.image?.size else { return }
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            backBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            stackView.bottomAnchor.constraint(equalTo: optionsStackView.topAnchor, constant: -8),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
-            stackView.heightAnchor.constraint(equalToConstant: 40)
-            ])
-        
-        stackView.alignment = .center
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
+    func startHearing() {
+        inputOptionSelected(speakInputButton)
+        speakInputView.startHearing()
+    }
+    
+    func stopHearing() {
+        speakInputView.stopHearing()
     }
 }

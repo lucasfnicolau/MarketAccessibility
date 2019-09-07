@@ -29,6 +29,21 @@ extension Float {
         let divisor = pow(10.0, Float(places))
         return (self * divisor).rounded() / divisor
     }
+
+    func currencyStr() -> String {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.locale = Locale.current
+
+        return currencyFormatter.string(from: self as NSNumber)?
+            .replacingOccurrences(of: "$", with: "$ ") ?? "R$ 0,00"
+    }
+
+    init?(currency: String) {
+        self.init(currency.replacingOccurrences(of: "R$ ", with: "").replacingOccurrences(of: "$ ", with: "")
+            .replacingOccurrences(of: ",", with: "."))
+    }
 }
 
 extension String {

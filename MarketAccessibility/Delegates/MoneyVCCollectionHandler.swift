@@ -14,6 +14,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
 
     var inputedMoney = [Float]()
     var parentVC: MoneyVC?
+    var defaults: UserDefaults!
 
     func delete(onPosition position: Int) {
         inputedMoney.remove(at: position)
@@ -22,21 +23,15 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
     }
 
     func calculateValue() {
-        let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        currencyFormatter.locale = Locale.current
-        var totalValue: Float = 0
-        for value in inputedMoney {
-            totalValue += value
-        }
-        parentVC?.moneyValueLabel.text = currencyFormatter.string(from: NSNumber(value: totalValue))?
-            .replacingOccurrences(of: "$", with: "$ ")
+        parentVC?.moneyValueLabel.text = currencyStr(inputedMoney)
+
+        defaults.set(parentVC?.moneyValueLabel.text, forKey: Key.moneyVCText.rawValue)
+        defaults.set(inputedMoney, forKey: Key.moneyVCInputedMoney.rawValue)
     }
 
     func moneySelected(value: Float) {
         inputedMoney.append(value)
-//        inputedMoney = inputedMoney.sorted()
+        inputedMoney = round(array: inputedMoney).sorted().reversed()
         parentVC?.inputedMoneyCollectionView.reloadData()
         calculateValue()
     }
@@ -66,7 +61,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
         var size = CGSize(width: 0, height: 0)
 
         if inputedMoney[indexPath.row] > 1.0 {
-            size = CGSize(width: UIScreen.main.bounds.width / 3 - 10.0, height: 55)
+            size = CGSize(width: UIScreen.main.bounds.width / 3 - 30.0, height: 55)
         } else {
             size = CGSize(width: UIScreen.main.bounds.width / 5 - 10.0,
                           height: UIScreen.main.bounds.width / 5 - 10.0)

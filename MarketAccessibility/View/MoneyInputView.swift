@@ -17,7 +17,7 @@ protocol MoneyInputViewDelegate: class {
 
 @IBDesignable
 class MoneyInputView: UIView {
-    
+    var selectedColor = UIColor.App.money
     var segmentedStackView: SegmentedStackView!
     var moneyCollectionView: UICollectionView!
     weak var moneyVCDelegate: MoneyVCDelegate!
@@ -31,9 +31,10 @@ class MoneyInputView: UIView {
         super.awakeFromNib()
     }
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, withSelectedColor color: UIColor) {
         super.init(frame: frame)
 
+        selectedColor = color
         moneyInputCollectionHandler = MoneyInputViewCollectionHandler()
         moneyInputCollectionHandler?.parentVC = self
         setMoneyInput()
@@ -61,15 +62,14 @@ class MoneyInputView: UIView {
         // MARK: - criaçao da custom segmented
 
         let ceduleButton = SegmentedStackButton(withName: SegmentedStackOption.cedules.rawValue)
-
         ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption_Filled").withRenderingMode(.alwaysTemplate), for: .normal)
-        ceduleButton.tintColor = UIColor.App.segmentedSelected
-
+        
         let coinButton = SegmentedStackButton(withName: SegmentedStackOption.coins.rawValue)
-
         coinButton.setImage(#imageLiteral(resourceName: "CoinOption").withRenderingMode(.alwaysTemplate), for: .normal)
+        
+        ceduleButton.tintColor = selectedColor
         coinButton.tintColor = UIColor.App.segmentedUnselected
-
+        
         segmentedStackView = SegmentedStackView(withViews: [ceduleButton, coinButton])
 
         ceduleButton.segmentedStackViewDelegate = segmentedStackView
@@ -81,6 +81,7 @@ class MoneyInputView: UIView {
         moneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
         segmentedStackView.translatesAutoresizingMaskIntoConstraints = false
         segmentedStackView.moneyInputViewDelegate = moneyInputCollectionHandler
+        segmentedStackView.selectedColor = selectedColor
 
         NSLayoutConstraint.activate([
             moneyCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
@@ -89,7 +90,7 @@ class MoneyInputView: UIView {
             moneyCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -64),
 
             segmentedStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            segmentedStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            segmentedStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             segmentedStackView.heightAnchor.constraint(equalToConstant: 30),
             segmentedStackView.widthAnchor.constraint(equalToConstant: 150)
             ])

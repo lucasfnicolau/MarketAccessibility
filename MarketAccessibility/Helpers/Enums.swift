@@ -18,6 +18,7 @@ enum Identifier: String {
     case moneyCollectionCell
     case inputedMoneyCollectionCell
     case ptBr = "pt-BR"
+    case howToPayCollectionCell
 }
 
 enum Entity: String {
@@ -40,7 +41,6 @@ enum Number: String {
 enum Image: String {
     case microphoneOn = "btn_mic_outline"
     case microphoneOff = "btn_mic_filled"
-//    case
 }
 
 enum KeyPath: String {
@@ -50,4 +50,6 @@ enum KeyPath: String {
 enum Key: String {
     case checkAnim
     case appHasBeenOpenedBefore
+    case moneyVCText
+    case moneyVCInputedMoney
 }

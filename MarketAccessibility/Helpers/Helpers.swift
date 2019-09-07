@@ -6,8 +6,10 @@
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
 // swiftlint:disable cyclomatic_complexity
+// swiftlint:disable identifier_name
+// swiftlint:disable trailing_whitespace
 
-import Foundation
+import UIKit
 
 func getNumberFrom(string: String) -> String {
     switch string {
@@ -61,4 +63,112 @@ func getNumberFrom(string: String) -> String.SubSequence {
     default:
         return "\(string)"
     }
+}
+
+func round(array: [Float]) -> [Float] {
+    var roundedArray = array
+    for i in 0 ..< roundedArray.count {
+        roundedArray[i] = roundedArray[i].roundTo(places: 2)
+    }
+    return roundedArray
+}
+
+func calculateValue(fromArray array: [Float]) -> Float {
+    var total: Float = 0
+
+    for item in array {
+        total += item
+    }
+
+    return total
+}
+
+func findSubsetSum(_ arr: [Float], targetSum: Float) -> [Float] {
+    let length = arr.count
+    let iEnd: UInt64 = 1 << length
+    var currentSum: Float = 0
+    var oldGray: UInt64 = 0
+    
+    var minDiff = Float.infinity
+    var finalArr = [Float]()
+    var finalGray: UInt64 = 0
+    
+    if iEnd == 0 || iEnd > 32768 { return [] }
+    
+    for i in 1 ..< iEnd {
+        let newGray = i ^ (i >> 1)
+        let bitChanged: UInt64 = oldGray ^ newGray
+        let bitNumber = 31 - clz(bitChanged)
+        
+        if newGray & bitChanged != 0 {
+            // Bit turned to 1 = Add element.
+            currentSum += arr[Int(bitNumber)]
+        } else {
+            // Bit turned to 0 = Subtract element.
+            currentSum -= arr[Int(bitNumber)]
+        }
+        
+        let diff = currentSum - targetSum
+        if diff < minDiff && diff >= 0 {
+            minDiff = diff
+            finalArr = arr
+            finalGray = newGray
+        }
+        oldGray = newGray
+    }
+    
+    return setFinalArray(finalArr, finalGray)
+}
+
+func clz(_ x: UInt64) -> UInt64 {
+    var lz: UInt64 = 32
+    var newX = x
+    while newX != 0 {
+        newX >>= 1
+        lz -= 1
+    }
+    return lz
+}
+
+func setFinalArray(_ arr: [Float], _ bits: UInt64) -> [Float] {
+    var resultArray = [Float]()
+    for i in 0 ..< arr.count where (bits & (1 << i)) != 0 {
+        resultArray.append(arr[i])
+    }
+    return resultArray
+}
+
+func currencyStr(_ value: Float) -> String {
+    let currencyFormatter = NumberFormatter()
+    currencyFormatter.usesGroupingSeparator = true
+    currencyFormatter.numberStyle = .currency
+    currencyFormatter.locale = Locale.current
+    
+    return currencyFormatter.string(from: value as NSNumber)?
+        .replacingOccurrences(of: "$", with: "$ ") ?? "R$ 0,00"
+}
+
+func currencyStr(_ array: [Float]) -> String {
+    let currencyFormatter = NumberFormatter()
+    currencyFormatter.usesGroupingSeparator = true
+    currencyFormatter.numberStyle = .currency
+    currencyFormatter.locale = Locale.current
+    
+    let totalValue = calculateValue(fromArray: array)
+    
+    return currencyFormatter.string(from: totalValue as NSNumber)?
+        .replacingOccurrences(of: "$", with: "$ ") ?? "R$ 0,00"
+}
+
+func setCompensationView(for vc: UIViewController, under otherView: UIView) {
+    let view = UIView(frame: .zero)
+    view.backgroundColor = UIColor.App.background
+    vc.view.addSubview(view)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+        view.leadingAnchor.constraint(equalTo: vc.view.leadingAnchor),
+        view.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor),
+        view.topAnchor.constraint(equalTo: otherView.bottomAnchor),
+        view.heightAnchor.constraint(equalToConstant: 100)
+    ])
 }

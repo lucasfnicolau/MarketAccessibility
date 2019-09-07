@@ -63,7 +63,7 @@ class AnimationVC: UIViewController {
                 navigationController?.viewControllers.remove(at: index)
             }
         } else if step == 1 {
-            defaults.set("R$ 0,00", forKey: Key.moneyVCText.rawValue)
+            defaults.set(currencyStr(0), forKey: Key.moneyVCText.rawValue)
             defaults.set([], forKey: Key.moneyVCInputedMoney.rawValue)
             self.navigationController?.popToRootViewController(animated: true)
         } else {

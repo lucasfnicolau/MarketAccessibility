@@ -23,16 +23,8 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
     }
 
     func calculateValue() {
-        let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        currencyFormatter.locale = Locale.current
-        var totalValue: Float = 0
-        for value in inputedMoney {
-            totalValue += value
-        }
-        parentVC?.moneyValueLabel.text = currencyFormatter.string(from: NSNumber(value: totalValue))?
-            .replacingOccurrences(of: "$", with: "$ ")
+        parentVC?.moneyValueLabel.text = currencyStr(inputedMoney)
+
         defaults.set(parentVC?.moneyValueLabel.text, forKey: Key.moneyVCText.rawValue)
         defaults.set(inputedMoney, forKey: Key.moneyVCInputedMoney.rawValue)
     }

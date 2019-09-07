@@ -11,20 +11,49 @@ import UIKit
 
 class WaveAnimationView: UIView {
     var viewsNumber = 20
+    var stackView: UIStackView!
+    var lineView: UIView!
     var views = [UIView]()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setViews()
+        setStackView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func setViews() {
-        let stackView = UIStackView(frame: .zero)
-        setContraints(forView: stackView)
+    func setStackView() {
+        stackView = UIStackView(frame: .zero)
+        self.addSubview(stackView)
+        
+        stackView.spacing = 10
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 70),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -70)
+        ])
+    }
+    
+    func setAnimations(forView view: UIView) {
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: [.curveEaseInOut], animations: {
+            view.transform = CGAffineTransform(scaleX: 1, y: CGFloat.random(in: 0.2 ... 1.0))
+        }, completion: { (_) in
+            self.setAnimations(forView: view)
+        })
+    }
+    
+    func startAnimation() {
+        if lineView != nil {
+            lineView.removeFromSuperview()
+        }
         
         var view = UIView()
         for _ in 0 ..< viewsNumber {
@@ -33,32 +62,25 @@ class WaveAnimationView: UIView {
             views.append(view)
             setAnimations(forView: view)
             stackView.addArrangedSubview(view)
-            view.layer.cornerRadius = view.frame.width / 2
+        }
+    }
+    
+    func stopAnimation() {
+        for view in views {
+            view.removeFromSuperview()
         }
         
-        stackView.spacing = 10
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-    }
-    
-    func setAnimations(forView view: UIView) {
-        UIView.animate(withDuration: 0.15, delay: 0.0, options: [], animations: {
-            view.transform = CGAffineTransform(scaleX: 1, y: CGFloat.random(in: 0.25 ... 1.0))
-        }, completion: { (_) in
-            self.setAnimations(forView: view)
-        })
-    }
-    
-    func setContraints(forView view: UIView) {
-        self.addSubview(view)
+        lineView = UIView(frame: .zero)
+        self.addSubview(lineView)
         
-        view.translatesAutoresizingMaskIntoConstraints = false
+        lineView.backgroundColor = UIColor.App.segmentedUnselected
+        
+        lineView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            view.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-            view.topAnchor.constraint(equalTo: self.topAnchor, constant: 70),
-            view.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -70)
+            lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+            lineView.heightAnchor.constraint(equalToConstant: 7),
+            lineView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 }

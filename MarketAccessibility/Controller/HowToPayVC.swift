@@ -24,7 +24,6 @@ class HowToPayVC: UIViewController {
     var paymentMoney = [Float]()
     var payment = [Float]()
     var bestPayment = [Float]()
-    var stackView: UIStackView!
     var hasReachedResult = false
     var minDiffs = [Float]()
     @IBOutlet weak var moneyValueLabel: UILabel!
@@ -35,10 +34,14 @@ class HowToPayVC: UIViewController {
         
         navigationItem.title = "COMO PAGAR"
         
-        setStackView()
+        navigationItem.setLeftBarButtonItems([
+            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
+            ], animated: true)
+        navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
+                                                         style: .done, target: self,
+                                                         action: #selector(confirmAndMoveOn)), animated: true)
         
-        guard let totalValueFloat = Float(totalValue.replacingOccurrences(of: "R$ ", with: "")
-            .replacingOccurrences(of: ",", with: ".")) else { return }
+        guard let totalValueFloat = Float(currency: totalValue) else { return }
         self.totalValueFloat = Float(String(format: "%.2f", totalValueFloat)) ?? 0.0
         
         collectionViewHandler = HowToPayVCCollectionHandler()
@@ -50,11 +53,11 @@ class HowToPayVC: UIViewController {
         moneyCollectionView.register(HowToPayCollectionCell.self,
                                      forCellWithReuseIdentifier: Identifier.howToPayCollectionCell.rawValue)
         
-        payment = calculatePayment(fromValues: payment, atIndex: 0)
+        let resultArray = findSubsetSum(inputedMoney, targetSum: totalValueFloat)
+        payment = resultArray.isEmpty ? calculatePayment(fromValues: payment, atIndex: 0) : resultArray
+        
         moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
             .replacingOccurrences(of: ".", with: ",")
-
-        setCollectionViewConstraints()
 
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
@@ -70,59 +73,21 @@ class HowToPayVC: UIViewController {
         navigationItem.hidesBackButton = true
     }
     
-    func setCollectionViewConstraints() {
-        moneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            moneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
-            moneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
-            moneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            moneyCollectionView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -8)
-        ])
-    }
-    
     @objc func confirmAndMoveOn() {
-        let changeVC = ChangeVC()
-        changeVC.inputedMoney = calculateValue(fromArray: payment)
-        changeVC.totalValue = totalValueFloat
-        navigationController?.pushViewController(changeVC, animated: true)
+        if String(format: "%.2f", calculateValue(fromArray: payment)).isEqual(String(format: "%.2f", totalValueFloat)) {
+            let animationVC = AnimationVC()
+            animationVC.step = 1
+            navigationController?.pushViewController(animationVC, animated: true)
+        } else {
+            let changeVC = ChangeVC()
+            changeVC.inputedMoney = calculateValue(fromArray: payment)
+            changeVC.totalValue = totalValueFloat
+            navigationController?.pushViewController(changeVC, animated: true)
+        }
     }
     
     @objc func stopAndMoveBack() {
         navigationController?.popViewController(animated: true)
-    }
-    
-    func setStackView() {
-        let backBtn = UIButton(frame: .zero)
-        backBtn.setImage(#imageLiteral(resourceName: "back_2"), for: .normal)
-        backBtn.addTarget(self, action: #selector(stopAndMoveBack), for: .touchUpInside)
-        
-        let continueBtn = UIButton(frame: .zero)
-        continueBtn.setImage(#imageLiteral(resourceName: "continue_3"), for: .normal)
-        continueBtn.addTarget(self, action: #selector(confirmAndMoveOn), for: .touchUpInside)
-        
-        stackView = UIStackView(arrangedSubviews: [backBtn, continueBtn])
-        
-        self.view.addSubview(stackView)
-        
-        guard let imageSize = continueBtn.imageView?.image?.size else { return }
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            backBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            continueBtn.widthAnchor.constraint(equalToConstant: imageSize.width / 5),
-            continueBtn.heightAnchor.constraint(equalToConstant: imageSize.height / 5),
-            
-            stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
-            stackView.heightAnchor.constraint(equalToConstant: 40)
-            ])
-        
-        stackView.alignment = .center
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
     }
     
     func calculatePayment(fromValues values: [Float], atIndex index: Int) -> [Float] {

@@ -23,8 +23,11 @@ class AnimationVC: UIViewController {
     var lastVC: UIViewController!
     var timer: Timer!
     var count = 0
+    var defaults: UserDefaults!
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+        defaults = UserDefaults()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +43,7 @@ class AnimationVC: UIViewController {
             view.backgroundColor = UIColor.App.money
             setImageViewAnimation()
         } else if step == 1 {
-            view.backgroundColor = UIColor.App.change
+            view.backgroundColor = UIColor.App.money
             setCheckmarkAnimation()
         } else {
             view.backgroundColor = UIColor.App.error
@@ -60,6 +63,8 @@ class AnimationVC: UIViewController {
                 navigationController?.viewControllers.remove(at: index)
             }
         } else if step == 1 {
+            defaults.set(currencyStr(0), forKey: Key.moneyVCText.rawValue)
+            defaults.set([], forKey: Key.moneyVCInputedMoney.rawValue)
             self.navigationController?.popToRootViewController(animated: true)
         } else {
             self.navigationController?.popViewController(animated: true)

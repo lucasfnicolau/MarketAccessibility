@@ -28,6 +28,7 @@ class ChangeVC: UIViewController {
     var backBtn: UIButton!
     var stackView: UIStackView!
     var isSE = false
+    var change2: Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +49,19 @@ class ChangeVC: UIViewController {
 
         change = inputedMoney - totalValue
         var changeStr = ""
-        
+        changeStr = String(format: "R$ %.2f", change).replacingOccurrences(of: ".", with: ",")
+        var validate = changeStr.last
+
         if change <= 0 {
             changeStr = "R$ 0,00"
-        } else {
-            changeStr = String(format: "R$ %.2f", change).replacingOccurrences(of: ".", with: ",")
         }
+        
+        if validate == "1" {
+            change2 = change - 0.01
+            changeStr = String(format: "R$ %.2f", change2).replacingOccurrences(of: ".", with: ",")
+        }
+        
+
         navigationItem.title = "TROCO: \(changeStr)"
         
         collectionViewHandler = ChangeVCCollectionHandler()

@@ -47,21 +47,10 @@ class ChangeVC: UIViewController {
         guard let btnImage = trashButton.imageView?.image else { return }
         trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
 
-        change = inputedMoney - totalValue
+        change = roundChange(inputedMoney - totalValue)
         var changeStr = ""
         changeStr = String(format: "R$ %.2f", change).replacingOccurrences(of: ".", with: ",")
-        var validate = changeStr.last
-
-        if change <= 0 {
-            changeStr = "R$ 0,00"
-        }
         
-        if validate == "1" {
-            change2 = change - 0.01
-            changeStr = String(format: "R$ %.2f", change2).replacingOccurrences(of: ".", with: ",")
-        }
-        
-
         navigationItem.title = "TROCO: \(changeStr)"
         
         collectionViewHandler = ChangeVCCollectionHandler()

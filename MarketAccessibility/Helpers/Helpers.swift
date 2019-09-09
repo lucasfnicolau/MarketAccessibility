@@ -93,7 +93,7 @@ func findSubsetSum(_ arr: [Float], targetSum: Float) -> [Float] {
     var finalArr = [Float]()
     var finalGray: UInt64 = 0
     
-    if iEnd == 0 || iEnd > 32768 { return [] }
+    if iEnd == 0 || iEnd > 524288 { return [] }
     
     for i in 1 ..< iEnd {
         let newGray = i ^ (i >> 1)
@@ -173,6 +173,20 @@ func setCompensationView(for vc: UIViewController, under otherView: UIView) {
     ])
 }
 
-func checkNumbers() {
+func roundChange(_ value: Float) -> Float {
+    var newValue = value
+    let strValue = String(format: "%.2f", value)
+    let last = String(strValue.last ?? "0")
     
+    if last.isEqual("1") || last.isEqual("6") {
+        newValue -= 0.01
+    } else if last.isEqual("2") || last.isEqual("7") {
+        newValue -= 0.02
+    } else if last.isEqual("3") || last.isEqual("8") {
+        newValue += 0.02
+    } else if last.isEqual("4") || last.isEqual("9") {
+        newValue += 0.01
+    }
+    
+    return newValue
 }

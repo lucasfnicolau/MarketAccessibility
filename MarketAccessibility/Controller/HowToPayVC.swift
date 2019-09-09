@@ -13,7 +13,7 @@ import UIKit
 class HowToPayVC: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
     
     var collectionViewHandler: HowToPayVCCollectionHandler!
@@ -66,11 +66,16 @@ class HowToPayVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.shopping
+            NSAttributedString.Key.foregroundColor: UIColor.App.white
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.tintColor = UIColor.App.white
+        navigationController?.navigationBar.barTintColor = UIColor.App.shopping
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isTranslucent = false
+        self.view.backgroundColor = UIColor.App.shopping
     }
     
     @objc func confirmAndMoveOn() {

@@ -12,7 +12,7 @@ import UIKit
 class ChangeVC: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
     
     @IBOutlet weak var moneyValueLabel: UILabel!
@@ -72,14 +72,18 @@ class ChangeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.change
+            NSAttributedString.Key.foregroundColor: UIColor.App.white
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.change
+        navigationController?.navigationBar.tintColor = UIColor.App.white
         navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.barTintColor = UIColor.App.change
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isTranslucent = false
+        self.view.backgroundColor = UIColor.App.change
         
-        trashButton.tintColor = UIColor.App.change
+        trashButton.tintColor = UIColor.App.actionColor
     }
     
     @objc func confirmAndMoveOn() {

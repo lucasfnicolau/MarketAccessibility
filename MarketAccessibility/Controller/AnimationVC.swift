@@ -37,13 +37,14 @@ class AnimationVC: UIViewController {
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.navigationBar.barStyle = .black
         navigationItem.hidesBackButton = true
         
         if step == 0 {
             view.backgroundColor = UIColor.App.money
             setImageViewAnimation()
         } else if step == 1 {
-            view.backgroundColor = UIColor.App.money
+            view.backgroundColor = UIColor.App.check
             setCheckmarkAnimation()
         } else {
             view.backgroundColor = UIColor.App.error

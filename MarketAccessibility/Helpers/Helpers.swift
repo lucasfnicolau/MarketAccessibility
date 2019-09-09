@@ -172,3 +172,7 @@ func setCompensationView(for vc: UIViewController, under otherView: UIView) {
         view.heightAnchor.constraint(equalToConstant: 100)
     ])
 }
+
+func checkNumbers() {
+    
+}

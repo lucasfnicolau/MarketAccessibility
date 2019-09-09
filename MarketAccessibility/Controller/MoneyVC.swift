@@ -17,7 +17,7 @@ protocol MoneyVCDelegate: class {
 class MoneyVC: UIViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
     
     var moneyInputView: MoneyInputView!
@@ -54,13 +54,13 @@ class MoneyVC: UIViewController {
         inputedMoneyCollectionView.dataSource = collectionViewHandler
         
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.money
+            NSAttributedString.Key.foregroundColor: UIColor.App.white
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.tintColor = UIColor.App.money
         
-        trashButton.tintColor = UIColor.App.money
+        trashButton.tintColor = UIColor.App.white
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,13 +73,17 @@ class MoneyVC: UIViewController {
         collectionViewHandler.calculateValue()
         
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.money
+            NSAttributedString.Key.foregroundColor: UIColor.App.white
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.money
+        navigationController?.navigationBar.tintColor = UIColor.App.white
+        navigationController?.navigationBar.barTintColor = UIColor.App.money
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isTranslucent = false
+        self.view.backgroundColor = UIColor.App.money
         
-        trashButton.tintColor = UIColor.App.money
+        trashButton.tintColor = UIColor.App.actionColor
     }
     
     @objc func confirmAndMoveOn() {
@@ -93,7 +97,6 @@ class MoneyVC: UIViewController {
         collectionViewHandler.inputedMoney = []
         inputedMoneyCollectionView.reloadData()
         collectionViewHandler.calculateValue()
-        trashButton.tintColor = UIColor.App.money
     }
 
     func setMoneyInput() {

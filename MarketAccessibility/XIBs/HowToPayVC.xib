@@ -24,7 +24,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO8-Pl-qPP">
                     <rect key="frame" x="16" y="69" width="382" height="54"/>
                     <fontDescription key="fontDescription" type="system" pointSize="45"/>
-                    <color key="textColor" red="0.59999999999999998" green="0.50588235290000005" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hB4-7A-iRl">

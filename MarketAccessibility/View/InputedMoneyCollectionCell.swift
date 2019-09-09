@@ -36,8 +36,8 @@ class InputedMoneyCollectionCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
             deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            deleteButton.widthAnchor.constraint(equalToConstant: 25),
-            deleteButton.heightAnchor.constraint(equalToConstant: 25),
+            deleteButton.widthAnchor.constraint(equalToConstant: 20),
+            deleteButton.heightAnchor.constraint(equalToConstant: 20),
 
             moneyImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             moneyImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),

@@ -73,7 +73,7 @@ class ChangeVC: UIViewController {
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.white
+        navigationController?.navigationBar.tintColor = UIColor.App.actionColor
         navigationItem.hidesBackButton = true
         navigationController?.navigationBar.barTintColor = UIColor.App.change
         navigationController?.navigationBar.barStyle = .black

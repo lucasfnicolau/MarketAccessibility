@@ -53,14 +53,7 @@ class MoneyVC: UIViewController {
         inputedMoneyCollectionView.delegate = collectionViewHandler
         inputedMoneyCollectionView.dataSource = collectionViewHandler
         
-        let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.white
-        ]
-        navigationController?.navigationBar.titleTextAttributes = attrs
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.money
-        
-        trashButton.tintColor = UIColor.App.white
+        self.view.backgroundColor = UIColor.App.money
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,7 +70,7 @@ class MoneyVC: UIViewController {
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.white
+        navigationController?.navigationBar.tintColor = UIColor.App.actionColor
         navigationController?.navigationBar.barTintColor = UIColor.App.money
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
@@ -101,7 +94,7 @@ class MoneyVC: UIViewController {
 
     func setMoneyInput() {
 
-        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.money)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.actionColor)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 

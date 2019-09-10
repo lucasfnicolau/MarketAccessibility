@@ -76,7 +76,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
-        navigationController?.navigationBar.tintColor = UIColor.App.white
+        navigationController?.navigationBar.tintColor = UIColor.App.actionColor
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
@@ -107,7 +107,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         speakInputButton.delegate = self
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
-        speakInputButton.tintColor = UIColor.App.actionColor
+        speakInputButton.tintColor = UIColor.App.segmentedUnselected
         
         optionsStackView = UIStackView(arrangedSubviews: [drawInputButton, speakInputButton])
         optionsStackView.alignment = .fill
@@ -179,14 +179,14 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             drawInputButton.tintColor = UIColor.App.actionColor
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
-            speakInputButton.tintColor = UIColor.App.actionColor
+            speakInputButton.tintColor = UIColor.App.segmentedUnselected
             
             changeInputView(viewToHide: speakInputView, viewToAppear: drawInputView)
         } else if sender == speakInputButton && selectedInputView != speakInputView {
             selectedInputView = speakInputView
             
             drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_outline").withRenderingMode(.alwaysTemplate), for: .normal)
-            drawInputButton.tintColor = UIColor.App.actionColor
+            drawInputButton.tintColor = UIColor.App.segmentedUnselected
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_filled").withRenderingMode(.alwaysTemplate), for: .normal)
             speakInputButton.tintColor = UIColor.App.actionColor

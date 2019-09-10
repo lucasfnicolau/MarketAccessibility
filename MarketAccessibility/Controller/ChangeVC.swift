@@ -27,15 +27,10 @@ class ChangeVC: UIViewController {
     var continueBtn: UIButton!
     var backBtn: UIButton!
     var stackView: UIStackView!
-    var isSE = false
     var change2: Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0 {
-            isSE = true
-        }
         
         navigationItem.setLeftBarButtonItems([
             UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
@@ -47,21 +42,10 @@ class ChangeVC: UIViewController {
         guard let btnImage = trashButton.imageView?.image else { return }
         trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
 
-        change = inputedMoney - totalValue
+        change = roundChange(inputedMoney - totalValue)
         var changeStr = ""
         changeStr = String(format: "R$ %.2f", change).replacingOccurrences(of: ".", with: ",")
-        var validate = changeStr.last
-
-        if change <= 0 {
-            changeStr = "R$ 0,00"
-        }
         
-        if validate == "1" {
-            change2 = change - 0.01
-            changeStr = String(format: "R$ %.2f", change2).replacingOccurrences(of: ".", with: ",")
-        }
-        
-
         navigationItem.title = "TROCO: \(changeStr)"
         
         collectionViewHandler = ChangeVCCollectionHandler()
@@ -84,7 +68,7 @@ class ChangeVC: UIViewController {
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.white
+        navigationController?.navigationBar.tintColor = UIColor.App.actionColor
         navigationItem.hidesBackButton = true
         navigationController?.navigationBar.barTintColor = UIColor.App.change
         navigationController?.navigationBar.barStyle = .black
@@ -120,7 +104,7 @@ class ChangeVC: UIViewController {
     
     func setMoneyInput() {
         
-        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.change)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.segmentedSelected)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
         
@@ -131,7 +115,7 @@ class ChangeVC: UIViewController {
             
             moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE ? 205 : 230)),
+            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE() ? 205 : 230)),
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])

@@ -32,8 +32,10 @@ class AnimationVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard let font = UIFont(name: "Avenir", size: 22) else { return }
         let attrs = [
-            NSAttributedString.Key.foregroundColor: (step == 0 ? UIColor.App.money : UIColor.App.shopping)
+            NSAttributedString.Key.foregroundColor: UIColor.App.white,
+            NSAttributedString.Key.font: font
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -50,7 +52,11 @@ class AnimationVC: UIViewController {
             view.backgroundColor = UIColor.App.error
             setErrorAnimation()
         }
-        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     @objc func confirmAndMoveOn() {

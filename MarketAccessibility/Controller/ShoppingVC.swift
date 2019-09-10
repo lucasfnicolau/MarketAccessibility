@@ -40,9 +40,9 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         
         navigationItem.title = "VALOR DA COMPRA"
         
-        navigationItem.setLeftBarButtonItems([
-            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
-        ], animated: true)
+        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.topItem?.title = " "
         navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
                                                          style: .done, target: self,
                                                          action: #selector(confirmAndMoveOn)), animated: true)
@@ -58,6 +58,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         setInputView()
         moneyValueLabel.text = currencyStr(0)
         setStackView()
+        addHelpButton(forVC: self, onTopOf: optionsStackView)
         setSpeakInputView()
         setDrawInput()
         selectedInputView = drawInputView
@@ -70,19 +71,26 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        guard let font = UIFont(name: "Avenir", size: 22) else { return }
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.white
+            NSAttributedString.Key.foregroundColor: UIColor.App.white,
+            NSAttributedString.Key.font: font
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = UIColor.App.actionColor
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "VALOR DA COMPRA"
         self.view.backgroundColor = UIColor.App.shopping
         
         trashButton.tintColor = UIColor.App.actionColor
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     func setInputView() {
@@ -107,27 +115,30 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         speakInputButton.delegate = self
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
-        speakInputButton.tintColor = UIColor.App.segmentedUnselected
+        speakInputButton.tintColor = UIColor.App.shopping
         
         optionsStackView = UIStackView(arrangedSubviews: [drawInputButton, speakInputButton])
-        optionsStackView.alignment = .fill
+        optionsStackView.alignment = .center
         optionsStackView.axis = .horizontal
-        optionsStackView.distribution = .equalSpacing
+        optionsStackView.distribution = .equalCentering
+        optionsStackView.addBackground(color: UIColor.App.background)
         
         self.view.addSubview(optionsStackView)
         
         optionsStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             drawInputButton.widthAnchor.constraint(equalToConstant: 42),
-            drawInputButton.heightAnchor.constraint(equalToConstant: 35),
+            drawInputButton.heightAnchor.constraint(equalToConstant: 40),
+            drawInputButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 55),
             
             speakInputButton.widthAnchor.constraint(equalToConstant: 28),
-            speakInputButton.heightAnchor.constraint(equalToConstant: 35),
+            speakInputButton.heightAnchor.constraint(equalToConstant: 40),
+            speakInputButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -57),
             
-            optionsStackView.bottomAnchor.constraint(equalTo: genericInputView.topAnchor, constant: -8),
-            optionsStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 48),
-            optionsStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -48),
-            optionsStackView.heightAnchor.constraint(equalToConstant: 40)
+            optionsStackView.bottomAnchor.constraint(equalTo: genericInputView.topAnchor, constant: 0),
+            optionsStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            optionsStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            optionsStackView.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
     
@@ -179,14 +190,14 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             drawInputButton.tintColor = UIColor.App.actionColor
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
-            speakInputButton.tintColor = UIColor.App.segmentedUnselected
+            speakInputButton.tintColor = UIColor.App.shopping
             
             changeInputView(viewToHide: speakInputView, viewToAppear: drawInputView)
         } else if sender == speakInputButton && selectedInputView != speakInputView {
             selectedInputView = speakInputView
             
             drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_outline").withRenderingMode(.alwaysTemplate), for: .normal)
-            drawInputButton.tintColor = UIColor.App.segmentedUnselected
+            drawInputButton.tintColor = UIColor.App.shopping
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_filled").withRenderingMode(.alwaysTemplate), for: .normal)
             speakInputButton.tintColor = UIColor.App.actionColor
@@ -214,11 +225,16 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
         if !text.isEqual(currencyStr(0)) && !text.isEqual("R$ ,") && !text.isEqual("$ ,") {
-            let howToPayVC = HowToPayVC()
-            howToPayVC.inputedMoneyStr = inputedMoneyStr
-            howToPayVC.inputedMoney = round(array: inputedMoney)
-            howToPayVC.totalValue = text
-            navigationController?.pushViewController(howToPayVC, animated: true)
+            if calculateValue(fromArray: inputedMoney) >= Float(text
+                .replacingOccurrences(of: "R$ ", with: "")
+                .replacingOccurrences(of: "$ ", with: "")
+                .replacingOccurrences(of: ",", with: ".")) ?? 0 {
+                let howToPayVC = HowToPayVC()
+                howToPayVC.inputedMoneyStr = inputedMoneyStr
+                howToPayVC.inputedMoney = round(array: inputedMoney)
+                howToPayVC.totalValue = text
+                navigationController?.pushViewController(howToPayVC, animated: true)
+            }
         }
     }
     

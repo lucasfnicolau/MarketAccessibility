@@ -34,9 +34,9 @@ class HowToPayVC: UIViewController {
         
         navigationItem.title = "COMO PAGAR"
         
-        navigationItem.setLeftBarButtonItems([
-            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
-            ], animated: true)
+        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.topItem?.title = " "
         navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
                                                          style: .done, target: self,
                                                          action: #selector(confirmAndMoveOn)), animated: true)
@@ -59,23 +59,32 @@ class HowToPayVC: UIViewController {
         moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
             .replacingOccurrences(of: ".", with: ",")
 
+        addHelpButton(forVC: self, under: moneyCollectionView)
+        
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard let font = UIFont(name: "Avenir", size: 22) else { return }
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.white
+            NSAttributedString.Key.foregroundColor: UIColor.App.white,
+            NSAttributedString.Key.font: font
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = UIColor.App.actionColor
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "COMO PAGAR"
         self.view.backgroundColor = UIColor.App.shopping
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     @objc func confirmAndMoveOn() {

@@ -7,7 +7,7 @@
 //
 // swiftlint:disable trailing_whitespace
     
-import Foundation
+import UIKit
 
 enum SegmentedStackOption: String {
     case cedules
@@ -52,4 +52,9 @@ enum Key: String {
     case appHasBeenOpenedBefore
     case moneyVCText
     case moneyVCInputedMoney
+}
+
+enum SESize {
+    static let width: CGFloat = 320.0
+    static let height: CGFloat = 568.0
 }

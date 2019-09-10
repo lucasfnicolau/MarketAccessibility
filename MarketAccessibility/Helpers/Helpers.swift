@@ -192,7 +192,7 @@ func roundChange(_ value: Float) -> Float {
 }
 
 func isSE() -> Bool {
-    return UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0
+    return UIScreen.main.bounds.width == SESize.width && UIScreen.main.bounds.height == SESize.height
 }
 
 func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) {
@@ -204,9 +204,9 @@ func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) {
     NSLayoutConstraint.activate([
         helpBtn.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor, constant: -16),
         helpBtn.bottomAnchor.constraint(equalTo: view.topAnchor, constant: -8),
-        helpBtn.widthAnchor.constraint(equalToConstant: 30),
-        helpBtn.heightAnchor.constraint(equalToConstant: 30)
-        ])
+        helpBtn.widthAnchor.constraint(equalToConstant: 30 / SESize.width * UIScreen.main.bounds.width),
+        helpBtn.heightAnchor.constraint(equalToConstant: 30 / SESize.width * UIScreen.main.bounds.width)
+    ])
 }
 
 func addHelpButton(forVC vc: UIViewController, under view: UIView) {
@@ -218,7 +218,7 @@ func addHelpButton(forVC vc: UIViewController, under view: UIView) {
     NSLayoutConstraint.activate([
         helpBtn.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor, constant: -16),
         helpBtn.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 8),
-        helpBtn.widthAnchor.constraint(equalToConstant: 30),
-        helpBtn.heightAnchor.constraint(equalToConstant: 30)
-        ])
+        helpBtn.widthAnchor.constraint(equalToConstant: 30 / SESize.width * UIScreen.main.bounds.width),
+        helpBtn.heightAnchor.constraint(equalToConstant: 30 / SESize.width * UIScreen.main.bounds.width)
+    ])
 }

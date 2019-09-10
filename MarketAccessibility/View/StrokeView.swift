@@ -23,7 +23,7 @@ public class StrokeView: UIView {
     override init(frame: CGRect) {
         drawPath = UIBezierPath()
         super.init(frame: frame)
-        self.backgroundColor = UIColor.App.shopping
+        self.backgroundColor = UIColor.App.actionColor
     }
     
     required public init?(coder aDecoder: NSCoder) {

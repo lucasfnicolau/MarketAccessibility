@@ -58,7 +58,7 @@ class WaveAnimationView: UIView {
         var view = UIView()
         for _ in 0 ..< viewsNumber {
             view = UIView(frame: .zero)
-            view.backgroundColor = UIColor.App.segmentedUnselected
+            view.backgroundColor = UIColor.App.shopping
             views.append(view)
             setAnimations(forView: view)
             stackView.addArrangedSubview(view)
@@ -73,7 +73,7 @@ class WaveAnimationView: UIView {
         lineView = UIView(frame: .zero)
         self.addSubview(lineView)
         
-        lineView.backgroundColor = UIColor.App.segmentedUnselected
+        lineView.backgroundColor = UIColor.App.shopping
         
         lineView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

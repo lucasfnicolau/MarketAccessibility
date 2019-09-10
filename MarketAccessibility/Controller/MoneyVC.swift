@@ -43,6 +43,7 @@ class MoneyVC: UIViewController {
         collectionViewHandler.defaults = defaults
 
         setMoneyInput()
+        addHelpButton(forVC: self, onTopOf: moneyInputView)
         setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
@@ -60,8 +61,10 @@ class MoneyVC: UIViewController {
         inputedMoneyCollectionView.reloadData()
         collectionViewHandler.calculateValue()
         
+        guard let font = UIFont(name: "Avenir", size: 22) else { return }
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.white
+            NSAttributedString.Key.foregroundColor: UIColor.App.white,
+            NSAttributedString.Key.font: font
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -69,9 +72,15 @@ class MoneyVC: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.App.money
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "MEU DINHEIRO"
         self.view.backgroundColor = UIColor.App.money
         
         trashButton.tintColor = UIColor.App.actionColor
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     @objc func confirmAndMoveOn() {
@@ -89,7 +98,8 @@ class MoneyVC: UIViewController {
 
     func setMoneyInput() {
 
-        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.actionColor)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.actionColor,
+                                        andUnselectedColor: UIColor.App.money)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 
@@ -121,10 +131,12 @@ class MoneyVC: UIViewController {
 
         inputedMoneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 25),
+            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 16),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -8)
+            inputedMoneyCollectionView.bottomAnchor
+                .constraint(equalTo: moneyInputView
+                    .topAnchor, constant: -30 / SESize.width * UIScreen.main.bounds.width - 16)
 
             ])
     }

@@ -43,6 +43,7 @@ class MoneyVC: UIViewController {
         collectionViewHandler.defaults = defaults
 
         setMoneyInput()
+        addHelpButton(forVC: self, onTopOf: moneyInputView)
         setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
@@ -71,6 +72,7 @@ class MoneyVC: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.App.money
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "MEU DINHEIRO"
         self.view.backgroundColor = UIColor.App.money
         
         trashButton.tintColor = UIColor.App.actionColor
@@ -129,10 +131,10 @@ class MoneyVC: UIViewController {
 
         inputedMoneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 25),
+            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 16),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -8)
+            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: moneyInputView.topAnchor, constant: -46)
 
             ])
     }

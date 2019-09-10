@@ -59,6 +59,8 @@ class HowToPayVC: UIViewController {
         moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
             .replacingOccurrences(of: ".", with: ",")
 
+        addHelpButton(forVC: self, under: moneyCollectionView)
+        
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
     }
@@ -76,6 +78,7 @@ class HowToPayVC: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "COMO PAGAR"
         self.view.backgroundColor = UIColor.App.shopping
     }
     

@@ -51,6 +51,7 @@ class ChangeVC: UIViewController {
         collectionViewHandler.parentVC = self
         
         setMoneyInput()
+        addHelpButton(forVC: self, onTopOf: moneyInputView)
         setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
@@ -136,11 +137,11 @@ class ChangeVC: UIViewController {
         
         inputedMoneyCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
+            inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 16),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
             inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: self.moneyInputView.topAnchor,
-                                                               constant: -8)
+                                                               constant: -46)
             
             ])
     }

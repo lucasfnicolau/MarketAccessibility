@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="R7W-4t-d3d">
-                    <rect key="frame" x="16" y="45" width="288" height="61.5"/>
+                    <rect key="frame" x="16" y="36" width="288" height="61.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$ 9999,00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXE-qy-mAr">
                             <rect key="frame" x="0.0" y="0.0" width="232" height="61.5"/>
@@ -49,7 +49,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="R7W-4t-d3d" secondAttribute="trailing" constant="16" id="9Tx-Ha-m9r"/>
-                <constraint firstItem="R7W-4t-d3d" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="Xb8-0J-zR4"/>
+                <constraint firstItem="R7W-4t-d3d" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="Xb8-0J-zR4"/>
                 <constraint firstItem="R7W-4t-d3d" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="svO-uo-vK2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="PcW-VW-Cpq">
-                    <rect key="frame" x="16" y="70" width="288" height="61.5"/>
+                    <rect key="frame" x="16" y="45" width="288" height="61.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$ 9999,00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqi-Nq-XiX">
                             <rect key="frame" x="0.0" y="0.0" width="232" height="61.5"/>
@@ -50,7 +50,7 @@
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PcW-VW-Cpq" secondAttribute="trailing" constant="16" id="RT7-8w-N2y"/>
                 <constraint firstItem="PcW-VW-Cpq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="gcK-Oa-PAo"/>
-                <constraint firstItem="PcW-VW-Cpq" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="vwA-ud-bG9"/>
+                <constraint firstItem="PcW-VW-Cpq" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="vwA-ud-bG9"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="63.75" y="55.985915492957744"/>

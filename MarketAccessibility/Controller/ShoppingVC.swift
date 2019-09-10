@@ -58,6 +58,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         setInputView()
         moneyValueLabel.text = currencyStr(0)
         setStackView()
+        addHelpButton(forVC: self, onTopOf: optionsStackView)
         setSpeakInputView()
         setDrawInput()
         selectedInputView = drawInputView
@@ -81,6 +82,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "VALOR DA COMPRA"
         self.view.backgroundColor = UIColor.App.shopping
         
         trashButton.tintColor = UIColor.App.actionColor
@@ -131,7 +133,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             
             speakInputButton.widthAnchor.constraint(equalToConstant: 28),
             speakInputButton.heightAnchor.constraint(equalToConstant: 40),
-            speakInputButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -55),
+            speakInputButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -57),
             
             optionsStackView.bottomAnchor.constraint(equalTo: genericInputView.topAnchor, constant: 0),
             optionsStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),

@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="LCQ-7r-URG">
-                    <rect key="frame" x="16" y="69" width="382" height="61.5"/>
+                    <rect key="frame" x="16" y="60" width="382" height="61.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$ 9999,00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFw-QW-l2J">
                             <rect key="frame" x="0.0" y="0.0" width="326" height="61.5"/>
@@ -50,7 +50,7 @@
             <constraints>
                 <constraint firstItem="LCQ-7r-URG" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="EIf-YN-PYy"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LCQ-7r-URG" secondAttribute="trailing" constant="16" id="EcB-yN-gWs"/>
-                <constraint firstItem="LCQ-7r-URG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="oll-9f-Nfu"/>
+                <constraint firstItem="LCQ-7r-URG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="oll-9f-Nfu"/>
                 <constraint firstItem="LCQ-7r-URG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="xck-el-zQY"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

@@ -194,3 +194,31 @@ func roundChange(_ value: Float) -> Float {
 func isSE() -> Bool {
     return UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0
 }
+
+func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) {
+    let helpBtn = UIButton(frame: .zero)
+    helpBtn.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+    helpBtn.tintColor = UIColor.App.actionColor
+    vc.view.addSubview(helpBtn)
+    helpBtn.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+        helpBtn.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor, constant: -16),
+        helpBtn.bottomAnchor.constraint(equalTo: view.topAnchor, constant: -8),
+        helpBtn.widthAnchor.constraint(equalToConstant: 30),
+        helpBtn.heightAnchor.constraint(equalToConstant: 30)
+        ])
+}
+
+func addHelpButton(forVC vc: UIViewController, under view: UIView) {
+    let helpBtn = UIButton(frame: .zero)
+    helpBtn.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+    helpBtn.tintColor = UIColor.App.actionColor
+    vc.view.addSubview(helpBtn)
+    helpBtn.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+        helpBtn.trailingAnchor.constraint(equalTo: vc.view.trailingAnchor, constant: -16),
+        helpBtn.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 8),
+        helpBtn.widthAnchor.constraint(equalToConstant: 30),
+        helpBtn.heightAnchor.constraint(equalToConstant: 30)
+        ])
+}

@@ -22,9 +22,9 @@ class CheckmarkAnimationView: UIView {
     
     func startAnimation() {
         let bezier = UIBezierPath()
-        bezier.move(to: CGPoint(x: 80, y: UIScreen.main.bounds.height / 1.9))
+        bezier.move(to: CGPoint(x: 90, y: UIScreen.main.bounds.height / 1.9))
         bezier.addLine(to: CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 1.6))
-        bezier.addLine(to: CGPoint(x: UIScreen.main.bounds.width - 80, y: UIScreen.main.bounds.height / 3))
+        bezier.addLine(to: CGPoint(x: UIScreen.main.bounds.width - 90, y: UIScreen.main.bounds.height / 3))
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = UIColor.App.white.cgColor

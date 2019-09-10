@@ -74,16 +74,3 @@ extension UIStackView {
         insertSubview(subview, at: 0)
     }
 }
-
-extension UIFont {
-    func withTraits(traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
-        let descriptor = self.fontDescriptor
-            .withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))
-        guard let desc = descriptor else { return withTraits(traits: .traitBold) }
-        return UIFont(descriptor: desc, size: 0)
-    }
-
-    func bold() -> UIFont {
-        return withTraits(traits: .traitBold)
-    }
-}

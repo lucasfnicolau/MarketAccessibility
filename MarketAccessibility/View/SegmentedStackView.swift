@@ -15,6 +15,7 @@ protocol SegmentedStackViewDelegate: class {
 
 class SegmentedStackView: UIStackView, SegmentedStackViewDelegate {
     var selectedColor = UIColor.App.white
+    var unselectedColor = UIColor.App.money
     weak var moneyInputViewDelegate: MoneyInputViewDelegate?
 
     init(withViews views: [UIView]) {
@@ -48,12 +49,12 @@ class SegmentedStackView: UIStackView, SegmentedStackViewDelegate {
 
             guard let coinButton = arrangedSubviews[1] as? SegmentedStackButton else { return }
             coinButton.setImage(#imageLiteral(resourceName: "CoinOption").withRenderingMode(.alwaysTemplate), for: .normal)
-            coinButton.tintColor = UIColor.App.segmentedUnselected
+            coinButton.tintColor = unselectedColor
             moneyInputViewDelegate?.segmentedButtonChanged(to: name)
         default:
             guard let ceduleButton = arrangedSubviews[0] as? SegmentedStackButton else { return }
             ceduleButton.setImage(#imageLiteral(resourceName: "CeduleOption").withRenderingMode(.alwaysTemplate), for: .normal)
-            ceduleButton.tintColor = UIColor.App.segmentedUnselected
+            ceduleButton.tintColor = unselectedColor
 
             guard let coinButton = arrangedSubviews[1] as? SegmentedStackButton else { return }
             coinButton.setImage(#imageLiteral(resourceName: "CoinOption_Filled").withRenderingMode(.alwaysTemplate), for: .normal)

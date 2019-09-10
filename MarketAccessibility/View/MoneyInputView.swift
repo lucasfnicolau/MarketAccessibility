@@ -18,6 +18,7 @@ protocol MoneyInputViewDelegate: class {
 @IBDesignable
 class MoneyInputView: UIView {
     var selectedColor = UIColor.App.money
+    var unselectedColor = UIColor.App.money
     var segmentedStackView: SegmentedStackView!
     var moneyCollectionView: UICollectionView!
     weak var moneyVCDelegate: MoneyVCDelegate!
@@ -31,10 +32,11 @@ class MoneyInputView: UIView {
         super.awakeFromNib()
     }
 
-    init(frame: CGRect, withSelectedColor color: UIColor) {
+    init(frame: CGRect, withSelectedColor color: UIColor, andUnselectedColor unselectedColor: UIColor) {
         super.init(frame: frame)
 
         selectedColor = color
+        self.unselectedColor = unselectedColor
         moneyInputCollectionHandler = MoneyInputViewCollectionHandler()
         moneyInputCollectionHandler?.parentVC = self
         setMoneyInput()
@@ -49,6 +51,9 @@ class MoneyInputView: UIView {
     // segmented
     func setMoneyInput() {
 
+        self.layer.cornerRadius = 20
+        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         // MARK: - criaçao da collection
 
         let layout = UICollectionViewFlowLayout()
@@ -68,7 +73,7 @@ class MoneyInputView: UIView {
         coinButton.setImage(#imageLiteral(resourceName: "CoinOption").withRenderingMode(.alwaysTemplate), for: .normal)
         
         ceduleButton.tintColor = selectedColor
-        coinButton.tintColor = UIColor.App.segmentedUnselected
+        coinButton.tintColor = unselectedColor
         
         segmentedStackView = SegmentedStackView(withViews: [ceduleButton, coinButton])
 
@@ -82,6 +87,7 @@ class MoneyInputView: UIView {
         segmentedStackView.translatesAutoresizingMaskIntoConstraints = false
         segmentedStackView.moneyInputViewDelegate = moneyInputCollectionHandler
         segmentedStackView.selectedColor = selectedColor
+        segmentedStackView.unselectedColor = unselectedColor
 
         NSLayoutConstraint.activate([
             moneyCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),

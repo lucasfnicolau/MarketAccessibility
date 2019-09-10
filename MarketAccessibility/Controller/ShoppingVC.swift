@@ -40,9 +40,9 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         
         navigationItem.title = "VALOR DA COMPRA"
         
-        navigationItem.setLeftBarButtonItems([
-            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
-        ], animated: true)
+        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.topItem?.title = " "
         navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
                                                          style: .done, target: self,
                                                          action: #selector(confirmAndMoveOn)), animated: true)
@@ -75,7 +75,6 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = UIColor.App.actionColor
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
@@ -83,6 +82,11 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         self.view.backgroundColor = UIColor.App.shopping
         
         trashButton.tintColor = UIColor.App.actionColor
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     func setInputView() {
@@ -214,11 +218,16 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
         if !text.isEqual(currencyStr(0)) && !text.isEqual("R$ ,") && !text.isEqual("$ ,") {
-            let howToPayVC = HowToPayVC()
-            howToPayVC.inputedMoneyStr = inputedMoneyStr
-            howToPayVC.inputedMoney = round(array: inputedMoney)
-            howToPayVC.totalValue = text
-            navigationController?.pushViewController(howToPayVC, animated: true)
+            if calculateValue(fromArray: inputedMoney) >= Float(text
+                .replacingOccurrences(of: "R$ ", with: "")
+                .replacingOccurrences(of: "$ ", with: "")
+                .replacingOccurrences(of: ",", with: ".")) ?? 0 {
+                let howToPayVC = HowToPayVC()
+                howToPayVC.inputedMoneyStr = inputedMoneyStr
+                howToPayVC.inputedMoney = round(array: inputedMoney)
+                howToPayVC.totalValue = text
+                navigationController?.pushViewController(howToPayVC, animated: true)
+            }
         }
     }
     

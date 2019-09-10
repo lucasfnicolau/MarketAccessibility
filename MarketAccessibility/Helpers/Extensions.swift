@@ -22,6 +22,7 @@ extension UIColor {
         static var actionColor: UIColor { return #colorLiteral(red: 0.8666666667, green: 0.431372549, blue: 0.2588235294, alpha: 1) } // #colorLiteral(red: 0.9843137255, green: 0.3921568627, blue: 0.02352941176, alpha: 1) }
         static var black: UIColor { return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) }
         static var white: UIColor { return #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) }
+        static var gradient: UIColor { return #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) }
     }
 }
 

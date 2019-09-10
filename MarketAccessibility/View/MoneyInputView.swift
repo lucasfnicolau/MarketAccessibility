@@ -49,6 +49,9 @@ class MoneyInputView: UIView {
     // segmented
     func setMoneyInput() {
 
+        self.layer.cornerRadius = 20
+        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         // MARK: - criaçao da collection
 
         let layout = UICollectionViewFlowLayout()

@@ -50,7 +50,11 @@ class AnimationVC: UIViewController {
             view.backgroundColor = UIColor.App.error
             setErrorAnimation()
         }
-        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     @objc func confirmAndMoveOn() {

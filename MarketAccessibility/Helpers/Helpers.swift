@@ -190,3 +190,7 @@ func roundChange(_ value: Float) -> Float {
     
     return newValue
 }
+
+func isSE() -> Bool {
+    return UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0
+}

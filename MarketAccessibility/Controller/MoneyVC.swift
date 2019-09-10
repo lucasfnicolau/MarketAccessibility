@@ -24,16 +24,11 @@ class MoneyVC: UIViewController {
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: MoneyVCCollectionHandler!
     var defaults: UserDefaults!
-    var isSE = false
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var trashButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0 {
-            isSE = true
-        }
 
         defaults = UserDefaults()
         navigationItem.setRightBarButton(
@@ -105,7 +100,7 @@ class MoneyVC: UIViewController {
 
             moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE ? 205 : 230)),
+            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE() ? 205 : 230)),
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
 
             ])

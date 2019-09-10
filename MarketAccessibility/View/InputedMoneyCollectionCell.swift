@@ -39,9 +39,9 @@ class InputedMoneyCollectionCell: UICollectionViewCell {
             deleteButton.widthAnchor.constraint(equalToConstant: 20),
             deleteButton.heightAnchor.constraint(equalToConstant: 20),
 
-            moneyImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            moneyImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
             moneyImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            moneyImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            moneyImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
             moneyImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10)
 
             ])

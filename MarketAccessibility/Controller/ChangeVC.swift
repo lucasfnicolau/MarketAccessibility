@@ -27,15 +27,10 @@ class ChangeVC: UIViewController {
     var continueBtn: UIButton!
     var backBtn: UIButton!
     var stackView: UIStackView!
-    var isSE = false
     var change2: Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0 {
-            isSE = true
-        }
         
         navigationItem.setLeftBarButtonItems([
             UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
@@ -109,7 +104,7 @@ class ChangeVC: UIViewController {
     
     func setMoneyInput() {
         
-        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.change)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.segmentedSelected)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
         
@@ -120,7 +115,7 @@ class ChangeVC: UIViewController {
             
             moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE ? 205 : 230)),
+            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE() ? 205 : 230)),
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])

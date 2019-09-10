@@ -18,7 +18,7 @@ protocol ShoppingVCDelegate: class {
 class ShoppingVC: UIViewController, ShoppingVCDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
     
     @IBOutlet weak var moneyValueLabel: UILabel!
@@ -71,14 +71,18 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         super.viewWillAppear(animated)
         
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.shopping
+            NSAttributedString.Key.foregroundColor: UIColor.App.white
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
-        navigationController?.navigationBar.tintColor = UIColor.App.shopping
+        navigationController?.navigationBar.tintColor = UIColor.App.actionColor
+        navigationController?.navigationBar.barTintColor = UIColor.App.shopping
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isTranslucent = false
+        self.view.backgroundColor = UIColor.App.shopping
         
-        trashButton.tintColor = UIColor.App.shopping
+        trashButton.tintColor = UIColor.App.actionColor
     }
     
     func setInputView() {
@@ -97,7 +101,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         drawInputButton = UIButton(frame: .zero)
         drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
         drawInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
-        drawInputButton.tintColor = UIColor.App.shopping
+        drawInputButton.tintColor = UIColor.App.actionColor
         
         speakInputButton = MicButton(frame: .zero)
         speakInputButton.delegate = self
@@ -172,7 +176,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             selectedInputView = drawInputView
             
             drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
-            drawInputButton.tintColor = UIColor.App.shopping
+            drawInputButton.tintColor = UIColor.App.actionColor
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
             speakInputButton.tintColor = UIColor.App.segmentedUnselected
@@ -185,7 +189,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             drawInputButton.tintColor = UIColor.App.segmentedUnselected
             
             speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_filled").withRenderingMode(.alwaysTemplate), for: .normal)
-            speakInputButton.tintColor = UIColor.App.shopping
+            speakInputButton.tintColor = UIColor.App.actionColor
             
             changeInputView(viewToHide: drawInputView, viewToAppear: speakInputView)
         }

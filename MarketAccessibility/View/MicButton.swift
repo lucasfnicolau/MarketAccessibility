@@ -22,7 +22,7 @@ class MicButton: UIButton {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.tintColor = UIColor.App.shopping
+        self.tintColor = UIColor.App.actionColor
         self.setImage(#imageLiteral(resourceName: "btn_mic_filled").withRenderingMode(.alwaysTemplate), for: .normal)
         delegate.startHearing()
     }

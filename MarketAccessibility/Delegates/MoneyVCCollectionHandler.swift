@@ -59,9 +59,12 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MoneyVCDelegate 
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         var size = CGSize(width: 0, height: 0)
+        let imageSize = CGSize(width: 324, height: 156)
+        let width: CGFloat = isSE() ? 3.5 : 2.7
+        let height: CGFloat = isSE() ? 3.2 : 2.5
 
         if inputedMoney[indexPath.row] > 1.0 {
-            size = CGSize(width: UIScreen.main.bounds.width / 3 - 30.0, height: 55)
+            size = CGSize(width: imageSize.width / width, height: imageSize.height / height)
         } else {
             size = CGSize(width: UIScreen.main.bounds.width / 5 - 10.0,
                           height: UIScreen.main.bounds.width / 5 - 10.0)

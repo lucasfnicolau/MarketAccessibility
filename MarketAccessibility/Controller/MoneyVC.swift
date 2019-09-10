@@ -17,23 +17,18 @@ protocol MoneyVCDelegate: class {
 class MoneyVC: UIViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
     
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
     var collectionViewHandler: MoneyVCCollectionHandler!
     var defaults: UserDefaults!
-    var isSE = false
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var trashButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if UIScreen.main.bounds.width == 320.0 && UIScreen.main.bounds.height == 568.0 {
-            isSE = true
-        }
 
         defaults = UserDefaults()
         navigationItem.setRightBarButton(
@@ -53,14 +48,7 @@ class MoneyVC: UIViewController {
         inputedMoneyCollectionView.delegate = collectionViewHandler
         inputedMoneyCollectionView.dataSource = collectionViewHandler
         
-        let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.money
-        ]
-        navigationController?.navigationBar.titleTextAttributes = attrs
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.money
-        
-        trashButton.tintColor = UIColor.App.money
+        self.view.backgroundColor = UIColor.App.money
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,13 +61,17 @@ class MoneyVC: UIViewController {
         collectionViewHandler.calculateValue()
         
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.money
+            NSAttributedString.Key.foregroundColor: UIColor.App.white
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.tintColor = UIColor.App.money
+        navigationController?.navigationBar.tintColor = UIColor.App.actionColor
+        navigationController?.navigationBar.barTintColor = UIColor.App.money
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isTranslucent = false
+        self.view.backgroundColor = UIColor.App.money
         
-        trashButton.tintColor = UIColor.App.money
+        trashButton.tintColor = UIColor.App.actionColor
     }
     
     @objc func confirmAndMoveOn() {
@@ -93,12 +85,11 @@ class MoneyVC: UIViewController {
         collectionViewHandler.inputedMoney = []
         inputedMoneyCollectionView.reloadData()
         collectionViewHandler.calculateValue()
-        trashButton.tintColor = UIColor.App.money
     }
 
     func setMoneyInput() {
 
-        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.money)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.actionColor)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 
@@ -109,7 +100,7 @@ class MoneyVC: UIViewController {
 
             moneyInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             moneyInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE ? 205 : 230)),
+            moneyInputView.heightAnchor.constraint(equalToConstant: (isSE() ? 205 : 230)),
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
 
             ])

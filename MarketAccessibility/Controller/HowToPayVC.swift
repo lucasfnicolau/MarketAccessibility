@@ -65,8 +65,10 @@ class HowToPayVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard let font = UIFont(name: "Avenir", size: 22) else { return }
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.white
+            NSAttributedString.Key.foregroundColor: UIColor.App.white,
+            NSAttributedString.Key.font: font
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)

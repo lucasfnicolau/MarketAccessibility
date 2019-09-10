@@ -28,8 +28,6 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.layer.cornerRadius = 20
-        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         setWaves()
     }
 

@@ -60,8 +60,10 @@ class MoneyVC: UIViewController {
         inputedMoneyCollectionView.reloadData()
         collectionViewHandler.calculateValue()
         
+        guard let font = UIFont(name: "Avenir", size: 22) else { return }
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.App.white
+            NSAttributedString.Key.foregroundColor: UIColor.App.white,
+            NSAttributedString.Key.font: font
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -94,7 +96,8 @@ class MoneyVC: UIViewController {
 
     func setMoneyInput() {
 
-        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.actionColor)
+        moneyInputView = MoneyInputView(frame: .zero, withSelectedColor: UIColor.App.actionColor,
+                                        andUnselectedColor: UIColor.App.money)
         moneyInputView.moneyVCDelegate = collectionViewHandler
         moneyInputView.backgroundColor = UIColor.App.background
 

@@ -37,8 +37,6 @@ class DrawInputView: UIView {
         coinDrawView = StrokeView(frame: .zero)
         set(drawView: ceduleDrawView)
         set(drawView: coinDrawView)
-        self.layer.cornerRadius = 20
-        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         setConstraints()
     }
 
@@ -50,7 +48,7 @@ class DrawInputView: UIView {
         let commaLabel = UILabel(frame: .zero)
         commaLabel.text = ","
         commaLabel.font = commaLabel.font.withSize(80)
-        commaLabel.textColor = UIColor.App.segmentedUnselected
+        commaLabel.textColor = UIColor.App.shopping
         
         let stackView = UIStackView(arrangedSubviews: [
             ceduleDrawView, commaLabel, coinDrawView
@@ -84,13 +82,6 @@ class DrawInputView: UIView {
     }
     
     func set(drawView: StrokeView) {
-        drawView.layer.cornerRadius = 20
-        drawView.clipsToBounds = true
-        if drawView == self.ceduleDrawView {
-            drawView.layer.maskedCorners = [.layerMinXMinYCorner]
-        } else {
-            drawView.layer.maskedCorners = [.layerMaxXMinYCorner]
-        }
         
         drawView.onDidFinishDrawing = { drawnPoints in
             guard let drawnPoints = drawnPoints else { return }

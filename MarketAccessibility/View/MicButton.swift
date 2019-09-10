@@ -28,13 +28,13 @@ class MicButton: UIButton {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.tintColor = UIColor.App.segmentedUnselected
+        self.tintColor = UIColor.App.shopping
         self.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         delegate.stopHearing()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.tintColor = UIColor.App.segmentedUnselected
+        self.tintColor = UIColor.App.shopping
         self.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         delegate.stopHearing()
     }

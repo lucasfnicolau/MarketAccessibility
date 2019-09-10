@@ -34,9 +34,9 @@ class HowToPayVC: UIViewController {
         
         navigationItem.title = "COMO PAGAR"
         
-        navigationItem.setLeftBarButtonItems([
-            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
-            ], animated: true)
+        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.topItem?.title = " "
         navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
                                                          style: .done, target: self,
                                                          action: #selector(confirmAndMoveOn)), animated: true)
@@ -70,12 +70,16 @@ class HowToPayVC: UIViewController {
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationItem.hidesBackButton = true
         navigationController?.navigationBar.tintColor = UIColor.App.actionColor
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = UIColor.App.shopping
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     @objc func confirmAndMoveOn() {

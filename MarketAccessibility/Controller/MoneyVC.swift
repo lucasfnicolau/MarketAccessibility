@@ -74,6 +74,11 @@ class MoneyVC: UIViewController {
         trashButton.tintColor = UIColor.App.actionColor
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
     @objc func confirmAndMoveOn() {
         if !collectionViewHandler.inputedMoney.isEmpty {
             let animationVC = AnimationVC()

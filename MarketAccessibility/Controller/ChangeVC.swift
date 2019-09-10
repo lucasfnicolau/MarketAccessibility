@@ -17,7 +17,6 @@ class ChangeVC: UIViewController {
     
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var trashButton: UIButton!
-    @IBOutlet weak var changeImageView: UIImageView!
     var change: Float = 0
     var moneyInputView: MoneyInputView!
     var inputedMoneyCollectionView: UICollectionView!
@@ -32,9 +31,9 @@ class ChangeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.setLeftBarButtonItems([
-            UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(stopAndMoveBack))
-            ], animated: true)
+        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
+        navigationController?.navigationBar.topItem?.title = " "
         navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
                                                          style: .done, target: self,
                                                          action: #selector(confirmAndMoveOn)), animated: true)
@@ -52,7 +51,6 @@ class ChangeVC: UIViewController {
         collectionViewHandler.parentVC = self
         
         setMoneyInput()
-        setChangeImageView()
         setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
@@ -69,7 +67,6 @@ class ChangeVC: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.tintColor = UIColor.App.actionColor
-        navigationItem.hidesBackButton = true
         navigationController?.navigationBar.barTintColor = UIColor.App.change
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
@@ -139,20 +136,9 @@ class ChangeVC: UIViewController {
             inputedMoneyCollectionView.topAnchor.constraint(equalTo: moneyValueLabel.bottomAnchor, constant: 50),
             inputedMoneyCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5),
             inputedMoneyCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
-            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: self.changeImageView.topAnchor,
+            inputedMoneyCollectionView.bottomAnchor.constraint(equalTo: self.moneyInputView.topAnchor,
                                                                constant: -8)
             
             ])
-    }
-
-    func setChangeImageView() {
-        changeImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            changeImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            changeImageView.bottomAnchor.constraint(equalTo: self.moneyInputView.topAnchor,
-                                                               constant: -8),
-            changeImageView.heightAnchor.constraint(equalToConstant: 70),
-            changeImageView.widthAnchor.constraint(equalToConstant: 107)
-        ])
     }
 }

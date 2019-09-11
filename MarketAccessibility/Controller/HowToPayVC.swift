@@ -27,7 +27,7 @@ class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
     var bestPayment = [Float]()
     var hasReachedResult = false
     var minDiffs = [Float]()
-    var helpButton: UIButton!
+    var helpButton: LargerTouchAreaButton!
     var helpAudio: AVAudioPlayer?
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var moneyCollectionView: UICollectionView!
@@ -91,6 +91,9 @@ class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
     }
     
     @objc func confirmAndMoveOn() {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+        helpAudio?.stop()
+        
         if String(format: "%.2f", calculateValue(fromArray: payment)).isEqual(String(format: "%.2f", totalValueFloat))
             || roundChange(calculateValue(fromArray: payment) - totalValueFloat) <= 0 {
             let animationVC = AnimationVC()
@@ -157,8 +160,14 @@ class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
     override func playHelpAudio(_ sender: UIButton) {
         if sender.imageView?.image == #imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate) {
             sender.setImage(#imageLiteral(resourceName: "stop").withRenderingMode(.alwaysTemplate), for: .normal)
-            guard let path = Bundle.main.path(forResource: Audio.moneyVC.rawValue, ofType: "m4a") else { return }
+            guard let path = Bundle.main.path(forResource: Audio.howToPayVC.rawValue, ofType: "wav") else { return }
             let url = URL(fileURLWithPath: path)
+            
+            let popupVC = PopupVC()
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.modalPresentationStyle = .custom
+            popupVC.popupImages = [#imageLiteral(resourceName: "volume1"), #imageLiteral(resourceName: "volume2"), #imageLiteral(resourceName: "volume3")]
+            self.navigationController?.present(popupVC, animated: true, completion: nil)
             
             do {
                 helpAudio = try AVAudioPlayer(contentsOf: url)

@@ -28,7 +28,7 @@ class ChangeVC: UIViewController, AVAudioPlayerDelegate {
     var backBtn: UIButton!
     var stackView: UIStackView!
     var change2: Float = 0
-    var helpButton: UIButton!
+    var helpButton: LargerTouchAreaButton!
     var helpAudio: AVAudioPlayer?
     
     override func viewDidLoad() {
@@ -81,6 +81,9 @@ class ChangeVC: UIViewController, AVAudioPlayerDelegate {
     }
     
     @objc func confirmAndMoveOn() {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+        helpAudio?.stop()
+        
         if String(format: "%.2f", calculateValue(fromArray: collectionViewHandler.inputedMoney))
             .isEqual(String(format: "%.2f", change)) {
             let animationVC = AnimationVC()
@@ -152,8 +155,14 @@ class ChangeVC: UIViewController, AVAudioPlayerDelegate {
     override func playHelpAudio(_ sender: UIButton) {
         if sender.imageView?.image == #imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate) {
             sender.setImage(#imageLiteral(resourceName: "stop").withRenderingMode(.alwaysTemplate), for: .normal)
-            guard let path = Bundle.main.path(forResource: Audio.moneyVC.rawValue, ofType: "m4a") else { return }
+            guard let path = Bundle.main.path(forResource: Audio.changeVC.rawValue, ofType: "wav") else { return }
             let url = URL(fileURLWithPath: path)
+            
+            let popupVC = PopupVC()
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.modalPresentationStyle = .custom
+            popupVC.popupImages = [#imageLiteral(resourceName: "volume1"), #imageLiteral(resourceName: "volume2"), #imageLiteral(resourceName: "volume3")]
+            self.navigationController?.present(popupVC, animated: true, completion: nil)
             
             do {
                 helpAudio = try AVAudioPlayer(contentsOf: url)

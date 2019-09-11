@@ -18,7 +18,6 @@ extension UIColor {
         static var error: UIColor { return #colorLiteral(red: 0.6117647059, green: 0.1098039216, blue: 0.06274509804, alpha: 1) }
         static var background: UIColor { return #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) }
         static var segmentedSelected: UIColor { return #colorLiteral(red: 0.8666666667, green: 0.431372549, blue: 0.2588235294, alpha: 1) }
-        static var segmentedUnselected: UIColor { return #colorLiteral(red: 0.7490196078, green: 0.7058823529, blue: 0.5607843137, alpha: 1) }
         static var actionColor: UIColor { return #colorLiteral(red: 0.8666666667, green: 0.431372549, blue: 0.2588235294, alpha: 1) }
         static var black: UIColor { return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) }
         static var white: UIColor { return #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) }
@@ -73,4 +72,8 @@ extension UIStackView {
 
         insertSubview(subview, at: 0)
     }
+}
+
+extension UIViewController {
+    @objc func playHelpAudio(_ sender: UIButton) {}
 }

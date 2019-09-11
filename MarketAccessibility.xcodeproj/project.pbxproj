@@ -42,6 +42,7 @@
 		BCF43D8A2319950500023B2D /* Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D892319950400023B2D /* Templates.swift */; };
 		BCF43D8E23199F9C00023B2D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF43D8D23199F9C00023B2D /* Helpers.swift */; };
 		CB9ED8012317154100E542BB /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9ED8002317154100E542BB /* ImageButton.swift */; };
+		E0164B7B2329613F00E87604 /* moneyVC.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E0164B7A2329613F00E87604 /* moneyVC.m4a */; };
 		E07463DB2319986600816843 /* SpeakInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DA2319986600816843 /* SpeakInputView.swift */; };
 		E07463E02319BA5400816843 /* AnimationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07463DE2319BA5400816843 /* AnimationVC.swift */; };
 		E07463E12319BA5400816843 /* AnimationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E07463DF2319BA5400816843 /* AnimationVC.xib */; };
@@ -89,6 +90,7 @@
 		BCF43D892319950400023B2D /* Templates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Templates.swift; sourceTree = "<group>"; };
 		BCF43D8D23199F9C00023B2D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		CB9ED8002317154100E542BB /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
+		E0164B7A2329613F00E87604 /* moneyVC.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = moneyVC.m4a; sourceTree = "<group>"; };
 		E07463DA2319986600816843 /* SpeakInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakInputView.swift; sourceTree = "<group>"; };
 		E07463DE2319BA5400816843 /* AnimationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationVC.swift; sourceTree = "<group>"; };
 		E07463DF2319BA5400816843 /* AnimationVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimationVC.xib; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				B65F7BE3230F2BB60097CDA7 /* LaunchScreen.storyboard */,
 				B65F7BE6230F2BB60097CDA7 /* Info.plist */,
 				B65F7BDE230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld */,
+				E0164B7A2329613F00E87604 /* moneyVC.m4a */,
 			);
 			path = MarketAccessibility;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				B65B644F231A391100C83F58 /* ChangeVC.xib in Resources */,
 				B6C90B002310539200C743C0 /* ShoppingVC.xib in Resources */,
 				E0DB6101231D826E0078247B /* HowToPayVC.xib in Resources */,
+				E0164B7B2329613F00E87604 /* moneyVC.m4a in Resources */,
 				B65F7BE5230F2BB60097CDA7 /* LaunchScreen.storyboard in Resources */,
 				B6C90AE523104C6A00C743C0 /* MoneyVC.xib in Resources */,
 				B65F7BE2230F2BB60097CDA7 /* Assets.xcassets in Resources */,
@@ -501,7 +505,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 87G2Y58K9U;
+				DEVELOPMENT_TEAM = PUT3745C65;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -520,7 +524,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 87G2Y58K9U;
+				DEVELOPMENT_TEAM = PUT3745C65;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

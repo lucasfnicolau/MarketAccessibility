@@ -8,6 +8,7 @@
 // swiftlint:disable trailing_whitespace
 
 import UIKit
+import AVFoundation
 
 protocol ShoppingVCDelegate: class {
     func updateLabel(withValue value: String)
@@ -15,7 +16,7 @@ protocol ShoppingVCDelegate: class {
     func stopHearing()
 }
 
-class ShoppingVC: UIViewController, ShoppingVCDelegate {
+class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -34,6 +35,8 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     var inputedMoneyStr = ""
     var inputedMoney = [Float]()
     var defaults: UserDefaults!
+    var helpButton: UIButton!
+    var helpAudio: AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +61,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         setInputView()
         moneyValueLabel.text = currencyStr(0)
         setStackView()
-        addHelpButton(forVC: self, onTopOf: optionsStackView)
+        helpButton = addHelpButton(forVC: self, onTopOf: optionsStackView)
         setSpeakInputView()
         setDrawInput()
         selectedInputView = drawInputView
@@ -249,5 +252,30 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     
     func stopHearing() {
         speakInputView.stopHearing()
+    }
+    
+    override func playHelpAudio(_ sender: UIButton) {
+        if sender.imageView?.image == #imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate) {
+            sender.setImage(#imageLiteral(resourceName: "stop").withRenderingMode(.alwaysTemplate), for: .normal)
+            guard let path = Bundle.main.path(forResource: Audio.moneyVC.rawValue, ofType: "m4a") else { return }
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                helpAudio = try AVAudioPlayer(contentsOf: url)
+                helpAudio?.delegate = self
+                helpAudio?.numberOfLoops = 0
+                helpAudio?.play()
+            } catch let error {
+                print(error)
+                
+            }
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+            helpAudio?.stop()
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }

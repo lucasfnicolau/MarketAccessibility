@@ -27,4 +27,17 @@ class ImageButton: UIButton {
         delegate?.delete(onPosition: position)
     }
 
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let verticalInset = CGFloat(15)
+        let horizontalInset = CGFloat(15)
+
+        let largerArea = CGRect(
+            x: self.bounds.origin.x - horizontalInset,
+            y: self.bounds.origin.y - verticalInset,
+            width: self.bounds.size.width + horizontalInset * 2,
+            height: self.bounds.size.height + verticalInset * 2
+        )
+
+        return largerArea.contains(point)
+    }
 }

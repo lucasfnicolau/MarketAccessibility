@@ -31,6 +31,9 @@ class ChangeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        change = roundChange(inputedMoney - totalValue)
+        let changeStr = currencyStr(change)
+        
         navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.topItem?.title = " "
@@ -40,10 +43,6 @@ class ChangeVC: UIViewController {
         
         guard let btnImage = trashButton.imageView?.image else { return }
         trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
-
-        change = roundChange(inputedMoney - totalValue)
-        var changeStr = ""
-        changeStr = String(format: "R$ %.2f", change).replacingOccurrences(of: ".", with: ",")
         
         navigationItem.title = "TROCO: \(changeStr)"
         
@@ -120,7 +119,7 @@ class ChangeVC: UIViewController {
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])
-        moneyValueLabel.text = "R$ 0,00"
+        moneyValueLabel.text = currencyStr(0)
         
     }
     

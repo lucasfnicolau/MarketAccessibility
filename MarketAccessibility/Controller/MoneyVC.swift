@@ -26,7 +26,7 @@ class MoneyVC: UIViewController, AVAudioPlayerDelegate {
     var collectionViewHandler: MoneyVCCollectionHandler!
     var defaults: UserDefaults!
     var helpAudio: AVAudioPlayer?
-    var helpButton: UIButton!
+    var helpButton: LargerTouchAreaButton!
 
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var trashButton: UIButton!
@@ -95,8 +95,17 @@ class MoneyVC: UIViewController, AVAudioPlayerDelegate {
     
     @objc func confirmAndMoveOn() {
         if !collectionViewHandler.inputedMoney.isEmpty {
+            helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+            helpAudio?.stop()
+            
             let animationVC = AnimationVC()
             navigationController?.pushViewController(animationVC, animated: true)
+        } else {
+            let popupVC = PopupVC()
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.modalPresentationStyle = .custom
+            popupVC.popupImages = [#imageLiteral(resourceName: "arrow_down1"), #imageLiteral(resourceName: "arrow_down2"), #imageLiteral(resourceName: "arrow_down1"), #imageLiteral(resourceName: "arrow_down2")]
+            self.navigationController?.present(popupVC, animated: true, completion: nil)
         }
     }
     
@@ -154,8 +163,14 @@ class MoneyVC: UIViewController, AVAudioPlayerDelegate {
     override func playHelpAudio(_ sender: UIButton) {
         if sender.imageView?.image == #imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate) {
             sender.setImage(#imageLiteral(resourceName: "stop").withRenderingMode(.alwaysTemplate), for: .normal)
-            guard let path = Bundle.main.path(forResource: Audio.moneyVC.rawValue, ofType: "m4a") else { return }
+            guard let path = Bundle.main.path(forResource: Audio.moneyVC.rawValue, ofType: "wav") else { return }
             let url = URL(fileURLWithPath: path)
+            
+            let popupVC = PopupVC()
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.modalPresentationStyle = .custom
+            popupVC.popupImages = [#imageLiteral(resourceName: "volume1"), #imageLiteral(resourceName: "volume2"), #imageLiteral(resourceName: "volume3")]
+            self.navigationController?.present(popupVC, animated: true, completion: nil)
             
             do {
                 helpAudio = try AVAudioPlayer(contentsOf: url)
@@ -164,7 +179,6 @@ class MoneyVC: UIViewController, AVAudioPlayerDelegate {
                 helpAudio?.play()
             } catch let error {
                 print(error)
-                
             }
         } else {
             sender.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)

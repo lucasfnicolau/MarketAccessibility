@@ -195,8 +195,8 @@ func isSE() -> Bool {
     return UIScreen.main.bounds.width == SESize.width && UIScreen.main.bounds.height == SESize.height
 }
 
-func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) -> UIButton {
-    let helpBtn = UIButton(frame: .zero)
+func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) -> LargerTouchAreaButton {
+    let helpBtn = LargerTouchAreaButton(frame: .zero)
     helpBtn.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     helpBtn.tintColor = UIColor.App.actionColor
     vc.view.addSubview(helpBtn)
@@ -213,8 +213,8 @@ func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) -> UIButton
     return helpBtn
 }
 
-func addHelpButton(forVC vc: UIViewController, under view: UIView) -> UIButton {
-    let helpBtn = UIButton(frame: .zero)
+func addHelpButton(forVC vc: UIViewController, under view: UIView) -> LargerTouchAreaButton {
+    let helpBtn = LargerTouchAreaButton(frame: .zero)
     helpBtn.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     helpBtn.tintColor = UIColor.App.actionColor
     vc.view.addSubview(helpBtn)

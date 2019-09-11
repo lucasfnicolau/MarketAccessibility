@@ -9,8 +9,9 @@
 // swiftlint:disable identifier_name
 
 import UIKit
+import AVFoundation
 
-class HowToPayVC: UIViewController {
+class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -26,6 +27,8 @@ class HowToPayVC: UIViewController {
     var bestPayment = [Float]()
     var hasReachedResult = false
     var minDiffs = [Float]()
+    var helpButton: UIButton!
+    var helpAudio: AVAudioPlayer?
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var moneyCollectionView: UICollectionView!
     
@@ -59,7 +62,7 @@ class HowToPayVC: UIViewController {
         moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
             .replacingOccurrences(of: ".", with: ",")
 
-        addHelpButton(forVC: self, under: moneyCollectionView)
+        helpButton = addHelpButton(forVC: self, under: moneyCollectionView)
         
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
@@ -149,5 +152,30 @@ class HowToPayVC: UIViewController {
         }
         
         return bestPayment
+    }
+    
+    override func playHelpAudio(_ sender: UIButton) {
+        if sender.imageView?.image == #imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate) {
+            sender.setImage(#imageLiteral(resourceName: "stop").withRenderingMode(.alwaysTemplate), for: .normal)
+            guard let path = Bundle.main.path(forResource: Audio.moneyVC.rawValue, ofType: "m4a") else { return }
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                helpAudio = try AVAudioPlayer(contentsOf: url)
+                helpAudio?.delegate = self
+                helpAudio?.numberOfLoops = 0
+                helpAudio?.play()
+            } catch let error {
+                print(error)
+                
+            }
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+            helpAudio?.stop()
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }

@@ -31,6 +31,12 @@ class MoneyVC: UIViewController {
         super.viewDidLoad()
 
         defaults = UserDefaults()
+        navigationController?.navigationBar.tintColor = UIColor.App.actionColor
+        navigationController?.navigationBar.barTintColor = UIColor.App.money
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isTranslucent = false
+        trashButton.tintColor = UIColor.App.actionColor
+        
         navigationItem.setRightBarButton(
             UIBarButtonItem(image: #imageLiteral(resourceName: "continue"), style: .done, target: self,
                             action: #selector(confirmAndMoveOn)), animated: true)

@@ -88,7 +88,8 @@ class HowToPayVC: UIViewController {
     }
     
     @objc func confirmAndMoveOn() {
-        if String(format: "%.2f", calculateValue(fromArray: payment)).isEqual(String(format: "%.2f", totalValueFloat)) {
+        if String(format: "%.2f", calculateValue(fromArray: payment)).isEqual(String(format: "%.2f", totalValueFloat))
+            || roundChange(calculateValue(fromArray: payment) - totalValueFloat) <= 0 {
             let animationVC = AnimationVC()
             animationVC.step = 1
             navigationController?.pushViewController(animationVC, animated: true)
@@ -112,7 +113,7 @@ class HowToPayVC: UIViewController {
         for i in 0 ..< inputedMoney.count {
             var payment = [Float]()
             
-            payment.append(inputedMoney[i] )
+            payment.append(inputedMoney[i])
             var sum = inputedMoney[i].roundTo(places: 2)
             let index = (i <= inputedMoney.count - 1 ? i + 1 : i)
             for j in index ..< inputedMoney.count {
@@ -123,8 +124,8 @@ class HowToPayVC: UIViewController {
                 
                 if sum > totalValueFloat ||
                     String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
-                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
-                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
+                    if calculateValue(fromArray: payment) - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment) - totalValueFloat
                         bestPayment = payment
                         
                         sum = inputedMoney[i]
@@ -136,8 +137,8 @@ class HowToPayVC: UIViewController {
             if index == inputedMoney.count {
                 if sum > totalValueFloat ||
                     String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
-                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
-                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
+                    if calculateValue(fromArray: payment) - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment) - totalValueFloat
                         bestPayment = payment
                         
                         sum = inputedMoney[i]

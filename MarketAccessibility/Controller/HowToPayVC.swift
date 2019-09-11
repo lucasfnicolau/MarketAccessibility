@@ -9,8 +9,9 @@
 // swiftlint:disable identifier_name
 
 import UIKit
+import AVFoundation
 
-class HowToPayVC: UIViewController {
+class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -26,6 +27,8 @@ class HowToPayVC: UIViewController {
     var bestPayment = [Float]()
     var hasReachedResult = false
     var minDiffs = [Float]()
+    var helpButton: LargerTouchAreaButton!
+    var helpAudio: AVAudioPlayer?
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var moneyCollectionView: UICollectionView!
     
@@ -59,7 +62,7 @@ class HowToPayVC: UIViewController {
         moneyValueLabel.text = String(format: "R$ %.2f", calculateValue(fromArray: payment))
             .replacingOccurrences(of: ".", with: ",")
 
-        addHelpButton(forVC: self, under: moneyCollectionView)
+        helpButton = addHelpButton(forVC: self, under: moneyCollectionView)
         
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
@@ -88,7 +91,11 @@ class HowToPayVC: UIViewController {
     }
     
     @objc func confirmAndMoveOn() {
-        if String(format: "%.2f", calculateValue(fromArray: payment)).isEqual(String(format: "%.2f", totalValueFloat)) {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+        helpAudio?.stop()
+        
+        if String(format: "%.2f", calculateValue(fromArray: payment)).isEqual(String(format: "%.2f", totalValueFloat))
+            || roundChange(calculateValue(fromArray: payment) - totalValueFloat) <= 0 {
             let animationVC = AnimationVC()
             animationVC.step = 1
             navigationController?.pushViewController(animationVC, animated: true)
@@ -112,7 +119,7 @@ class HowToPayVC: UIViewController {
         for i in 0 ..< inputedMoney.count {
             var payment = [Float]()
             
-            payment.append(inputedMoney[i] )
+            payment.append(inputedMoney[i])
             var sum = inputedMoney[i].roundTo(places: 2)
             let index = (i <= inputedMoney.count - 1 ? i + 1 : i)
             for j in index ..< inputedMoney.count {
@@ -123,8 +130,8 @@ class HowToPayVC: UIViewController {
                 
                 if sum > totalValueFloat ||
                     String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
-                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
-                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
+                    if calculateValue(fromArray: payment) - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment) - totalValueFloat
                         bestPayment = payment
                         
                         sum = inputedMoney[i]
@@ -136,8 +143,8 @@ class HowToPayVC: UIViewController {
             if index == inputedMoney.count {
                 if sum > totalValueFloat ||
                     String(format: "%.2f", sum).isEqual(String(format: "%.2f", totalValueFloat)) {
-                    if calculateValue(fromArray: payment)  - totalValueFloat < minDiff {
-                        minDiff = calculateValue(fromArray: payment)  - totalValueFloat
+                    if calculateValue(fromArray: payment) - totalValueFloat < minDiff {
+                        minDiff = calculateValue(fromArray: payment) - totalValueFloat
                         bestPayment = payment
                         
                         sum = inputedMoney[i]
@@ -148,5 +155,36 @@ class HowToPayVC: UIViewController {
         }
         
         return bestPayment
+    }
+    
+    override func playHelpAudio(_ sender: UIButton) {
+        if sender.imageView?.image == #imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate) {
+            sender.setImage(#imageLiteral(resourceName: "stop").withRenderingMode(.alwaysTemplate), for: .normal)
+            guard let path = Bundle.main.path(forResource: Audio.howToPayVC.rawValue, ofType: "wav") else { return }
+            let url = URL(fileURLWithPath: path)
+            
+            let popupVC = PopupVC()
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.modalPresentationStyle = .custom
+            popupVC.popupImages = [#imageLiteral(resourceName: "volume1"), #imageLiteral(resourceName: "volume2"), #imageLiteral(resourceName: "volume3")]
+            self.navigationController?.present(popupVC, animated: true, completion: nil)
+            
+            do {
+                helpAudio = try AVAudioPlayer(contentsOf: url)
+                helpAudio?.delegate = self
+                helpAudio?.numberOfLoops = 0
+                helpAudio?.play()
+            } catch let error {
+                print(error)
+                
+            }
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+            helpAudio?.stop()
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }

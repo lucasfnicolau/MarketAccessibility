@@ -195,8 +195,8 @@ func isSE() -> Bool {
     return UIScreen.main.bounds.width == SESize.width && UIScreen.main.bounds.height == SESize.height
 }
 
-func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) {
-    let helpBtn = UIButton(frame: .zero)
+func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) -> LargerTouchAreaButton {
+    let helpBtn = LargerTouchAreaButton(frame: .zero)
     helpBtn.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     helpBtn.tintColor = UIColor.App.actionColor
     vc.view.addSubview(helpBtn)
@@ -207,10 +207,14 @@ func addHelpButton(forVC vc: UIViewController, onTopOf view: UIView) {
         helpBtn.widthAnchor.constraint(equalToConstant: 30 / SESize.width * UIScreen.main.bounds.width),
         helpBtn.heightAnchor.constraint(equalToConstant: 30 / SESize.width * UIScreen.main.bounds.width)
     ])
+    
+    helpBtn.addTarget(vc, action: #selector(vc.playHelpAudio), for: .touchUpInside)
+    
+    return helpBtn
 }
 
-func addHelpButton(forVC vc: UIViewController, under view: UIView) {
-    let helpBtn = UIButton(frame: .zero)
+func addHelpButton(forVC vc: UIViewController, under view: UIView) -> LargerTouchAreaButton {
+    let helpBtn = LargerTouchAreaButton(frame: .zero)
     helpBtn.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     helpBtn.tintColor = UIColor.App.actionColor
     vc.view.addSubview(helpBtn)
@@ -221,4 +225,8 @@ func addHelpButton(forVC vc: UIViewController, under view: UIView) {
         helpBtn.widthAnchor.constraint(equalToConstant: 30 / SESize.width * UIScreen.main.bounds.width),
         helpBtn.heightAnchor.constraint(equalToConstant: 30 / SESize.width * UIScreen.main.bounds.width)
     ])
+    
+    helpBtn.addTarget(vc, action: #selector(vc.playHelpAudio), for: .touchUpInside)
+    
+    return helpBtn
 }

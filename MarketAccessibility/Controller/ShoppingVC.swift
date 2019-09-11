@@ -8,6 +8,7 @@
 // swiftlint:disable trailing_whitespace
 
 import UIKit
+import AVFoundation
 
 protocol ShoppingVCDelegate: class {
     func updateLabel(withValue value: String)
@@ -15,7 +16,7 @@ protocol ShoppingVCDelegate: class {
     func stopHearing()
 }
 
-class ShoppingVC: UIViewController, ShoppingVCDelegate {
+class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -34,6 +35,8 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     var inputedMoneyStr = ""
     var inputedMoney = [Float]()
     var defaults: UserDefaults!
+    var helpButton: LargerTouchAreaButton!
+    var helpAudio: AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +61,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         setInputView()
         moneyValueLabel.text = currencyStr(0)
         setStackView()
-        addHelpButton(forVC: self, onTopOf: optionsStackView)
+        helpButton = addHelpButton(forVC: self, onTopOf: optionsStackView)
         setSpeakInputView()
         setDrawInput()
         selectedInputView = drawInputView
@@ -100,7 +103,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
         NSLayoutConstraint.activate([
             genericInputView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             genericInputView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            genericInputView.heightAnchor.constraint(equalToConstant: 250),
+            genericInputView.heightAnchor.constraint(equalToConstant: (isSE() ? 223 : 250)),
             genericInputView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
     }
@@ -154,7 +157,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             
             speakInputView.leftAnchor.constraint(equalTo: genericInputView.leftAnchor),
             speakInputView.rightAnchor.constraint(equalTo: genericInputView.rightAnchor),
-            speakInputView.heightAnchor.constraint(equalToConstant: 250),
+            speakInputView.heightAnchor.constraint(equalToConstant: (isSE() ? 223 : 250)),
             speakInputView.bottomAnchor.constraint(equalTo: genericInputView.bottomAnchor)
             
             ])
@@ -172,7 +175,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
             
             drawInputView.leftAnchor.constraint(equalTo: genericInputView.leftAnchor),
             drawInputView.rightAnchor.constraint(equalTo: genericInputView.rightAnchor),
-            drawInputView.heightAnchor.constraint(equalToConstant: 250),
+            drawInputView.heightAnchor.constraint(equalToConstant: (isSE() ? 223 : 250)),
             drawInputView.bottomAnchor.constraint(equalTo: genericInputView.bottomAnchor)
             
             ])
@@ -225,6 +228,9 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
         if !text.isEqual(currencyStr(0)) && !text.isEqual("R$ ,") && !text.isEqual("$ ,") {
+            helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+            helpAudio?.stop()
+            
             if calculateValue(fromArray: inputedMoney) >= Float(text
                 .replacingOccurrences(of: "R$ ", with: "")
                 .replacingOccurrences(of: "$ ", with: "")
@@ -234,7 +240,19 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
                 howToPayVC.inputedMoney = round(array: inputedMoney)
                 howToPayVC.totalValue = text
                 navigationController?.pushViewController(howToPayVC, animated: true)
+            } else {
+                let popupVC = PopupVC()
+                popupVC.modalTransitionStyle = .crossDissolve
+                popupVC.modalPresentationStyle = .custom
+                popupVC.popupImage = #imageLiteral(resourceName: "impossible")
+                self.navigationController?.present(popupVC, animated: true, completion: nil)
             }
+        } else {
+            let popupVC = PopupVC()
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.modalPresentationStyle = .custom
+            popupVC.popupImages = [#imageLiteral(resourceName: "arrow_down1"), #imageLiteral(resourceName: "arrow_down2"), #imageLiteral(resourceName: "arrow_down1"), #imageLiteral(resourceName: "arrow_down2")]
+            self.navigationController?.present(popupVC, animated: true, completion: nil)
         }
     }
     
@@ -249,5 +267,36 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate {
     
     func stopHearing() {
         speakInputView.stopHearing()
+    }
+    
+    override func playHelpAudio(_ sender: UIButton) {
+        if sender.imageView?.image == #imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate) {
+            sender.setImage(#imageLiteral(resourceName: "stop").withRenderingMode(.alwaysTemplate), for: .normal)
+            guard let path = Bundle.main.path(forResource: Audio.shoppingVC.rawValue, ofType: "wav") else { return }
+            let url = URL(fileURLWithPath: path)
+            
+            let popupVC = PopupVC()
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.modalPresentationStyle = .custom
+            popupVC.popupImages = [#imageLiteral(resourceName: "volume1"), #imageLiteral(resourceName: "volume2"), #imageLiteral(resourceName: "volume3")]
+            self.navigationController?.present(popupVC, animated: true, completion: nil)
+            
+            do {
+                helpAudio = try AVAudioPlayer(contentsOf: url)
+                helpAudio?.delegate = self
+                helpAudio?.numberOfLoops = 0
+                helpAudio?.play()
+            } catch let error {
+                print(error)
+                
+            }
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+            helpAudio?.stop()
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }

@@ -83,6 +83,21 @@ class DrawInputView: UIView {
     
     func set(drawView: StrokeView) {
         
+        let drawImageView = UIImageView(frame: .zero)
+        drawImageView.image = #imageLiteral(resourceName: "btn_draw_filled")
+        drawImageView.alpha = 0.0
+        drawView.addSubview(drawImageView)
+        
+        drawImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            drawImageView.centerXAnchor.constraint(equalTo: drawView.centerXAnchor),
+            drawImageView.centerYAnchor.constraint(equalTo: drawView.centerYAnchor),
+            drawImageView.widthAnchor.constraint(equalToConstant: 50),
+            drawImageView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        fadeInAndOut(view: drawImageView)
+        
         drawView.onDidFinishDrawing = { drawnPoints in
             guard let drawnPoints = drawnPoints else { return }
             
@@ -187,4 +202,15 @@ class DrawInputView: UIView {
         }
     }
     
+    func fadeInAndOut(view: UIView) {
+        UIView.animate(withDuration: 0.75, delay: 0.25, options: [], animations: {
+            view.alpha = 1.0
+        }, completion: { (_) in
+            UIView.animate(withDuration: 0.75, animations: {
+                view.alpha = 0.0
+            }, completion: { (_) in
+                view.removeFromSuperview()
+            })
+        })
+    }
 }

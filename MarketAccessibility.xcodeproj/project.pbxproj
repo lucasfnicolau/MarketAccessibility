@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B614EA8B232987A700C9DA61 /* LargerTouchAreaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B614EA8A232987A700C9DA61 /* LargerTouchAreaButton.swift */; };
+		B614EA902329928200C9DA61 /* howToPayVC.wav in Resources */ = {isa = PBXBuildFile; fileRef = B614EA8C2329928100C9DA61 /* howToPayVC.wav */; };
+		B614EA912329928200C9DA61 /* shoppingVC.wav in Resources */ = {isa = PBXBuildFile; fileRef = B614EA8D2329928100C9DA61 /* shoppingVC.wav */; };
+		B614EA922329928200C9DA61 /* moneyVC.wav in Resources */ = {isa = PBXBuildFile; fileRef = B614EA8E2329928200C9DA61 /* moneyVC.wav */; };
+		B614EA932329928200C9DA61 /* changeVC.wav in Resources */ = {isa = PBXBuildFile; fileRef = B614EA8F2329928200C9DA61 /* changeVC.wav */; };
 		B654599723172F250014C9FE /* MoneyVCCollectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B654599623172F250014C9FE /* MoneyVCCollectionHandler.swift */; };
 		B6545999231732810014C9FE /* MoneyInputViewCollectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6545998231732810014C9FE /* MoneyInputViewCollectionHandler.swift */; };
 		B65B644B2319FB5400C83F58 /* CheckmarkAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B644A2319FB5400C83F58 /* CheckmarkAnimationView.swift */; };
@@ -16,8 +21,10 @@
 		B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */; };
 		B65F7BDD230F2BB50097CDA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65F7BDB230F2BB50097CDA7 /* Main.storyboard */; };
 		B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B65F7BDE230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld */; };
-		B65F7BE2230F2BB60097CDA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65F7BE1230F2BB60097CDA7 /* Assets.xcassets */; };
 		B65F7BE5230F2BB60097CDA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65F7BE3230F2BB60097CDA7 /* LaunchScreen.storyboard */; };
+		B6B45D6023297BE500FE557C /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B45D5E23297BE500FE557C /* PopupVC.swift */; };
+		B6B45D6123297BE500FE557C /* PopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6B45D5F23297BE500FE557C /* PopupVC.xib */; };
+		B6B45D6523297FA300FE557C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6B45D6423297FA300FE557C /* Assets.xcassets */; };
 		B6B86D672322D2A100F0F760 /* MicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B86D662322D2A100F0F760 /* MicButton.swift */; };
 		B6B86D692322D2BC00F0F760 /* WaveAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B86D682322D2BC00F0F760 /* WaveAnimationView.swift */; };
 		B6C90AE423104C6A00C743C0 /* MoneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C90AE223104C6A00C743C0 /* MoneyVC.swift */; };
@@ -52,6 +59,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B614EA8A232987A700C9DA61 /* LargerTouchAreaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargerTouchAreaButton.swift; sourceTree = "<group>"; };
+		B614EA8C2329928100C9DA61 /* howToPayVC.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = howToPayVC.wav; sourceTree = "<group>"; };
+		B614EA8D2329928100C9DA61 /* shoppingVC.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shoppingVC.wav; sourceTree = "<group>"; };
+		B614EA8E2329928200C9DA61 /* moneyVC.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = moneyVC.wav; sourceTree = "<group>"; };
+		B614EA8F2329928200C9DA61 /* changeVC.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = changeVC.wav; sourceTree = "<group>"; };
 		B654599623172F250014C9FE /* MoneyVCCollectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyVCCollectionHandler.swift; sourceTree = "<group>"; };
 		B6545998231732810014C9FE /* MoneyInputViewCollectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyInputViewCollectionHandler.swift; sourceTree = "<group>"; };
 		B65B644A2319FB5400C83F58 /* CheckmarkAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkAnimationView.swift; sourceTree = "<group>"; };
@@ -62,9 +74,11 @@
 		B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B65F7BDC230F2BB50097CDA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B65F7BDF230F2BB50097CDA7 /* MarketAccessibility.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MarketAccessibility.xcdatamodel; sourceTree = "<group>"; };
-		B65F7BE1230F2BB60097CDA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B65F7BE4230F2BB60097CDA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B65F7BE6230F2BB60097CDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6B45D5E23297BE500FE557C /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
+		B6B45D5F23297BE500FE557C /* PopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PopupVC.xib; path = ../Controller/PopupVC.xib; sourceTree = "<group>"; };
+		B6B45D6423297FA300FE557C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6B86D662322D2A100F0F760 /* MicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicButton.swift; sourceTree = "<group>"; };
 		B6B86D682322D2BC00F0F760 /* WaveAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveAnimationView.swift; sourceTree = "<group>"; };
 		B6C90AE223104C6A00C743C0 /* MoneyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyVC.swift; sourceTree = "<group>"; };
@@ -147,10 +161,14 @@
 				B6C90ADE23104BFF00C743C0 /* Model */,
 				B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */,
 				B65F7BDB230F2BB50097CDA7 /* Main.storyboard */,
-				B65F7BE1230F2BB60097CDA7 /* Assets.xcassets */,
 				B65F7BE3230F2BB60097CDA7 /* LaunchScreen.storyboard */,
 				B65F7BE6230F2BB60097CDA7 /* Info.plist */,
 				B65F7BDE230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld */,
+				B6B45D6423297FA300FE557C /* Assets.xcassets */,
+				B614EA8F2329928200C9DA61 /* changeVC.wav */,
+				B614EA8C2329928100C9DA61 /* howToPayVC.wav */,
+				B614EA8E2329928200C9DA61 /* moneyVC.wav */,
+				B614EA8D2329928100C9DA61 /* shoppingVC.wav */,
 			);
 			path = MarketAccessibility;
 			sourceTree = "<group>";
@@ -183,6 +201,7 @@
 				E0DB6102231D847D0078247B /* HowToPayCollectionCell.swift */,
 				B6B86D662322D2A100F0F760 /* MicButton.swift */,
 				B6B86D682322D2BC00F0F760 /* WaveAnimationView.swift */,
+				B614EA8A232987A700C9DA61 /* LargerTouchAreaButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -195,6 +214,7 @@
 				E07463DE2319BA5400816843 /* AnimationVC.swift */,
 				E0DB60FE231D826E0078247B /* HowToPayVC.swift */,
 				B65B644C231A391100C83F58 /* ChangeVC.swift */,
+				B6B45D5E23297BE500FE557C /* PopupVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -219,6 +239,7 @@
 				E07463DF2319BA5400816843 /* AnimationVC.xib */,
 				E0DB60FF231D826E0078247B /* HowToPayVC.xib */,
 				B65B644D231A391100C83F58 /* ChangeVC.xib */,
+				B6B45D5F23297BE500FE557C /* PopupVC.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
@@ -282,13 +303,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B614EA922329928200C9DA61 /* moneyVC.wav in Resources */,
 				E07463E12319BA5400816843 /* AnimationVC.xib in Resources */,
+				B6B45D6123297BE500FE557C /* PopupVC.xib in Resources */,
 				B65B644F231A391100C83F58 /* ChangeVC.xib in Resources */,
 				B6C90B002310539200C743C0 /* ShoppingVC.xib in Resources */,
+				B6B45D6523297FA300FE557C /* Assets.xcassets in Resources */,
+				B614EA912329928200C9DA61 /* shoppingVC.wav in Resources */,
 				E0DB6101231D826E0078247B /* HowToPayVC.xib in Resources */,
+				B614EA932329928200C9DA61 /* changeVC.wav in Resources */,
 				B65F7BE5230F2BB60097CDA7 /* LaunchScreen.storyboard in Resources */,
 				B6C90AE523104C6A00C743C0 /* MoneyVC.xib in Resources */,
-				B65F7BE2230F2BB60097CDA7 /* Assets.xcassets in Resources */,
+				B614EA902329928200C9DA61 /* howToPayVC.wav in Resources */,
 				B65F7BDD230F2BB50097CDA7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,6 +350,7 @@
 				B654599723172F250014C9FE /* MoneyVCCollectionHandler.swift in Sources */,
 				B6545999231732810014C9FE /* MoneyInputViewCollectionHandler.swift in Sources */,
 				B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */,
+				B6B45D6023297BE500FE557C /* PopupVC.swift in Sources */,
 				B6C90AE423104C6A00C743C0 /* MoneyVC.swift in Sources */,
 				B6C90B022310577E00C743C0 /* MoneyButton.swift in Sources */,
 				B6C90B072314730F00C743C0 /* MoneyInputView.swift in Sources */,
@@ -351,6 +378,7 @@
 				B6C90B0F231590E300C743C0 /* Extensions.swift in Sources */,
 				CB9ED8012317154100E542BB /* ImageButton.swift in Sources */,
 				B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */,
+				B614EA8B232987A700C9DA61 /* LargerTouchAreaButton.swift in Sources */,
 				B6C90AF823104DDB00C743C0 /* CDManager.swift in Sources */,
 				BCF43D8823198EAF00023B2D /* JSONTemplate+CoreDataProperties.swift in Sources */,
 				BCF43D8723198EAF00023B2D /* JSONTemplate+CoreDataClass.swift in Sources */,

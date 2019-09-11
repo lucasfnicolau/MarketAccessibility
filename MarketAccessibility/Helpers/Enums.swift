@@ -58,3 +58,10 @@ enum SESize {
     static let width: CGFloat = 320.0
     static let height: CGFloat = 568.0
 }
+
+enum Audio: String {
+    case moneyVC
+    case shoppingVC
+    case howToPayVC
+    case changeVC
+}

@@ -8,8 +8,9 @@
 // swiftlint:disable trailing_whitespace
 
 import UIKit
+import AVFoundation
 
-class ChangeVC: UIViewController {
+class ChangeVC: UIViewController, AVAudioPlayerDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -27,9 +28,14 @@ class ChangeVC: UIViewController {
     var backBtn: UIButton!
     var stackView: UIStackView!
     var change2: Float = 0
+    var helpButton: LargerTouchAreaButton!
+    var helpAudio: AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        change = roundChange(inputedMoney - totalValue)
+        let changeStr = currencyStr(change)
         
         navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
@@ -40,10 +46,6 @@ class ChangeVC: UIViewController {
         
         guard let btnImage = trashButton.imageView?.image else { return }
         trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
-
-        change = roundChange(inputedMoney - totalValue)
-        var changeStr = ""
-        changeStr = String(format: "R$ %.2f", change).replacingOccurrences(of: ".", with: ",")
         
         navigationItem.title = "TROCO: \(changeStr)"
         
@@ -51,7 +53,7 @@ class ChangeVC: UIViewController {
         collectionViewHandler.parentVC = self
         
         setMoneyInput()
-        addHelpButton(forVC: self, onTopOf: moneyInputView)
+        helpButton = addHelpButton(forVC: self, onTopOf: moneyInputView)
         setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
@@ -79,6 +81,9 @@ class ChangeVC: UIViewController {
     }
     
     @objc func confirmAndMoveOn() {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+        helpAudio?.stop()
+        
         if String(format: "%.2f", calculateValue(fromArray: collectionViewHandler.inputedMoney))
             .isEqual(String(format: "%.2f", change)) {
             let animationVC = AnimationVC()
@@ -120,7 +125,7 @@ class ChangeVC: UIViewController {
             moneyInputView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
             ])
-        moneyValueLabel.text = "R$ 0,00"
+        moneyValueLabel.text = currencyStr(0)
         
     }
     
@@ -145,5 +150,36 @@ class ChangeVC: UIViewController {
                     .topAnchor, constant: -30 / SESize.width * UIScreen.main.bounds.width - 16)
             
             ])
+    }
+    
+    override func playHelpAudio(_ sender: UIButton) {
+        if sender.imageView?.image == #imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate) {
+            sender.setImage(#imageLiteral(resourceName: "stop").withRenderingMode(.alwaysTemplate), for: .normal)
+            guard let path = Bundle.main.path(forResource: Audio.changeVC.rawValue, ofType: "wav") else { return }
+            let url = URL(fileURLWithPath: path)
+            
+            let popupVC = PopupVC()
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.modalPresentationStyle = .custom
+            popupVC.popupImages = [#imageLiteral(resourceName: "volume1"), #imageLiteral(resourceName: "volume2"), #imageLiteral(resourceName: "volume3")]
+            self.navigationController?.present(popupVC, animated: true, completion: nil)
+            
+            do {
+                helpAudio = try AVAudioPlayer(contentsOf: url)
+                helpAudio?.delegate = self
+                helpAudio?.numberOfLoops = 0
+                helpAudio?.play()
+            } catch let error {
+                print(error)
+                
+            }
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
+            helpAudio?.stop()
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
     }
 }

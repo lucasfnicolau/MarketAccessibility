@@ -61,7 +61,7 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
     
     func checkTextRecognized(text: String) {
         var finalText = ""
-        var words = text.split(separator: " ")
+        var words = text.uppercased().split(separator: " ")
         for i in 0 ..< words.count {
             words[i] = getNumberFrom(string: String(words[i]).uppercased())
             
@@ -75,9 +75,16 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
                     finalText = "R$ \(numbers[0]),\(numbers[1])"
                     break
                 }
+            } else if words[i].contains("H") {
+                let numbers = words[i].split(separator: "H")
+                if numbers.count == 2 && Int(numbers[0]) != nil
+                    && Int(numbers[1]) != nil {
+                    finalText = "R$ \(numbers[0]),\(numbers[1])"
+                    break
+                }
             }
         }
-
+        
         self.shoppingVCDelegate.updateLabel(withValue: finalText != "" ? finalText : currencyStr(0))
     }
 

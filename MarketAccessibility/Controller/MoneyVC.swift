@@ -10,11 +10,6 @@
 import UIKit
 import AVFoundation
 
-protocol MoneyVCDelegate: class {
-    func moneySelected(value: Float)
-    func delete(onPosition position: Int)
-}
-
 class MoneyVC: UIViewController, AVAudioPlayerDelegate {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

@@ -18,10 +18,14 @@
 		B65B644E231A391100C83F58 /* ChangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B644C231A391100C83F58 /* ChangeVC.swift */; };
 		B65B644F231A391100C83F58 /* ChangeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65B644D231A391100C83F58 /* ChangeVC.xib */; };
 		B65B6451231DCDD600C83F58 /* ChangeVCCollectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65B6450231DCDD600C83F58 /* ChangeVCCollectionHandler.swift */; };
+		B65ED085232ADB0F0094E8B6 /* PopupWithSoundVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65ED083232ADB0F0094E8B6 /* PopupWithSoundVC.swift */; };
+		B65ED086232ADB0F0094E8B6 /* PopupWithSoundVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65ED084232ADB0F0094E8B6 /* PopupWithSoundVC.xib */; };
+		B65ED088232ADC740094E8B6 /* warning.wav in Resources */ = {isa = PBXBuildFile; fileRef = B65ED087232ADC740094E8B6 /* warning.wav */; };
 		B65F7BD8230F2BB50097CDA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */; };
 		B65F7BDD230F2BB50097CDA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65F7BDB230F2BB50097CDA7 /* Main.storyboard */; };
 		B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B65F7BDE230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld */; };
 		B65F7BE5230F2BB60097CDA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B65F7BE3230F2BB60097CDA7 /* LaunchScreen.storyboard */; };
+		B6940DB1232AD6A3003BAF53 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6940DB0232AD6A3003BAF53 /* Protocols.swift */; };
 		B6B45D6023297BE500FE557C /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B45D5E23297BE500FE557C /* PopupVC.swift */; };
 		B6B45D6123297BE500FE557C /* PopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6B45D5F23297BE500FE557C /* PopupVC.xib */; };
 		B6B45D6523297FA300FE557C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6B45D6423297FA300FE557C /* Assets.xcassets */; };
@@ -70,12 +74,16 @@
 		B65B644C231A391100C83F58 /* ChangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeVC.swift; sourceTree = "<group>"; };
 		B65B644D231A391100C83F58 /* ChangeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ChangeVC.xib; path = ../Controller/ChangeVC.xib; sourceTree = "<group>"; };
 		B65B6450231DCDD600C83F58 /* ChangeVCCollectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeVCCollectionHandler.swift; sourceTree = "<group>"; };
+		B65ED083232ADB0F0094E8B6 /* PopupWithSoundVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWithSoundVC.swift; sourceTree = "<group>"; };
+		B65ED084232ADB0F0094E8B6 /* PopupWithSoundVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupWithSoundVC.xib; sourceTree = "<group>"; };
+		B65ED087232ADC740094E8B6 /* warning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = warning.wav; sourceTree = "<group>"; };
 		B65F7BD4230F2BB50097CDA7 /* MarketAccessibility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketAccessibility.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B65F7BD7230F2BB50097CDA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B65F7BDC230F2BB50097CDA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B65F7BDF230F2BB50097CDA7 /* MarketAccessibility.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MarketAccessibility.xcdatamodel; sourceTree = "<group>"; };
 		B65F7BE4230F2BB60097CDA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B65F7BE6230F2BB60097CDA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6940DB0232AD6A3003BAF53 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		B6B45D5E23297BE500FE557C /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		B6B45D5F23297BE500FE557C /* PopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PopupVC.xib; path = ../Controller/PopupVC.xib; sourceTree = "<group>"; };
 		B6B45D6423297FA300FE557C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +138,7 @@
 				B6545998231732810014C9FE /* MoneyInputViewCollectionHandler.swift */,
 				E0DB6104231D85900078247B /* HowToPayVCCollectionHandler.swift */,
 				B65B6450231DCDD600C83F58 /* ChangeVCCollectionHandler.swift */,
+				B6940DB0232AD6A3003BAF53 /* Protocols.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -169,6 +178,7 @@
 				B614EA8C2329928100C9DA61 /* howToPayVC.wav */,
 				B614EA8E2329928200C9DA61 /* moneyVC.wav */,
 				B614EA8D2329928100C9DA61 /* shoppingVC.wav */,
+				B65ED087232ADC740094E8B6 /* warning.wav */,
 			);
 			path = MarketAccessibility;
 			sourceTree = "<group>";
@@ -215,6 +225,7 @@
 				E0DB60FE231D826E0078247B /* HowToPayVC.swift */,
 				B65B644C231A391100C83F58 /* ChangeVC.swift */,
 				B6B45D5E23297BE500FE557C /* PopupVC.swift */,
+				B65ED083232ADB0F0094E8B6 /* PopupWithSoundVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -240,6 +251,7 @@
 				E0DB60FF231D826E0078247B /* HowToPayVC.xib */,
 				B65B644D231A391100C83F58 /* ChangeVC.xib */,
 				B6B45D5F23297BE500FE557C /* PopupVC.xib */,
+				B65ED084232ADB0F0094E8B6 /* PopupWithSoundVC.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
@@ -304,7 +316,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B614EA922329928200C9DA61 /* moneyVC.wav in Resources */,
+				B65ED086232ADB0F0094E8B6 /* PopupWithSoundVC.xib in Resources */,
 				E07463E12319BA5400816843 /* AnimationVC.xib in Resources */,
+				B65ED088232ADC740094E8B6 /* warning.wav in Resources */,
 				B6B45D6123297BE500FE557C /* PopupVC.xib in Resources */,
 				B65B644F231A391100C83F58 /* ChangeVC.xib in Resources */,
 				B6C90B002310539200C743C0 /* ShoppingVC.xib in Resources */,
@@ -350,6 +364,7 @@
 				B654599723172F250014C9FE /* MoneyVCCollectionHandler.swift in Sources */,
 				B6545999231732810014C9FE /* MoneyInputViewCollectionHandler.swift in Sources */,
 				B65F7BE0230F2BB50097CDA7 /* MarketAccessibility.xcdatamodeld in Sources */,
+				B65ED085232ADB0F0094E8B6 /* PopupWithSoundVC.swift in Sources */,
 				B6B45D6023297BE500FE557C /* PopupVC.swift in Sources */,
 				B6C90AE423104C6A00C743C0 /* MoneyVC.swift in Sources */,
 				B6C90B022310577E00C743C0 /* MoneyButton.swift in Sources */,
@@ -382,6 +397,7 @@
 				B6C90AF823104DDB00C743C0 /* CDManager.swift in Sources */,
 				BCF43D8823198EAF00023B2D /* JSONTemplate+CoreDataProperties.swift in Sources */,
 				BCF43D8723198EAF00023B2D /* JSONTemplate+CoreDataClass.swift in Sources */,
+				B6940DB1232AD6A3003BAF53 /* Protocols.swift in Sources */,
 				B65B644E231A391100C83F58 /* ChangeVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,7 +545,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PUT3745C65;
+				DEVELOPMENT_TEAM = 87G2Y58K9U;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -548,7 +564,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PUT3745C65;
+				DEVELOPMENT_TEAM = 87G2Y58K9U;
 				INFOPLIST_FILE = MarketAccessibility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -9,9 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopupVC" customModule="MarketAccessibility" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopupWithSoundVC" customModule="MarketAccessibility" customModuleProvider="target">
             <connections>
-                <outlet property="popupImageView" destination="AXn-tA-x0R" id="3wf-qU-6Zu"/>
+                <outlet property="popupImageView" destination="RqG-IR-BHv" id="AIE-eF-5sc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,21 +20,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AXn-tA-x0R">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RqG-IR-BHv">
                     <rect key="frame" x="107" y="313" width="200" height="200"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="AXn-tA-x0R" secondAttribute="height" multiplier="1:1" id="Gvd-6a-wmy"/>
-                    </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.12941176470588234" green="0.12984612579999999" blue="0.12984395030000001" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AXn-tA-x0R" secondAttribute="trailing" constant="107" id="Tov-6t-GEO"/>
-                <constraint firstItem="AXn-tA-x0R" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-40" id="V8m-PX-fEa"/>
-                <constraint firstItem="AXn-tA-x0R" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="107" id="zhK-e0-gSg"/>
+                <constraint firstItem="RqG-IR-BHv" firstAttribute="width" secondItem="RqG-IR-BHv" secondAttribute="height" multiplier="1:1" id="Yzx-mL-V0c"/>
+                <constraint firstItem="RqG-IR-BHv" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-40" id="b5t-Uy-11g"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RqG-IR-BHv" secondAttribute="trailing" constant="107" id="h13-U6-ETN"/>
+                <constraint firstItem="RqG-IR-BHv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="107" id="o43-kZ-lma"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="137.68115942028987" y="141.96428571428569"/>
         </view>
     </objects>
 </document>

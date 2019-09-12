@@ -6,15 +6,10 @@
 //  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
 //
 // swiftlint:disable trailing_whitespace
+// swiftlint:disable type_body_length
 
 import UIKit
 import AVFoundation
-
-protocol ShoppingVCDelegate: class {
-    func updateLabel(withValue value: String)
-    func startHearing()
-    func stopHearing()
-}
 
 class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
     
@@ -24,19 +19,19 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
     
     @IBOutlet weak var moneyValueLabel: UILabel!
     @IBOutlet weak var trashButton: UIButton!
-    
     var genericInputView: UIView!
     var drawInputView: DrawInputView!
     var speakInputView: SpeakInputView!
     var optionsStackView: UIStackView!
     var drawInputButton: UIButton!
-    var speakInputButton: MicButton!
+    var speakInputButton: UIButton!
     var selectedInputView: UIView!
     var inputedMoneyStr = ""
     var inputedMoney = [Float]()
     var defaults: UserDefaults!
     var helpButton: LargerTouchAreaButton!
     var helpAudio: AVAudioPlayer?
+    var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +82,6 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.title = "VALOR DA COMPRA"
         self.view.backgroundColor = UIColor.App.shopping
-        
         trashButton.tintColor = UIColor.App.actionColor
     }
     
@@ -114,8 +108,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
         drawInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
         drawInputButton.tintColor = UIColor.App.actionColor
         
-        speakInputButton = MicButton(frame: .zero)
-        speakInputButton.delegate = self
+        speakInputButton = UIButton(frame: .zero)
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
         speakInputButton.tintColor = UIColor.App.shopping
@@ -146,8 +139,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
     }
     
     func setSpeakInputView() {
-        speakInputView = SpeakInputView(frame: .zero)
-        speakInputView.shoppingVCDelegate = self
+        speakInputView = SpeakInputView(frame: .zero, withDelegate: self)
         speakInputView.backgroundColor = UIColor.App.background
         
         genericInputView.addSubview(speakInputView)
@@ -225,9 +217,18 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
         })
     }
 
+    func stringHasNumber(string: String) -> Bool {
+        for num in numbers {
+            if string.contains(num) {
+                return true
+            }
+        }
+        return false
+    }
+    
     @objc func confirmAndMoveOn() {
         guard let text = moneyValueLabel.text else { return }
-        if !text.isEqual(currencyStr(0)) && !text.isEqual("R$ ,") && !text.isEqual("$ ,") {
+        if stringHasNumber(string: text) {
             helpButton.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)
             helpAudio?.stop()
             
@@ -241,10 +242,11 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
                 howToPayVC.totalValue = text
                 navigationController?.pushViewController(howToPayVC, animated: true)
             } else {
-                let popupVC = PopupVC()
+                let popupVC = PopupWithSoundVC()
                 popupVC.modalTransitionStyle = .crossDissolve
                 popupVC.modalPresentationStyle = .custom
                 popupVC.popupImage = #imageLiteral(resourceName: "impossible")
+                popupVC.audioName = Audio.warning.rawValue
                 self.navigationController?.present(popupVC, animated: true, completion: nil)
             }
         } else {
@@ -288,7 +290,6 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
                 helpAudio?.play()
             } catch let error {
                 print(error)
-                
             }
         } else {
             sender.setImage(#imageLiteral(resourceName: "help").withRenderingMode(.alwaysTemplate), for: .normal)

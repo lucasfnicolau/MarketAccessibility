@@ -12,7 +12,6 @@ import UIKit
 class PopupVC: UIViewController {
     
     @IBOutlet weak var popupImageView: UIImageView!
-    @IBOutlet weak var popupLabel: UILabel!
     var popupImage: UIImage?
     var popupImages = [UIImage]()
     var backgroundIsVisible = true

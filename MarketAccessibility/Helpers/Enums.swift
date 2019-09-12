@@ -64,4 +64,5 @@ enum Audio: String {
     case shoppingVC
     case howToPayVC
     case changeVC
+    case warning
 }

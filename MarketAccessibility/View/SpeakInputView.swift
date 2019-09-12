@@ -21,6 +21,14 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
     weak var shoppingVCDelegate: ShoppingVCDelegate!
     var waveSoundImage: UIImage!
     var waves: WaveAnimationView!
+    var micButton: MicButton!
+    
+    init(frame: CGRect, withDelegate delegate: ShoppingVCDelegate) {
+        super.init(frame: frame)
+        self.shoppingVCDelegate = delegate
+        setMicButton()
+        setWaves()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,19 +36,37 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setWaves()
+    }
+    
+    func setMicButton() {
+        micButton = MicButton(frame: .zero)
+        micButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
+        micButton.tintColor = UIColor.App.actionColor
+        micButton.delegate = shoppingVCDelegate
+        self.addSubview(micButton)
+        
+        micButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            micButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            micButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            micButton.widthAnchor.constraint(equalToConstant: 50),
+            micButton.heightAnchor.constraint(equalToConstant: 80)
+        ])
     }
 
     func setWaves() {
         waves = WaveAnimationView(frame: .zero)
         self.addSubview(waves)
+        
         waves.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             waves.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
             waves.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            waves.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            waves.trailingAnchor.constraint(equalTo: micButton.leadingAnchor, constant: -8),
             waves.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
         ])
+        
+        waves.stopAnimation()
         
         speechRecognizer?.delegate = self
         SFSpeechRecognizer.requestAuthorization { (authStatus) in
@@ -61,7 +87,7 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
     
     func checkTextRecognized(text: String) {
         var finalText = ""
-        var words = text.split(separator: " ")
+        var words = text.uppercased().split(separator: " ")
         for i in 0 ..< words.count {
             words[i] = getNumberFrom(string: String(words[i]).uppercased())
             
@@ -70,6 +96,13 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
                 break
             } else if words[i].contains(",") {
                 let numbers = words[i].split(separator: ",")
+                if numbers.count == 2 && Int(numbers[0]) != nil
+                    && Int(numbers[1]) != nil {
+                    finalText = "R$ \(numbers[0]),\(numbers[1])"
+                    break
+                }
+            } else if words[i].contains("H") {
+                let numbers = words[i].split(separator: "H")
                 if numbers.count == 2 && Int(numbers[0]) != nil
                     && Int(numbers[1]) != nil {
                     finalText = "R$ \(numbers[0]),\(numbers[1])"

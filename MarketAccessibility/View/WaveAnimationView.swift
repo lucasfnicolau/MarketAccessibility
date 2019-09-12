@@ -28,7 +28,7 @@ class WaveAnimationView: UIView {
         stackView = UIStackView(frame: .zero)
         self.addSubview(stackView)
         
-        stackView.spacing = 10
+        stackView.spacing = isSE() ? 8 : 10
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
@@ -79,7 +79,7 @@ class WaveAnimationView: UIView {
         NSLayoutConstraint.activate([
             lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            lineView.heightAnchor.constraint(equalToConstant: 7),
+            lineView.heightAnchor.constraint(equalToConstant: isSE() ? 3 : 6),
             lineView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }

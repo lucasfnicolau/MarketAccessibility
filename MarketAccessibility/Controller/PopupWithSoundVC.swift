@@ -36,12 +36,17 @@ class PopupWithSoundVC: UIViewController, AVAudioPlayerDelegate {
 
         do {
             helpAudio = try AVAudioPlayer(contentsOf: url)
+            try AVAudioSession.sharedInstance().setCategory(.soloAmbient)
             helpAudio?.delegate = self
             helpAudio?.numberOfLoops = 0
             helpAudio?.play()
         } catch let error {
             print(error)
         }
+    }
+
+    @objc func dismissPopup() {
+        self.dismiss(animated: true, completion: nil)
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {

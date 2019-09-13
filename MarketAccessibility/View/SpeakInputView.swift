@@ -102,10 +102,24 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
                     break
                 }
             } else if words[i].contains("H") {
-                let numbers = words[i].split(separator: "H")
+                var numbers = words[i].split(separator: "H")
+                
+                if i - 1 >= 0 {
+                    guard let num1 = Int(words[i - 1]),
+                        let num2 = Int(numbers[0]) else { return }
+                    numbers[0] = "\(num1 + num2)"
+                }
+                
                 if numbers.count == 2 && Int(numbers[0]) != nil
                     && Int(numbers[1]) != nil {
                     finalText = "R$ \(numbers[0]),\(numbers[1])"
+                    break
+                }
+            } else if words[i].contains("E") {
+                if i - 1 >= 0 && i + 1 < words.count
+                    && Int(words[i - 1]) != nil
+                        && Int(words[i + 1]) != nil {
+                    finalText = "R$ \(words[i - 1]),\(words[i + 1])"
                     break
                 }
             }
@@ -123,7 +137,7 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
 
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSession.Category.record)
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
             try audioSession.setMode(AVAudioSession.Mode.measurement)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
@@ -151,7 +165,6 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
                                                             
                 if error != nil || isFinal {
                     self.audioEngine.stop()
-                    inputNode.removeTap(onBus: 0)
                     self.recognitionRequest = nil
                     self.recognitionTask = nil
                 }
@@ -180,6 +193,12 @@ class SpeakInputView: UIView, SFSpeechRecognizerDelegate {
             self.audioEngine.stop()
             self.recognitionRequest?.endAudio()
             self.audioEngine.inputNode.removeTap(onBus: 0)
+            
+            do {
+                try AVAudioSession.sharedInstance().setCategory(.soloAmbient)
+            } catch {
+                
+            }
         }
     }
 }

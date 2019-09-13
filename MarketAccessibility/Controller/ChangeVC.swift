@@ -40,20 +40,23 @@ class ChangeVC: UIViewController, AVAudioPlayerDelegate {
         navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.topItem?.title = " "
-        navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
-                                                         style: .done, target: self,
-                                                         action: #selector(confirmAndMoveOn)), animated: true)
+        let continueBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "continue"), style: .done, target: self,
+                                          action: #selector(confirmAndMoveOn))
+        continueBtn.accessibilityLabel = NSLocalizedString(LocalizedString.continueBtn.rawValue, comment: "")
+        navigationItem.setRightBarButton(continueBtn, animated: true)
         
         guard let btnImage = trashButton.imageView?.image else { return }
         trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        trashButton.accessibilityLabel = NSLocalizedString(LocalizedString.trash.rawValue, comment: "")
         
-        navigationItem.title = "TROCO: \(changeStr)"
+        navigationItem.title = "\(NSLocalizedString(LocalizedString.change.rawValue, comment: "")): \(changeStr)"
         
         collectionViewHandler = ChangeVCCollectionHandler()
         collectionViewHandler.parentVC = self
         
         setMoneyInput()
         helpButton = addHelpButton(forVC: self, onTopOf: moneyInputView)
+        helpButton.accessibilityLabel = NSLocalizedString(LocalizedString.help.rawValue, comment: "")
         setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
@@ -166,6 +169,7 @@ class ChangeVC: UIViewController, AVAudioPlayerDelegate {
             
             do {
                 helpAudio = try AVAudioPlayer(contentsOf: url)
+                try AVAudioSession.sharedInstance().setCategory(.soloAmbient)
                 helpAudio?.delegate = self
                 helpAudio?.numberOfLoops = 0
                 helpAudio?.play()

@@ -25,6 +25,7 @@ class HowToPayCollectionCell: UICollectionViewCell {
     func setLayout() {
         moneyImageView = UIImageView()
         contentView.addSubview(moneyImageView)
+        moneyImageView.isAccessibilityElement = true
         
         moneyImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -37,6 +38,8 @@ class HowToPayCollectionCell: UICollectionViewCell {
     
     func setImage(fromName name: String) {
         self.moneyImageView.image = UIImage(named: name)
+        moneyImageView.accessibilityLabel = currencyStr(Float(name) ?? 0)
+        moneyImageView.accessibilityTraits = .none
     }
 
 }

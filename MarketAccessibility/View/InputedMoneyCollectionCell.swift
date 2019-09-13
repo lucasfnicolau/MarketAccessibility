@@ -26,8 +26,10 @@ class InputedMoneyCollectionCell: UICollectionViewCell {
     func setLayout() {
         deleteButton = ImageButton(frame: .zero)
         deleteButton.setImage(#imageLiteral(resourceName: "x"), for: .normal)
+        deleteButton.isAccessibilityElement = false
 
         moneyImageView = UIImageView()
+        moneyImageView.isAccessibilityElement = true
         contentView.addSubview(moneyImageView)
         contentView.addSubview(deleteButton)
 
@@ -49,5 +51,7 @@ class InputedMoneyCollectionCell: UICollectionViewCell {
 
     func setImage(fromName name: String) {
         self.moneyImageView.image = UIImage(named: name)
+        moneyImageView.accessibilityLabel = currencyStr(Float(name) ?? 0)
+        moneyImageView.accessibilityTraits = .none
     }
 }

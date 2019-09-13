@@ -66,3 +66,19 @@ enum Audio: String {
     case changeVC
     case warning
 }
+
+enum LocalizedString: String {
+    case myMoney = "MEU DINHEIRO"
+    case purchaseValue = "VALOR DA COMPRA"
+    case howToPay = "COMO PAGAR"
+    case change = "TROCO"
+    case continueBtn = "CONTINUAR PARA A PRÓXIMA TELA"
+    case trash = "ZERAR VALOR"
+    case help = "AJUDA"
+    case cedules = "NOTAS"
+    case coins = "MOEDAS"
+    case drawValue = "DESENHAR VALOR"
+    case speakValue = "FALAR VALOR"
+    case recordButton = "BOTÃO DE GRAVAR"
+    case recordButtonAction = "TOQUE E SEGURE PRA GRAVAR"
+}

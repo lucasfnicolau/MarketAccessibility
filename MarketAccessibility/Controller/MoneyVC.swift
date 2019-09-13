@@ -36,12 +36,14 @@ class MoneyVC: UIViewController, AVAudioPlayerDelegate {
         navigationController?.navigationBar.isTranslucent = false
         trashButton.tintColor = UIColor.App.actionColor
         
-        navigationItem.setRightBarButton(
-            UIBarButtonItem(image: #imageLiteral(resourceName: "continue"), style: .done, target: self,
-                            action: #selector(confirmAndMoveOn)), animated: true)
+        let continueBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "continue"), style: .done, target: self,
+                                          action: #selector(confirmAndMoveOn))
+        continueBtn.accessibilityLabel = NSLocalizedString(LocalizedString.continueBtn.rawValue, comment: "")
+        navigationItem.setRightBarButton(continueBtn, animated: true)
         
         guard let btnImage = trashButton.imageView?.image else { return }
         trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        trashButton.accessibilityLabel = NSLocalizedString(LocalizedString.trash.rawValue, comment: "")
         
         collectionViewHandler = MoneyVCCollectionHandler()
         collectionViewHandler.parentVC = self
@@ -49,6 +51,7 @@ class MoneyVC: UIViewController, AVAudioPlayerDelegate {
 
         setMoneyInput()
         helpButton = addHelpButton(forVC: self, onTopOf: moneyInputView)
+        helpButton.accessibilityLabel = NSLocalizedString(LocalizedString.help.rawValue, comment: "")
         setInputedMoneyCollectionView()
         
         inputedMoneyCollectionView.delegate = collectionViewHandler
@@ -77,7 +80,7 @@ class MoneyVC: UIViewController, AVAudioPlayerDelegate {
         navigationController?.navigationBar.barTintColor = UIColor.App.money
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "MEU DINHEIRO"
+        navigationItem.title = NSLocalizedString(LocalizedString.myMoney.rawValue, comment: "")
         self.view.backgroundColor = UIColor.App.money
         
         trashButton.tintColor = UIColor.App.actionColor
@@ -169,6 +172,7 @@ class MoneyVC: UIViewController, AVAudioPlayerDelegate {
             
             do {
                 helpAudio = try AVAudioPlayer(contentsOf: url)
+                try AVAudioSession.sharedInstance().setCategory(.soloAmbient)
                 helpAudio?.delegate = self
                 helpAudio?.numberOfLoops = 0
                 helpAudio?.play()

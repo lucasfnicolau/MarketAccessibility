@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  MarketAccessibility
+
+  Created by Lucas Fernandez Nicolau on 13/09/19.
+  Copyright © 2019 Lucas Fernandez Nicolau. All rights reserved.
+*/
+
+"MEU DINHEIRO" = "MEU DINHEIRO";
+"VALOR DA COMPRA" = "VALOR DA COMPRA";
+"COMO PAGAR" = "COMO PAGAR";
+"TROCO" = "TROCO";
+"CONTINUAR PARA A PRÓXIMA TELA" = "CONTINUAR PARA A PRÓXIMA TELA";
+"ZERAR VALOR" = "ZERAR VALOR";
+"AJUDA" = "AJUDA";
+"CEDULES" = "NOTAS";
+"MOEDAS" = "MOEDAS";
+"DESENHAR VALOR" = "DESENHAR VALOR";
+"FALAR VALOR" = "FALAR VALOR";
+"BOTÃO DE GRAVAR" = "BOTÃO DE GRAVAR";
+"TOQUE E SEGURE PRA GRAVAR" = "TOQUE E SEGURE PRA GRAVAR";

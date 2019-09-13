@@ -35,14 +35,15 @@ class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "COMO PAGAR"
+        navigationItem.title = NSLocalizedString(LocalizedString.howToPay.rawValue, comment: "")
         
         navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.topItem?.title = " "
-        navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
-                                                         style: .done, target: self,
-                                                         action: #selector(confirmAndMoveOn)), animated: true)
+        let continueBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "continue"), style: .done, target: self,
+                                          action: #selector(confirmAndMoveOn))
+        continueBtn.accessibilityLabel = NSLocalizedString(LocalizedString.continueBtn.rawValue, comment: "")
+        navigationItem.setRightBarButton(continueBtn, animated: true)
         
         guard let totalValueFloat = Float(currency: totalValue) else { return }
         self.totalValueFloat = Float(String(format: "%.2f", totalValueFloat)) ?? 0.0
@@ -63,6 +64,7 @@ class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
             .replacingOccurrences(of: ".", with: ",")
 
         helpButton = addHelpButton(forVC: self, under: moneyCollectionView)
+        helpButton.accessibilityLabel = NSLocalizedString(LocalizedString.help.rawValue, comment: "")
         
         collectionViewHandler.inputedMoney = payment
         moneyCollectionView.reloadData()
@@ -81,7 +83,7 @@ class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "COMO PAGAR"
+        navigationItem.title = NSLocalizedString(LocalizedString.howToPay.rawValue, comment: "")
         self.view.backgroundColor = UIColor.App.shopping
     }
     
@@ -171,6 +173,7 @@ class HowToPayVC: UIViewController, AVAudioPlayerDelegate {
             
             do {
                 helpAudio = try AVAudioPlayer(contentsOf: url)
+                try AVAudioSession.sharedInstance().setCategory(.soloAmbient)
                 helpAudio?.delegate = self
                 helpAudio?.numberOfLoops = 0
                 helpAudio?.play()

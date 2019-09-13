@@ -18,6 +18,13 @@ class SegmentedStackButton: UIButton {
         super.init(frame: .zero)
 
         self.buttonName = name
+
+        if name.isEqual(SegmentedStackOption.cedules.rawValue) {
+            self.accessibilityLabel = NSLocalizedString(LocalizedString.cedules.rawValue, comment: "")
+        } else if name.isEqual(SegmentedStackOption.coins.rawValue) {
+            self.accessibilityLabel = NSLocalizedString(LocalizedString.coins.rawValue, comment: "")
+        }
+
         self.addTarget(self, action: #selector(onTouch), for: .touchUpInside)
     }
 

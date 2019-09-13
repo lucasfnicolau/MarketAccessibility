@@ -15,6 +15,8 @@ class MicButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        self.accessibilityLabel = NSLocalizedString(LocalizedString.recordButton.rawValue, comment: "")
+        self.accessibilityValue = NSLocalizedString(LocalizedString.recordButtonAction.rawValue, comment: "")
     }
     
     required init?(coder aDecoder: NSCoder) {

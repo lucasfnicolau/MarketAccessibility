@@ -34,7 +34,7 @@ class CheckmarkAnimationView: UIView {
         shapeLayer.lineJoin = .round
         
         let anim = CABasicAnimation(keyPath: KeyPath.strokeEnd.rawValue)
-        anim.duration = 1.0
+        anim.duration = 0.8
         anim.fromValue = 0
         
         shapeLayer.speed = 1.0

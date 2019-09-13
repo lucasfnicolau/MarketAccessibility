@@ -36,17 +36,19 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "VALOR DA COMPRA"
+        navigationItem.title = NSLocalizedString(LocalizedString.purchaseValue.rawValue, comment: "")
         
         navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "back")
         navigationController?.navigationBar.topItem?.title = " "
-        navigationItem.setRightBarButton(UIBarButtonItem(image: #imageLiteral(resourceName: "continue"),
-                                                         style: .done, target: self,
-                                                         action: #selector(confirmAndMoveOn)), animated: true)
+        let continueBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "continue"), style: .done, target: self,
+                                          action: #selector(confirmAndMoveOn))
+        continueBtn.accessibilityLabel = NSLocalizedString(LocalizedString.continueBtn.rawValue, comment: "")
+        navigationItem.setRightBarButton(continueBtn, animated: true)
         
         guard let btnImage = trashButton.imageView?.image else { return }
         trashButton.setImage(btnImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        trashButton.accessibilityLabel = NSLocalizedString(LocalizedString.trash.rawValue, comment: "")
         
         defaults = UserDefaults()
         inputedMoneyStr = defaults.string(forKey: Key.moneyVCText.rawValue) ?? currencyStr(0)
@@ -57,6 +59,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
         moneyValueLabel.text = currencyStr(0)
         setStackView()
         helpButton = addHelpButton(forVC: self, onTopOf: optionsStackView)
+        helpButton.accessibilityLabel = NSLocalizedString(LocalizedString.help.rawValue, comment: "")
         setSpeakInputView()
         setDrawInput()
         selectedInputView = drawInputView
@@ -80,7 +83,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
         navigationController?.navigationBar.barTintColor = UIColor.App.shopping
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "VALOR DA COMPRA"
+        navigationItem.title = NSLocalizedString(LocalizedString.purchaseValue.rawValue, comment: "")
         self.view.backgroundColor = UIColor.App.shopping
         trashButton.tintColor = UIColor.App.actionColor
     }
@@ -107,11 +110,13 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
         drawInputButton.setImage(#imageLiteral(resourceName: "btn_draw_filled").withRenderingMode(.alwaysTemplate), for: .normal)
         drawInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
         drawInputButton.tintColor = UIColor.App.actionColor
+        drawInputButton.accessibilityLabel = NSLocalizedString(LocalizedString.drawValue.rawValue, comment: "")
         
         speakInputButton = UIButton(frame: .zero)
         speakInputButton.setImage(#imageLiteral(resourceName: "btn_mic_outline").withRenderingMode(.alwaysTemplate), for: .normal)
         speakInputButton.addTarget(self, action: #selector(inputOptionSelected(_:)), for: .touchUpInside)
         speakInputButton.tintColor = UIColor.App.shopping
+        speakInputButton.accessibilityLabel = NSLocalizedString(LocalizedString.speakValue.rawValue, comment: "")
         
         optionsStackView = UIStackView(arrangedSubviews: [drawInputButton, speakInputButton])
         optionsStackView.alignment = .center
@@ -285,6 +290,7 @@ class ShoppingVC: UIViewController, ShoppingVCDelegate, AVAudioPlayerDelegate {
             
             do {
                 helpAudio = try AVAudioPlayer(contentsOf: url)
+                try AVAudioSession.sharedInstance().setCategory(.soloAmbient)
                 helpAudio?.delegate = self
                 helpAudio?.numberOfLoops = 0
                 helpAudio?.play()

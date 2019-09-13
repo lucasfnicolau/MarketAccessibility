@@ -12,7 +12,6 @@ import UIKit
 class MicButton: UIButton {
     
     weak var delegate: ShoppingVCDelegate!
-    var generator: UINotificationFeedbackGenerator!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

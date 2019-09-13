@@ -36,5 +36,6 @@ class MoneyCollectionCell: UICollectionViewCell {
 
     func setImage(fromName name: String) {
         self.moneyButton.setImage(UIImage(named: name), for: .normal)
+        moneyButton.accessibilityLabel = currencyStr(Float(name) ?? 0)
     }
 }

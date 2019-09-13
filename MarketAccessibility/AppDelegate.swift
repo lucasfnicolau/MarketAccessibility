@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        mainVC.title = "MEU DINHEIRO"
+        mainVC.title = NSLocalizedString(LocalizedString.myMoney.rawValue, comment: "")
 
         navigationController.viewControllers = [mainVC]
 
@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

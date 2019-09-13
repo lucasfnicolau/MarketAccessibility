@@ -140,24 +140,22 @@ func setFinalArray(_ arr: [Float], _ bits: UInt64) -> [Float] {
 
 func currencyStr(_ value: Float) -> String {
     let currencyFormatter = NumberFormatter()
-    currencyFormatter.usesGroupingSeparator = true
+    currencyFormatter.usesGroupingSeparator = false
     currencyFormatter.numberStyle = .currency
-    currencyFormatter.locale = Locale.current
+    currencyFormatter.locale = Locale(identifier: Identifier.ptBr.rawValue)
     
-    return currencyFormatter.string(from: value as NSNumber)?
-        .replacingOccurrences(of: "$", with: "$ ") ?? "R$ 0,00"
+    return currencyFormatter.string(from: value as NSNumber) ?? "R$ 0,00"
 }
 
 func currencyStr(_ array: [Float]) -> String {
     let currencyFormatter = NumberFormatter()
-    currencyFormatter.usesGroupingSeparator = true
+    currencyFormatter.usesGroupingSeparator = false
     currencyFormatter.numberStyle = .currency
-    currencyFormatter.locale = Locale.current
+    currencyFormatter.locale = Locale(identifier: Identifier.ptBr.rawValue)
     
     let totalValue = calculateValue(fromArray: array)
     
-    return currencyFormatter.string(from: totalValue as NSNumber)?
-        .replacingOccurrences(of: "$", with: "$ ") ?? "R$ 0,00"
+    return currencyFormatter.string(from: totalValue as NSNumber) ?? "R$ 0,00"
 }
 
 func setCompensationView(for vc: UIViewController, under otherView: UIView) {

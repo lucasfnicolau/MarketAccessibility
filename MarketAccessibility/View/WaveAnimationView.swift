@@ -79,7 +79,7 @@ class WaveAnimationView: UIView {
         NSLayoutConstraint.activate([
             lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            lineView.heightAnchor.constraint(equalToConstant: isSE() ? 3 : 6),
+            lineView.heightAnchor.constraint(equalToConstant: isSE() ? 3 : 5),
             lineView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }

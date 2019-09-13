@@ -8,6 +8,7 @@
 // swiftlint:disable trailing_whitespace
 
 import UIKit
+import AVFoundation
 
 class AnimationVC: UIViewController {
 
@@ -46,9 +47,15 @@ class AnimationVC: UIViewController {
             view.backgroundColor = UIColor.App.money
             setImageViewAnimation()
         } else if step == 1 {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+            AudioServicesPlayAlertSound(SystemSoundID(1322))
             view.backgroundColor = UIColor.App.check
             setCheckmarkAnimation()
         } else {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.error)
+            AudioServicesPlayAlertSound(SystemSoundID(1152))
             view.backgroundColor = UIColor.App.error
             setErrorAnimation()
         }
@@ -126,7 +133,7 @@ class AnimationVC: UIViewController {
             ])
         animView.startAnimation()
         perform(#selector(didFinishAnimating), with: animView,
-                afterDelay: TimeInterval(1.5))
+                afterDelay: TimeInterval(1.3))
     }
 
     func setErrorAnimation() {
@@ -142,7 +149,7 @@ class AnimationVC: UIViewController {
             ])
         animView.startAnimation()
         perform(#selector(didFinishAnimating), with: animView,
-                afterDelay: TimeInterval(1.5))
+                afterDelay: TimeInterval(1.3))
     }
     
 }

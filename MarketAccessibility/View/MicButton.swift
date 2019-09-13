@@ -12,9 +12,12 @@ import UIKit
 class MicButton: UIButton {
     
     weak var delegate: ShoppingVCDelegate!
+    var generator: UINotificationFeedbackGenerator!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        self.accessibilityLabel = NSLocalizedString(LocalizedString.recordButton.rawValue, comment: "")
+        self.accessibilityValue = NSLocalizedString(LocalizedString.recordButtonAction.rawValue, comment: "")
     }
     
     required init?(coder aDecoder: NSCoder) {

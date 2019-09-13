@@ -24,7 +24,6 @@ class ErrorAnimationView: UIView {
         bezier.move(to: CGPoint(x: 80, y: UIScreen.main.bounds.height / 3))
         bezier.addLine(to: CGPoint(x: UIScreen.main.bounds.width - 80, y: UIScreen.main.bounds.height / 1.5))
 
-//        let bezier2 = UIBezierPath()
         bezier.move(to: CGPoint(x: UIScreen.main.bounds.width - 80, y: UIScreen.main.bounds.height / 3))
         bezier.addLine(to: CGPoint(x: 80, y: UIScreen.main.bounds.height / 1.5))
 
